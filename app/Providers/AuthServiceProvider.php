@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Set;
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +27,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('view-set', function(User $user, Set $set){
+            return $user->id === $set->user->id;
+        });
     }
 }
