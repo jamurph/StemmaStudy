@@ -19,7 +19,7 @@ class SetController extends Controller
     public function index()
     {
         //sets retrieved from user in blade.
-        return view('sets');
+        return view('set.sets');
     }
 
     /**
@@ -29,7 +29,7 @@ class SetController extends Controller
      */
     public function create()
     {
-        //
+        return view('set.create');
     }
 
     /**
@@ -40,7 +40,20 @@ class SetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'min:3', 'max:100'],
+            'description' => ['max:500'],
+            'public' => 'boolean',
+        ]);
+        $set = new Set([
+            'title' => request('title'),
+            'description' => request('description'),
+            'public' => $request->has('public'),
+            'user_id' => auth()->user()->id,
+        ]);
+        $set->save();
+
+        return redirect()->route('user_sets');
     }
 
     /**
@@ -52,7 +65,7 @@ class SetController extends Controller
     public function show(Set $set)
     {
         $this->authorize('view-set', $set);
-        return view('cardsInSet', ['set' => $set]);
+        return view('set.cardsInSet', ['set' => $set]);
     }
 
     public function network(Set $set)
@@ -61,7 +74,7 @@ class SetController extends Controller
         $connections = Connection::with(['fromCard'])->whereHas('fromCard', function($c) use ($set){
             $c->where('set_id', '=', $set->id);
         })->get();
-        return view('setNetwork', ['cards' => $set->cards, 'connections' => $connections]);
+        return view('set.setNetwork', ['cards' => $set->cards, 'connections' => $connections]);
     }
 
     /**
@@ -72,7 +85,8 @@ class SetController extends Controller
      */
     public function edit(Set $set)
     {
-        //
+        $this->authorize('view-set', $set);
+        return view('set.edit', ['set' => $set]);
     }
 
     /**
@@ -84,7 +98,19 @@ class SetController extends Controller
      */
     public function update(Request $request, Set $set)
     {
-        //
+        $this->authorize('view-set', $set);
+        $request->validate([
+            'title' => ['required', 'min:3', 'max:100'],
+            'description' => ['max:500'],
+            'public' => 'boolean'
+        ]);
+        $set->update([
+            'title' => request('title'),
+            'description' => request('description'),
+            'public' => $request->has('public')
+        ]);
+
+        return redirect()->route('user_sets');
     }
 
     /**
@@ -95,6 +121,10 @@ class SetController extends Controller
      */
     public function destroy(Set $set)
     {
-        //
+        $this->authorize('view-set', $set);
+
+        $set->delete();
+
+        return redirect()->route('user_sets');
     }
 }

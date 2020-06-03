@@ -17,7 +17,7 @@ class CreateSetsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->boolean('public');
             $table->timestamps();
         });

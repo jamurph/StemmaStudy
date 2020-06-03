@@ -18,7 +18,7 @@ class CreateConnectionsTable extends Migration
             $table->foreignId('from_card_id')->constrained('cards', 'id')->onDelete('cascade');
             $table->foreignId('to_card_id')->constrained('cards', 'id')->onDelete('cascade');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
