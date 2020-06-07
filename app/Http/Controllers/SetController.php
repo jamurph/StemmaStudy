@@ -43,12 +43,12 @@ class SetController extends Controller
         $request->validate([
             'title' => ['required', 'min:3', 'max:100'],
             'description' => ['max:500'],
-            'public' => 'boolean',
+            //'public' => 'boolean',
         ]);
         $set = new Set([
             'title' => request('title'),
             'description' => request('description'),
-            'public' => $request->has('public'),
+            'public' => false, // UNIMPLEMENTED
             'user_id' => auth()->user()->id,
         ]);
         $set->save();
@@ -102,12 +102,12 @@ class SetController extends Controller
         $request->validate([
             'title' => ['required', 'min:3', 'max:100'],
             'description' => ['max:500'],
-            'public' => 'boolean'
+            //'public' => 'boolean'
         ]);
         $set->update([
             'title' => request('title'),
             'description' => request('description'),
-            'public' => $request->has('public')
+            //'public' => $request->has('public')
         ]);
 
         return redirect()->route('user_sets');

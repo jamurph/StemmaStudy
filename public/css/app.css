@@ -10979,13 +10979,6 @@ a.text-dark:focus {
   box-shadow: 0px 0px 3px 0px var(--light-acc);
 }
 
-.set .more-options {
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  cursor: pointer;
-}
-
 .card-detail {
   position: relative;
   background: white;
@@ -10993,11 +10986,28 @@ a.text-dark:focus {
   border-radius: 3px;
 }
 
+.card-definition {
+  white-space: pre-wrap;
+}
+
 .card-connection {
   position: relative;
   background: white;
   padding: 12px 20px;
   border-radius: 3px;
+}
+
+.more-options {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  cursor: pointer;
+}
+
+.more-options a {
+  padding: 0.5rem;
+  text-decoration: none;
+  color: var(--dark-acc);
 }
 
 .mouse-over {

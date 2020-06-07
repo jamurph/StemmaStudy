@@ -43,13 +43,6 @@
             box-shadow: 0px 0px 3px 0px var(--light-acc);
         }
     }
-
-    .more-options { 
-        position: absolute;
-        top: 5px;
-        right: 8px;   
-        cursor: pointer;
-    }
 }
 
 .card-detail { 
@@ -59,11 +52,28 @@
     border-radius: 3px;
 }
 
+.card-definition {
+    white-space: pre-wrap;
+}
+
 .card-connection { 
     position: relative;
     background: white;
     padding: 12px 20px;
     border-radius: 3px;
+}
+
+.more-options { 
+    position: absolute;
+    top: 5px;
+    right: 0px;   
+    cursor: pointer;
+
+    & a {
+        padding: 0.5rem;
+        text-decoration: none;
+        color: var(--dark-acc);
+    }
 }
 
 .mouse-over {
