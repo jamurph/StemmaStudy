@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('header')
+    @trixassets
+@endsection
+
 @section('content')
 <div class="container mb-4">
     <div class="row justify-content-center">
@@ -7,7 +11,7 @@
             <h1 class="m-0 mb-2">Update Card</h1>
             <div class="mt-4"></div>
             
-            <form action="{{route('card_update', [$set,$card])}}" method="POST" >
+            <form id="updateForm" action="{{route('card_update', [$set,$card])}}" method="POST" >
                 @csrf
                 @method('PUT')
                 <div class="form-group position-relative">
@@ -25,7 +29,9 @@
                 <div class="form-group">
                     <label for="definition">Definition</label>
                     <div class="position-relative"> 
-                        <textarea class="form-control  {{$errors->has('definition') ? 'is-invalid' : ''}}" id="definition" name="definition" rows="3">{{old('definition', $card->definition)}}</textarea>
+                        <div id="trixContainer" class=" {{$errors->has('definition') ? 'is-invalid' : ''}}">
+                            @trix($card, 'content')
+                        </div>
                         @error('definition')
                         <div class="invalid-tooltip">
                             {{$errors->first('definition')}}
@@ -40,4 +46,55 @@
         </div>
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+<script>
+
+    function clearErrors(){
+        $('.invalid-tooltip').remove();
+        $('.is-invalid').removeClass('is-invalid');
+    }
+
+    function errorMessage(ele, message){
+        parent = ele.parent();
+        ele.addClass('is-invalid');
+        parent.append('<div class="invalid-tooltip">' + message + '</div>');
+    }
+
+    $(document).ready(function(){
+        $('#updateForm').submit(function(e){
+            clearErrors();
+            valid = true;
+            titleEle = $('#title');
+            contentContainer = $('#trixContainer');
+            title = titleEle.val();
+            content = $('trix-editor').val();
+
+
+            if(!title || 0 === title.length || !title.trim()){
+                valid = false;
+                errorMessage(titleEle, "Please provide a title.");
+            } else if( title.length < 3 ){
+                valid = false;
+                errorMessage(titleEle, "Please provide a longer title.");
+            } else if ( title.length > 100 ){
+                valid = false;
+                errorMessage(titleEle, "Titles must be 100 characters or less.");
+            }
+
+            if(!content || 0 === content.length || !content.trim()){
+                valid = false;
+                errorMessage(contentContainer, "Please provide a definition.");
+            } else if ( content.length > 20000 ){
+                valid = false;
+                errorMessage(contentContainer, "Definition too long.");
+            }
+
+            return valid;
+        });
+    });
+
+</script>
 @endsection

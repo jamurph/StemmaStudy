@@ -64,9 +64,142 @@ $(function(){
                     'text-justification': 'left',
                     'color': '#192332'
                 }
+            },
+            {
+                selector: 'node[score >= 0]',
+                style: {
+                    'border-color': '#e3342f',
+                }
+            },
+            {
+                selector: 'node[score >= 2.5]',
+                style: {
+                    'border-color': '#e54631',
+                }
+            },
+            {
+                selector: 'node[score >= 7.5]',
+                style: {
+                    'border-color': '#e85834',
+                }
+            },
+            {
+                selector: 'node[score >= 12.5]',
+                style: {
+                    'border-color': '#eb6b37',
+                }
+            },
+            {
+                selector: 'node[score >= 17.5]',
+                style: {
+                    'border-color': '#ee7e39',
+                }
+            },
+            {
+                selector: 'node[score >= 22.5]',
+                style: {
+                    'border-color': '#f1903c',
+                }
+            },
+            {
+                selector: 'node[score >= 27.5]',
+                style: {
+                    'border-color': '#f3a33f',
+                }
+            },
+            {
+                selector: 'node[score >= 32.5]',
+                style: {
+                    'border-color': '#f6b541',
+                }
+            },
+            {
+                selector: 'node[score >= 37.5]',
+                style: {
+                    'border-color': '#f9c844',
+                }
+            },
+            {
+                selector: 'node[score >= 42.5]',
+                style: {
+                    'border-color': '#fcda47',
+                }
+            },
+            {
+                selector: 'node[score >= 47.5]',
+                style: {
+                    'border-color': '#ffed4a',
+                }
+            },
+            {
+                selector: 'node[score >= 52.5]',
+                style: {
+                    'border-color': '#ebe84e',
+                }
+            },
+            {
+                selector: 'node[score >= 57.5]',
+                style: {
+                    'border-color': '#d7e452',
+                }
+            },
+            {
+                selector: 'node[score >= 62.5]',
+                style: {
+                    'border-color': '#c3df56',
+                }
+            },
+            {
+                selector: 'node[score >= 67.5]',
+                style: {
+                    'border-color': '#afdb5a',
+                }
+            },
+            {
+                selector: 'node[score >= 72.5]',
+                style: {
+                    'border-color': '#9bd75e',
+                }
+            },
+            {
+                selector: 'node[score >= 77.5]',
+                style: {
+                    'border-color': '#87d262',
+                }
+            },
+            {
+                selector: 'node[score >= 82.5]',
+                style: {
+                    'border-color': '#73ce66',
+                }
+            },
+            {
+                selector: 'node[score >= 87.5]',
+                style: {
+                    'border-color': '#5fc96a',
+                }
+            },
+            {
+                selector: 'node[score >= 92.5]',
+                style: {
+                    'border-color': '#4bc56e',
+                }
+            },
+            {
+                selector: 'node[score >= 97.5]',
+                style: {
+                    'border-color': '#38c172',
+                }
+            },
+            {
+                //undefined
+                selector: 'node[score < 0]',
+                style: {
+                    'border-color': '#cccccc',
+                }
             }
         ],
-        
+         
         
           
           layout: {
@@ -154,8 +287,14 @@ $(function(){
             content: () => {
                 let div = document.createElement('div');
                 
+                let score = node.data('score');
+                let scoreHtml = '';
+                if(score != -1){
+                    scoreHtml = ' <span class="score_color_' + (Math.round(score / 5 ) * 5)  +'"><b>' + score + '</b></span>';
+                }
+
                 $(div).addClass('network-detail').addClass('shadow').css('width', '500px').css('max-width', 'calc(100% - 10px)').css('z-index', '100001');
-                $(div).html('<div class="close"><i class="fas fa-times"></i></div><h3 class="mb-0 pr-3">' + node.data('label') + '</h3><hr>' + '<div class="card-definition text-muted mb-0">' + node.data('definition') + '</div>'
+                $(div).html('<div class="close"><i class="fas fa-times"></i></div><h3 class="mb-0 pr-3">' + node.data('label') + scoreHtml + '</h3><hr>' + '<div class="card-definition text-muted mb-0">' + node.data('definition') + '</div>'
                     + '<div class="text-right"><a class="btn btn-link text-decoration-none" href="/my-sets/' + set_id + '/card/' + node.data('card_id') + '"><span class="pr-2">View Details</span><i class="fas fa-angle-double-right"></i></a></div>'
                 );
                 
@@ -178,7 +317,5 @@ $(function(){
             destroyPopper();
         }
     });
-
-    
 
 });

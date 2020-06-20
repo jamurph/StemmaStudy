@@ -9,44 +9,47 @@
             <a href="{{route('set_create')}}" class="btn btn-primary ml-3 new-btn"><i class="fas fa-plus"></i> New</a>
         </div>
         <div class="mt-4"></div>
-        @foreach (auth()->user()->sets as $item)
+        @foreach ($sets as $set)
             <div class="set shadow-sm mb-3">
                 <span class="more-options dropdown dropleft">
-                    <a class="" href="#" role="button" id="dropdownMenuLink{{$item->id}}" data-toggle="dropdown">
+                    <a class="" href="#" role="button" id="dropdownMenuLink{{$set->id}}" data-toggle="dropdown">
                         <i class="fas fa-ellipsis-v"></i>
                       </a>
                       <div class="dropdown-menu shadow">
-                      <a class="dropdown-item" href="{{route('set_edit', $item)}}">Edit</a>
-                      <a class="dropdown-item text-danger" href="{{route('set_destroy', $item)}}" onclick="event.preventDefault();deleteModal('#destroy-{{$item->id}}')">Delete</a>
-                            <form id="destroy-{{$item->id}}" method="POST" action="{{route('set_destroy', $item)}}" style="display: none">
+                      <a class="dropdown-item" href="{{route('set_edit', $set)}}">Edit</a>
+                      <a class="dropdown-item text-danger" href="{{route('set_destroy', $set)}}" onclick="event.preventDefault();deleteModal('#destroy-{{$set->id}}')">Delete</a>
+                            <form id="destroy-{{$set->id}}" method="POST" action="{{route('set_destroy', $set)}}" style="display: none">
                                 @csrf
                                 @method('DELETE')
                             </form>
                       </div>
                 </span>
-                <h3>{{ $item->title }}</h3>
-                @if (!empty($item->description))
-                    <p class="text-muted">{{$item->description}}</p>
+                <h3>{{ $set->title }}</h3>
+                @if (!empty($set->description))
+                    <p class="text-muted has-newlines">{{$set->description}}</p>
                 @endif
                 
                 <div class="container mb-2 p-0">
                     <div class="row">
                         <div class="col-md-4 justify-content-center mt-2">
-                            <a href="{{ route('cards_in_set', $item->id) }}" class="set-btn">
+                            <a href="{{ route('cards_in_set', $set->id) }}" class="set-btn">
                                 <i class="fas fa-list-alt green"></i>
                                 <span class="pl-2">List</span>
                             </a>
                         </div>
                         <div class="col-md-4 justify-content-center mt-2">
-                            <a href="{{route('set_network', $item->id)}}" class="set-btn">
+                            <a href="{{route('set_network', $set->id)}}" class="set-btn">
                                 <i class="fas fa-project-diagram green"></i>
                                 <span class="pl-2">Network</span>
                             </a>
                         </div>
                         <div class="col-md-4 justify-content-center mt-2">
-                            <a href="#" class="set-btn">
+                            <a href="{{route('set_review', $set->id)}}" class="set-btn">
                                 <i class="fas fa-question-circle green"></i>
                                 <span class="pl-2">Review</span>
+                                @if ($set->countDueCards() > 0)
+                                    <span class="badge badge-pill badge-danger ml-2">{{$set->countDueCards()}}</span>
+                                @endif
                             </a>
                         </div>
                     </div>

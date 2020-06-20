@@ -1,10 +1,13 @@
 <?php
 
+use App\Assessment;
+use App\AssessmentCard;
 use App\Card;
 use App\Connection;
 use App\Set;
 use App\Tag;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -44,14 +47,16 @@ class DatabaseSeeder extends Seeder
         $thorndike = new Card([
             'title' => 'Edward Thorndike',
             'definition' => 'psychologist who introduced a theory of learning emphasizing the role of experience in the strengthening and weakening of stimulus-response connections - connectionism.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $thorndike->save();
 
         $puzzleBoxExperiment = new Card([
             'title' => 'Puzzle Box Experiment',
             'definition' => 'a cat was placed into a box with a door that only opened when a certain device was appropriately manipulated. At first the cat would engage in numerous, apparently random behaviors until by chance the cat triggered the mechanism - opening the door. Upon subsequent returns to the box, the cat escapes in shorter and shorter time.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $puzzleBoxExperiment->save();
 
@@ -66,7 +71,8 @@ class DatabaseSeeder extends Seeder
         $lawOfEffect = new Card([
             'title' => 'Law of Effect',
             'definition' => 'Responses to a situation that are followed by satisfaction are strengthened; responses that are followed by discomfort are weakened',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $lawOfEffect->save();
 
@@ -98,7 +104,8 @@ class DatabaseSeeder extends Seeder
         $skinner = new Card([
             'title' => 'B. F. Skinner',
             'definition' => 'Most famous behavioral psychologist responsible for Operant Conditioning and the Skinner box',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $skinner->save();
         $skinner->tags()->attach($psychologist);
@@ -106,7 +113,8 @@ class DatabaseSeeder extends Seeder
         $skinnerbox = new Card([
             'title' => 'Skinner Box',
             'definition' => 'For rats, a box with a metal bar that, when pressed, triggers a food tray to be accessible. For birds, a plastic disk located on one wall triggers a similar food tray when pecked.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $skinnerbox->save();
 
@@ -120,7 +128,8 @@ class DatabaseSeeder extends Seeder
         $operant = new Card([
             'title' => 'Principle of Operant Conditioning',
             'definition' => 'A response that is followed by a reinforcer is strengthened and therefore more likely to occur again. The act of applying a reinforcer is called reinforcement.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $operant->save();
 
@@ -136,7 +145,8 @@ class DatabaseSeeder extends Seeder
         $reinforcer = new Card([
             'title' => 'Reinforcer',
             'definition' => 'a stimulus or event that increases the frequency of a response it follows.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $reinforcer->save();
 
@@ -150,7 +160,8 @@ class DatabaseSeeder extends Seeder
         $conditions = new Card([
             'title' => '3 Conditions for Operant Conditioning',
             'definition' => '1. The reinforcer must follow the response. 2. Ideally, the reinforcer should follow immediately (particularly for young children). 3. The reinforcer must be contingent on the response - presented only when the desired response has occurred.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $conditions->save();
 
@@ -164,7 +175,8 @@ class DatabaseSeeder extends Seeder
         $primaryRein = new Card([
             'title' => 'Primary Reinforcer',
             'definition' => 'satisfies a built-in need or desire. Examples include: food, water, warmth, physical affection, and other people\'s smiles.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $primaryRein->save();
 
@@ -178,7 +190,8 @@ class DatabaseSeeder extends Seeder
         $secondaryRein = new Card([
             'title' => 'Secondary Reinforcer',
             'definition' => 'also known as "conditioned reinforcer" - a previously neutral stimulus that has become reinforcing to a learner through repeated association with another reinforcer. Examples include: praise, good grades, and money.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $secondaryRein->save();
 
@@ -192,7 +205,8 @@ class DatabaseSeeder extends Seeder
         $positiveRein = new Card([
             'title' => 'Positive Reinforcement',
             'definition' => 'the presentation of a pleasant stimulus after a desired response.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $positiveRein->save();
 
@@ -206,7 +220,8 @@ class DatabaseSeeder extends Seeder
         $materialReinforcer = new Card([
             'title' => 'Material Reinforcers',
             'definition' => 'aka "tangible reinforcer" - an actual object such as food or toys.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $materialReinforcer->save();
 
@@ -220,7 +235,8 @@ class DatabaseSeeder extends Seeder
         $socialReinforcer = new Card([
             'title' => 'Social Reinforcers',
             'definition' => 'a gesture or sign such as a smile, attention, or praise that one person gives another to communicate positive regard.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $socialReinforcer->save();
 
@@ -234,7 +250,8 @@ class DatabaseSeeder extends Seeder
         $activityReinforcer = new Card([
             'title' => 'Activity Reinforcers',
             'definition' => 'an opportunity to participate in another activity',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $activityReinforcer->save();
 
@@ -248,7 +265,8 @@ class DatabaseSeeder extends Seeder
         $premack = new Card([
             'title' => 'Premack Principle',
             'definition' => 'When a normally high-frequency response follows a normally low-frequency response, the high-frequency response will increase the frequency of the low-frequency response. ',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $premack->save();
 
@@ -262,7 +280,8 @@ class DatabaseSeeder extends Seeder
         $negativeRein = new Card([
             'title' => 'Negative Reinforcement',
             'definition' => 'the removal of a (usually aversive) stimulus after a desired response',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $negativeRein->save();
 
@@ -276,7 +295,8 @@ class DatabaseSeeder extends Seeder
         $escape = new Card([
             'title' => 'Escape Behaviors',
             'definition' => 'people may act to remove guilt by confessing or remove anxiety by getting the homework done early. Likewise, they may lie to avoid going to school.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $escape->save();
 
@@ -290,7 +310,8 @@ class DatabaseSeeder extends Seeder
         $positivePunish = new Card([
             'title' => 'Positive Punishment',
             'definition' => 'the presentation of an aversive stimulus, such as a scolding or a failing grade. Also known as Punishment I',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $positivePunish->save();
 
@@ -304,7 +325,8 @@ class DatabaseSeeder extends Seeder
         $negativePunish = new Card([
             'title' => 'Negative Punishment',
             'definition' => 'the removal of a pleasant stimulus, such as monetary fines or loss of privileges.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $negativePunish->save();
 
@@ -318,7 +340,8 @@ class DatabaseSeeder extends Seeder
         $verbalRep = new Card([
             'title' => 'Verbal Reprimand',
             'definition' => 'a scolding or admonishment as punishment. These are most effective when they are immediate, brief, and unemotional while spoken quietly and in close proximity to the person being punished. Ideally, too, a reprimand should communicate that the individual is capable of better behavior.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $verbalRep->save();
 
@@ -332,7 +355,8 @@ class DatabaseSeeder extends Seeder
         $restitution = new Card([
             'title' => 'Restitution and Overcorrection',
             'definition' => 'requires taking action that correct the results of misdeeds by returning the environment to the same state as before the misbehavior, making things better than before the behavior (overcorrection), or repeating the action in the correct fashion.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $restitution->save();
 
@@ -346,7 +370,8 @@ class DatabaseSeeder extends Seeder
         $timeout = new Card([
             'title' => 'Time-out',
             'definition' => 'placing a misbehaving individual in a dull, boring situation',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $timeout->save();
 
@@ -360,7 +385,8 @@ class DatabaseSeeder extends Seeder
         $inhousesuspension = new Card([
             'title' => 'In-house suspension',
             'definition' => 'essentially extended time-out lasting multiple days rather than mere minutes. Best for chronic misbehaviors when part of the session is devoted to teach appropriate behaviors.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $inhousesuspension->save();
 
@@ -374,7 +400,8 @@ class DatabaseSeeder extends Seeder
         $responsecost = new Card([
             'title' => 'Response Cost',
             'definition' => 'the withdrawal of a previously earned reinforcer such as a ticket for speeding and the loss of previously earned privileges.',
-            'set_id' => $set->id
+            'set_id' => $set->id,
+            'next_review' => Carbon::today(),
         ]);
         $responsecost->save();
 
@@ -383,6 +410,37 @@ class DatabaseSeeder extends Seeder
             'to_card_id' => $responsecost->id,
             'title' => 'example',
             'description' => ''
+        ]))->save();
+
+        /* Review */
+        (new Assessment([
+            'set_id' => 1,
+            'completed' => true,
+            'score' => 0.75
+        ]))->save();
+
+        (new AssessmentCard([
+            'assessment_id' => 1,
+            'score' => 0.5,
+            'card_id' => 1,
+        ]))->save();
+
+        (new AssessmentCard([
+            'assessment_id' => 1,
+            'score' => 1,
+            'card_id' => 2,
+        ]))->save();
+
+        (new AssessmentCard([
+            'assessment_id' => 1,
+            'score' => 1,
+            'card_id' => 3,
+        ]))->save();
+
+        (new AssessmentCard([
+            'assessment_id' => 1,
+            'score' => 0.5,
+            'card_id' => 4,
         ]))->save();
 
     }

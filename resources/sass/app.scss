@@ -7,6 +7,15 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+a.unlink {
+    color: inherit;
+    
+    &:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
 .new-btn {
     min-width: 80px;
 }
@@ -52,8 +61,26 @@
     border-radius: 3px;
 }
 
-.card-definition {
+.network-detail { 
+    position: relative;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 3px;
+    max-height: 95vh;
+    overflow: auto;
+}
+
+.close {
+    cursor: pointer;
+}
+
+.has-newlines {
     white-space: pre-wrap;
+}
+
+.card-definition {
+    max-height: 300px;
+    overflow: auto;
 }
 
 .card-connection { 
@@ -63,6 +90,49 @@
     border-radius: 3px;
 }
 
+.trix-button--icon-heading-1,
+.trix-button--icon-code,
+.trix-button--icon-quote,
+trix-toolbar .trix-button-group--file-tools 
+    {
+        display: none !important;
+    }
+
+.trix-content, .trix-button-group {
+    background: white;
+}
+
+
+/* Review */
+.review-option { 
+    position: relative;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 3px;
+}
+
+.past-assessments {
+    background: white;
+
+    &.table thead th {
+        border-bottom: none;
+    }
+    
+    &.table th, &.table td {
+        border-top: none;
+    }
+}
+
+.rangeslider {
+    background: linear-gradient(90deg, $red,$yellow,$green) !important;
+}
+
+.rangeslider .rangeslider__fill {
+    background: transparent;
+}
+
+
+/* utility */
 .more-options { 
     position: absolute;
     top: 5px;
@@ -79,3 +149,26 @@
 .mouse-over {
     cursor: pointer;
 }
+
+
+.score_color_100  {color: #38c172;}
+.score_color_95   {color: #4bc56e;}
+.score_color_90   {color: #5fc96a;}
+.score_color_85   {color: #73ce66;}
+.score_color_80   {color: #87d262;}
+.score_color_75   {color: #9bd75e;}
+.score_color_70   {color: #afdb5a;}
+.score_color_65   {color: #c3df56;}
+.score_color_60   {color: #d7e452;}
+.score_color_55   {color: #ebe84e;}
+.score_color_50   {color: #ffed4a;}
+.score_color_45   {color: #fcda47;}
+.score_color_40   {color: #f9c844;}
+.score_color_35   {color: #f6b541;}
+.score_color_30   {color: #f3a33f;}
+.score_color_25   {color: #f1903c;}
+.score_color_20   {color: #ee7e39;}
+.score_color_15   {color: #eb6b37;}
+.score_color_10   {color: #e85834;}
+.score_color_5    {color: #e54631;}
+.score_color_0    {color: #e3342f;}

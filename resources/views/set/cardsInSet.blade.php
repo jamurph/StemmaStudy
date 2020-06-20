@@ -12,14 +12,13 @@
             <div class="mt-4"></div>
             @foreach ($set->cards as $card)
                 <div class="ss-card shadow-sm mb-3">
-                    <h3 class="mb-0">{{ $card->title }}</h3>
+                    <h3 class="mb-0"><a class="unlink" href="{{ route('user_card', [$set->id, $card->id]) }}">{{ $card->title }}</a></h3>
                     {{-- Excluded for initial prototype --}}
                     {{-- @foreach ($card->tags as $tag)
                         <a href="#" class="badge badge-pill ml-2" style="background-color: {{$tag->color}}; color: white;">{{$tag->title}}</a>
                     @endforeach --}}
-                    @if (!empty($card->definition))
-                        <p class="text-muted card-definition">{{$card->definition}}</p>
-                    @endif
+                    <div class="text-muted card-definition">{!! $card->definition !!}</div>
+                    
                     <div class="text-right">
                     <a class="btn btn-link ss-card-btn" href="{{ route('user_card', [$set->id, $card->id]) }}">
                             <span class="pr-2">View Details</span>

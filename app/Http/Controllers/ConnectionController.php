@@ -11,14 +11,14 @@ class ConnectionController extends Controller
 {
     
     public function update(Set $set, Connection $connection, Request $request){
-        $this->authorize('view-set', $set);
+        $this->authorize('view-set', $connection->fromCard->set);
         $request->validate([
             'title' => ['required', 'min:3', 'max:100'],
             'description' => ['max:500']
         ]);
         return ['updated' => $connection->update([
             'title' => request('title'),
-            'description' => request('description')
+            'description' => request('description') ?? '',
         ])];
     }
 
@@ -37,7 +37,7 @@ class ConnectionController extends Controller
         if($fromCardValid && $toCardValid){
             $connection = new Connection([
                 'title' => request('title'),
-                'description' => request('description'),
+                'description' => request('description') ?? '',
                 'from_card_id' => $fromCardId,
                 'to_card_id' => $toCardId,
             ]);
@@ -49,7 +49,7 @@ class ConnectionController extends Controller
 
     public function destroy(Set $set, Card $card, Connection $connection)
     {
-        $this->authorize('view-set', $set);
+        $this->authorize('view-set', $connection->fromCard->set);
 
 
         $connection->delete();

@@ -128,7 +128,7 @@
             </div>
         </nav>
     </header>
-    <main class="py-4">
+    <main class="{!! (Request::url() == url('/')) ? '' : 'py-4' !!}">
         @yield('content')
     </main>
     <footer>
