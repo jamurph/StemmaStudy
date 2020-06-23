@@ -38,19 +38,26 @@
         background: var(--light-acc);
     }
 
+    .particle-cover {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.5);
+    }
+
 </style>
 @endsection
 
 @section('content')
 <div class="position-relative">
-    <!-- Particles.js background to mimic network view? -->
     <div id="particles-js"></div>
+    <div class="particle-cover"></div>
     <div class="d-flex justify-content-center p-2">
         <div class="home-head">
-            <h1 class="px-2 mt-5"><b>Forget Flashcards as You Know Them</b></h1>
-            <h4 class="px-2 mt-4">Learn and remember more by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.</h4>
+            <h1 class="px-2 mt-5"><b>Come Together Now.</b></h1>
+            <h4 class="px-2 mt-4">Forget flashcards as you know them. Learn and remember more by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.</h4>
             <div class="px-2 mt-4 mb-5">
-                <a href="#" class="btn btn-primary">Free Trial</a>
+                <a href="#" class="btn btn-primary">Free Trial <i class="fas fa-angle-double-right"></i></a>
                 <a href="#" class="btn btn-outline-primary">Watch the Tutorial</a>
             </div>
             <div class="pt-5"></div>
@@ -95,7 +102,7 @@
     </div>
     <div class="row py-5">
         <div class="col-lg-6">
-            <h2>Concentrate Your Effort Where It Matters</h2>
+            <h2>Concentrate Your Effort Where It Matters.</h2>
             <p>StemmaStudy Assessments help you:</p>
             <p><ul>
                 <li>See your performance on each card in context of the big picture.</li>
@@ -109,11 +116,59 @@
     <div class="mb-5"></div>
 </div>
 
+<!-- Pricing. Source for 4 year degree cost: https://educationdata.org/average-cost-of-college/ 
+
+    ~ one coffee
+    ~ 0.0040983% the cost of a 4 year degree. *
+
+-->
+<style>
+    .price-box {
+        width: 350px;
+        max-width: 100%;
+        padding: 15px;
+        border-top: 5px solid #6ec4be;
+        margin: auto;
+    }    
+    .price {
+        font-size: 50px;
+    }
+
+    .price small {
+        font-size: 25px;
+    }
+
+    .price sup {
+        top: -0.3em;
+        font-size: 25px;
+    }
+
+</style>
+<div class="container mb-5">
+    <hr/>
+    <h2 class="text-center mt-5 mb-4">Affordable Pricing</h2>
+    <div class="price-box shadow" style="">
+        <div class="text-center"><span class="price green"><small class="text-dark text-muted">$</small>4<sup>.99</sup><small class="text-dark text-muted">/mo</small></span></div>
+        <div class="text-center text-muted">That's about one coffee or ~0.0041% of a 4 year degree <small>*</small></div>
+        <div class="text-center mt-3">
+            Try it free for 30 days &ndash; no strings attached. 
+        </div>
+        <div class="mt-4 mb-4 text-center">
+            <a href="#" class="btn btn-primary">Start Free Trial <i class="fa fa-angle-double-right"></i></a>
+        </div>
+    </div>
+    
+    
+</div>
+
+<div class="text-center text-muted mb-2"><small>* <a target="_blank" href="https://educationdata.org/average-cost-of-college/">Source</a></small></div>
+
+
 <div class="d-flex justify-content-center py-5 px-3 you-are-container">
     <div class="you-are text-center">
         <h1>You Are What You Remember</h1>
         <h4>Don't study just to pass a test.<br class="d-lg-none"/> Study to become unforgettable.</h4>
-        <a href="#" class="btn btn-light mt-3">Start Free Trial <i class="fas fa-angle-double-right"></i></a>
+        <a href="#" class="btn btn-light mt-3">How to Remember More <i class="fas fa-angle-double-right"></i></a>
     </div>
 </div>
 

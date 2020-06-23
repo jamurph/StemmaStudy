@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
+
+    if(Auth::check()){
+        return redirect()->route('user_sets');
+    }
+
     return view('index');
 });
 
