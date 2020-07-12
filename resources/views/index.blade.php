@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'StemmaStudy | Connected Flashcards')
+
 @section('header')
 <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <style>

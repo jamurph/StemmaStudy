@@ -59,6 +59,13 @@ Route::get('/my-sets/{set}/assessment/{assessment}/quiz', 'ReviewController@asse
 Route::post('/my-sets/{set}/assessment/{assessment}/quiz', 'ReviewController@assessment_card_store')->middleware('auth')->name('assessment_card_store');
 Route::get('/my-sets/{set}/assessment/{assessment}/detail', 'AssessmentController@network')->middleware('auth')->name('assessment_network');
 
+
+/* Contact Form */
+Route::get('/contact', 'ContactFormController@create')->name('contact_create');
+Route::post('/contact', 'ContactFormController@store')->name('contact_store');
+Route::get('/contact/submitted', 'ContactFormController@thanks')->name('contact_thanks');
+
+
 Auth::routes();
 /*
     Minor Logout get request fix. (user middle mouse clicks "Logout")

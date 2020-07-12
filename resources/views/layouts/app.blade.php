@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} | Connected Flashcards</title>
+    <title>@yield('title')</title> 
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
@@ -82,16 +82,15 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    {{--<ul class="navbar-nav mr-auto">
+                    {{--<!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="#">{{ __('Explore') }}</a>
                         </li>
                     </ul>
-                --}}
                     <!-- Right Side Of Navbar -->
+                --}}
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -137,7 +136,7 @@
                 <div class="mb-4">
                     <h5>StemmaStudy</h5>
                     <a href="#" class="text-decoration-none">About</a>
-                    <a href="#" class="text-decoration-none">Contact</a>
+                    <a href="{{route('contact_create')}}" class="text-decoration-none">Contact</a>
                 </div>
                 <div class="mb-4">
                     <h5>Learn</h5>
