@@ -32,7 +32,32 @@
                     <div class="show-button text-center mouse-over green"><i class="fas fa-angle-down"></i> Show <i class="fas fa-angle-down"></i></div>
                 </div>
             </div>
-            <div id="scoring" class="mt-6" style="display: none;">
+            @if ($card->connectionsIn->count() > 0 || $card->connectionsOut->count() > 0)
+            <div id="connections" style="display:none;">
+                <h3 class="mt-5 mb-2">Connections</h3>
+                @foreach ($card->connectionsIn as $in)
+                <div class="card-connection shadow-sm mb-3">
+                    <h4><i class="fas fa-arrow-left"></i> {{ $in->fromCard->title }}</h4>
+                    <h5 class="m-0"><i class="fas fa-angle-double-right"></i> <b>{{$in->title}}</b> <i class="fas fa-angle-double-right"></i></h5>
+                    @if (!empty($in->description))
+                    <p class="text-muted has-newlines">{{$in->description}}</p>
+                    @endif
+                </div>
+                @endforeach
+                @foreach ($card->connectionsOut as $out)
+                <div class="card-connection shadow-sm mb-3">
+                    <h5 class="m-0"><i class="fas fa-angle-double-right"></i> <b>{{$out->title}}</b> <i class="fas fa-angle-double-right"></i></h5>
+                    @if (!empty($out->description))
+                    <p class="text-muted has-newlines">{{$out->description}}</p>
+                    @endif
+                    <div class="text-right">
+                       <h4 class="mt-2 mb-0">{{ $out->toCard->title }} <i class="fas fa-arrow-right"></i></h4>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+            <div id="scoring" class="mb-5" style="display: none; min-height: 170px;">
                 <h3 class="text-center">How did you do?</h3>
                 <form class="mt-4" method="POST" action="{{route('set_maintenance_put', [$set])}}">
                     @csrf
@@ -42,7 +67,7 @@
                         <input name="score" type="range" min="0" max="100" class="form-control-range" id="score">
                         <small class="form-text text-muted" id="score-num">50</small>
                     </div>
-                    <button id="nextBtn" type="submit" class="btn btn-block btn-outline-primary mt-4 mb-5 d-none">Next</a>
+                    <button id="nextBtn" type="submit" class="btn btn-block btn-outline-primary mt-4 d-none">Next</a>
                   </form>
             </div>
         </div>
@@ -56,6 +81,7 @@
         $('.show-button').click(function(){
             $(this).hide();
             $('#definition').show();
+            $('#connections').show();
             $('#scoring').show();
         });
 

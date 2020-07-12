@@ -46,7 +46,7 @@ class CardController extends Controller
             'title' => request('title'),
             'definition' => $preview,
             'set_id' => $set->id,
-            'next_review' => Carbon::tomorrow(),
+            'next_review' => Carbon::now()->addDay()->subHour(),
             'card-trixFields' => ['content' => $stripped_content],
         ]);
         $card->save();

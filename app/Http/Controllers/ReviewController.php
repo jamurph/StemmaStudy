@@ -35,6 +35,10 @@ class ReviewController extends Controller
             return redirect()->route('user_sets');
         }
 
+        if($set->cards->count() == 0){
+            return redirect()->route('cards_in_set', $set);
+        }
+
         //want a card we haven't done in this assessment yet.
 
         //get collection of card id's in this set
@@ -127,9 +131,9 @@ class ReviewController extends Controller
     public function maintenance(Set $set){
         $this->authorize('view-set', $set);
 
-        $today = Carbon::today();
-        $reviewCards = $set->cards->filter(function($value, $key) use($today){
-            return $value->next_review <= $today;
+        $now = Carbon::now();
+        $reviewCards = $set->cards->filter(function($value, $key) use($now){
+            return $value->next_review <= $now;
         });
 
         if ($reviewCards->count() > 0){
@@ -153,7 +157,7 @@ class ReviewController extends Controller
 
         $this->authorize('view-set', $card->set);
         //don't allow an accidental resubmit (I.E. back button -> submit again)
-        if($card->next_review > Carbon::today()){
+        if($card->next_review > Carbon::now()){
             return redirect()->route('set_maintenance', $set);
         } else {
 
@@ -184,10 +188,10 @@ class ReviewController extends Controller
             if($correct){
                 $consecutive = $consecutive + 1;
                 $daysToAdd = 6 * pow($easiness, $consecutive - 1);
-                $next = Carbon::today()->addDays($daysToAdd);
+                $next = Carbon::now()->addDays($daysToAdd)->subHour();
             } else {
                 $consecutive = 0;
-                $next = Carbon::tomorrow();
+                $next = Carbon::now()->addDay()->subHour();
             }
 
             //set new values on card

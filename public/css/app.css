@@ -10957,6 +10957,10 @@ a.text-dark:focus {
   border-bottom: none;
 }
 
+.card-header:first-child {
+  border-radius: 0px;
+}
+
 a.unlink {
   color: inherit;
 }

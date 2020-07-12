@@ -54,11 +54,11 @@
     <div class="particle-cover"></div>
     <div class="d-flex justify-content-center p-2">
         <div class="home-head">
-            <h1 class="px-2 mt-5"><b>Come Together Now.</b></h1>
+            <h1 class="px-2 mt-5"><b>You Can Do Better</b></h1>
             <h4 class="px-2 mt-4">Forget flashcards as you know them. Learn and remember more by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.</h4>
             <div class="px-2 mt-4 mb-5">
                 <a href="#" class="btn btn-primary">Free Trial <i class="fas fa-angle-double-right"></i></a>
-                <a href="#" class="btn btn-outline-primary">Watch the Tutorial</a>
+                <a href="#" class="btn btn-outline-primary">View the Tutorial</a>
             </div>
             <div class="pt-5"></div>
         </div>
@@ -149,9 +149,9 @@
     <h2 class="text-center mt-5 mb-4">Affordable Pricing</h2>
     <div class="price-box shadow" style="">
         <div class="text-center"><span class="price green"><small class="text-dark text-muted">$</small>4<sup>.99</sup><small class="text-dark text-muted">/mo</small></span></div>
-        <div class="text-center text-muted">That's about one coffee or ~0.0041% of a 4 year degree <small>*</small></div>
+        <div class="text-center text-muted">Better grades for the price of a caramel frappuccino. <span style="font-size: 120%">&#x2615;</span></div>
         <div class="text-center mt-3">
-            Try it free for 30 days &ndash; no strings attached. 
+            Try it free for 30 days &ndash; no strings attached &ndash; and see how your scores improve!
         </div>
         <div class="mt-4 mb-4 text-center">
             <a href="#" class="btn btn-primary">Start Free Trial <i class="fa fa-angle-double-right"></i></a>
@@ -160,8 +160,6 @@
     
     
 </div>
-
-<div class="text-center text-muted mb-2"><small>* <a target="_blank" href="https://educationdata.org/average-cost-of-college/">Source</a></small></div>
 
 
 <div class="d-flex justify-content-center py-5 px-3 you-are-container">

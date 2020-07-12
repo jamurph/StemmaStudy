@@ -63,7 +63,7 @@
                 </div>
             @else
                 <div id="connections" class="d-flex mt-5 mb-2 align-items-center justify-content-between">
-                    <h3 class="m-0">Connections</h1>
+                    <h3 class="m-0">Connections</h3>
                     <a data-toggle="collapse" href="#collapseNewConnection" id="newBtn" role="button" class="btn btn-secondary ml-3 new-btn"><i class="fas fa-plus"></i> New</a>
                 </div>
                 <div class="collapse" id="collapseNewConnection">

@@ -1,15 +1,22 @@
 @extends('layouts.blank')
 
 @section('header')
+@if ($cards->count() != 0)
 <script src="{{mix('js/setNetwork.js')}}"></script>
+@endif
 @endsection
 
 @section('content')
-
 <a href="{{route('user_sets')}}" class="btn btn-secondary btn-sm" style="position: absolute; top: 10px; left: 10px; z-index:10000;"><i class="fas fa-arrow-left"></i> Back</a>
-<div id="network" style="width: 100%; height: 100vh;background:var(--light);"></div>
-
-
+<div id="network" style="width: 100%; height: 100vh;background:var(--light);">
+    @if ($cards->count() == 0)
+        <div class="text-center" style="padding: 10px; padding-top: 70px;">
+            <h2>It's pretty empty here, right now.</h2>
+            <p>First, create some cards and connections. Then, use this page to see how everything comes together.</p>
+            <a href="{{route('card_create', $set->id)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New Card</a>
+        </div>
+    @endif
+</div>
 @endsection
 
 @section('scripts')

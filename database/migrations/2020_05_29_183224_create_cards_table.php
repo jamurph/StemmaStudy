@@ -20,7 +20,7 @@ class CreateCardsTable extends Migration
             $table->text('definition');
             $table->decimal('easiness')->default(2.5);
             $table->integer('consecutive_correct')->default(0);
-            $table->date('next_review');
+            $table->dateTime('next_review');
             $table->foreignId('set_id')->constrained('sets', 'id')->onDelete('cascade');
             $table->timestamps();
         });

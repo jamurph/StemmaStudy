@@ -60,4 +60,10 @@ Route::post('/my-sets/{set}/assessment/{assessment}/quiz', 'ReviewController@ass
 Route::get('/my-sets/{set}/assessment/{assessment}/detail', 'AssessmentController@network')->middleware('auth')->name('assessment_network');
 
 Auth::routes();
-
+/*
+    Minor Logout get request fix. (user middle mouse clicks "Logout")
+*/
+Route::get('/logout', function(){
+    Auth::logout();
+    return redirect('/');
+});
