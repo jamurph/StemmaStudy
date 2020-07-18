@@ -10,7 +10,7 @@
             <a href="{{route('card_create', $set)}}" class="btn btn-primary new-btn"><i class="fas fa-plus"></i> New</a>
             </div>
             <div class="mt-4"></div>
-            @foreach ($set->cards as $card)
+            @foreach ($set->cards->sortBy('created_at') as $card)
                 <div class="ss-card shadow-sm mb-3">
                     <h3 class="mb-0"><a class="unlink" href="{{ route('user_card', [$set->id, $card->id]) }}">{{ $card->title }}</a></h3>
                     {{-- Excluded for initial prototype --}}

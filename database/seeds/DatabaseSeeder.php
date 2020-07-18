@@ -36,13 +36,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $set->save();
 
-        $set2 = new Set([
-            'title' => 'The Cognitive Revolution and Parallel Distributed Processing',
-            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et nisi vehicula enim venenatis suscipit id quis urna. Nunc eu imperdiet nisi, vitae volutpat mauris. Cras ac varius eros, vel sollicitudin erat. Pellentesque at imperdiet arcu. Donec nec erat lectus. Sed feugiat mollis purus non tincidunt. Maecenas venenatis nunc ante, eu lobortis nunc porta ac. Cras in vulputate dolor. Quisque tortor urna, porta eget elit at, rutrum vehicula enim.',
-            'public' => false,
-            'user_id' => $user->id
-        ]);
-        $set2->save();
+        
 
         $thorndike = new Card([
             'title' => 'Edward Thorndike',
