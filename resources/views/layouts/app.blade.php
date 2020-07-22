@@ -127,7 +127,7 @@
             </div>
         </nav>
     </header>
-    <main class="{!! (Request::url() == url('/')) ? '' : 'py-4' !!}">
+    <main class="{!! (Request::url() == url('/') || Request::url() == url('/learn')) ? '' : 'py-4' !!}">
         @yield('content')
     </main>
     <footer>
@@ -141,7 +141,7 @@
                 <div class="mb-4">
                     <h5>Learn</h5>
                     <a href="#" class="text-decoration-none">StemmaStudy Tutorial</a>
-                    <a href="#" class="text-decoration-none">How to Study Smarter</a>
+                    <a href="/learn" class="text-decoration-none">Essential Study Techniques</a>
                 </div>
                 <div class="mb-4">
                     <h5>Legal</h5>

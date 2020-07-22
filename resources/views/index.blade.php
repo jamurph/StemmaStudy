@@ -4,50 +4,6 @@
 
 @section('header')
 <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<style>
-
-    #particles-js { 
-        position:absolute; 
-        width: 100%; 
-        height: 100%;
-        background: linear-gradient(#f8fafc, #ffffff);
-    }
-
-    .btn-outline-primary {
-        background: #f8fafc;
-    }
-
-    .home-head {
-        z-index: 1;
-        flex: 0 0 100%;
-        max-width: 700px;
-        width: 100%;
-    }
-
-    .home-learning {
-        background: var(--light-acc);
-        width: 100%;
-        text-align: center;
-    }
-
-    .you-are {
-        flex: 0 0 100%;
-        max-width: 700px;
-        width: 100%;
-    }
-
-    .you-are-container {
-        background: var(--light-acc);
-    }
-
-    .particle-cover {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: rgba(255,255,255,0.5);
-    }
-
-</style>
 @endsection
 
 @section('content')
@@ -71,7 +27,7 @@
     <h2>
         Understand More.<br class="d-md-none" /> Forget Less.
     </h2>
-    <a href="#" class="btn-light btn mt-2">How To Study Smarter <i class="fas fa-angle-double-right"></i></a>
+    <a href="/learn" class="btn-light btn mt-2">How To Study Smarter <i class="fas fa-angle-double-right"></i></a>
 </div>
 
 <div class="container">
@@ -118,35 +74,6 @@
     <div class="mb-5"></div>
 </div>
 
-<!-- Pricing. Source for 4 year degree cost: https://educationdata.org/average-cost-of-college/ 
-
-    ~ one coffee
-    ~ 0.0040983% the cost of a 4 year degree. *
-
--->
-<style>
-    .price-box {
-        width: 350px;
-        max-width: 100%;
-        padding: 15px;
-        border-top: 5px solid #6ec4be;
-        margin: auto;
-        background: white;
-    }    
-    .price {
-        font-size: 50px;
-    }
-
-    .price small {
-        font-size: 25px;
-    }
-
-    .price sup {
-        top: -0.3em;
-        font-size: 25px;
-    }
-
-</style>
 <div class="container mb-5">
     <hr/>
     <h2 class="text-center mt-5 mb-4">Affordable Pricing</h2>
@@ -169,7 +96,7 @@
     <div class="you-are text-center">
         <h1>You Are What You Remember</h1>
         <h4>Don't study just to pass a test.<br class="d-lg-none"/> Study to become unforgettable.</h4>
-        <a href="#" class="btn btn-light mt-3">How to Remember More <i class="fas fa-angle-double-right"></i></a>
+        <a href="/learn" class="btn btn-light mt-3">How to Remember More <i class="fas fa-angle-double-right"></i></a>
     </div>
 </div>
 

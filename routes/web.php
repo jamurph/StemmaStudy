@@ -12,6 +12,12 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+Route::get('/learn', function () {
+    return view('learning.learning');
+});
+
+
 /*
     Set
 */
