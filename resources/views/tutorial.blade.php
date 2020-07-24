@@ -87,14 +87,14 @@
     <div class="you-are text-center">
         <h1>Ready to Begin?</h1>
         <h4 class="text-body">Try StemmaStudy free for 30 days and start understanding and remembering more.</h4>
-        <a href="/learn" class="btn btn-light mt-3">Start my Free Trial <i class="fas fa-angle-double-right"></i></a>
+        <a href="{{route('register')}}" class="btn btn-light mt-3">Start my Free Trial <i class="fas fa-angle-double-right"></i></a>
     </div>
 </div>
 @else
 <div class="d-flex justify-content-center py-5 px-3 mt-5 you-are-container">
     <div class="you-are text-center">
         <h1>Ready to Begin?</h1>
-        <a href="/learn" class="btn btn-light mt-3">Go to My Sets <i class="fas fa-angle-double-right"></i></a>
+        <a href="{{route('user_sets')}}" class="btn btn-light mt-3">Go to My Sets <i class="fas fa-angle-double-right"></i></a>
     </div>
 </div>
 @endguest

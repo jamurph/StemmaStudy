@@ -2,6 +2,7 @@ id: 12077
 name: stemmastudy
 environments:
     production:
+        domain: stemmastudy.com
         concurrency: 50
         scheduler: false
         memory: 1024
@@ -11,8 +12,7 @@ environments:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'
             - 'php artisan event:cache'
             - 'npm ci && npm run prod && rm -rf node_modules'
-        deploy:
-            - 'php artisan migrate --force'
+        
     staging:
         database: stemmastudy-staging
         concurrency: 10
