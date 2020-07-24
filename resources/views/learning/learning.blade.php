@@ -140,7 +140,7 @@
             <p>In one study, students were given 112 words to remember. Some of the students were given the words in random order, while others were given the words organized by category.</p>
             <p>After just one study session, the students given the organized words remembered <em>3.54 times</em> the number of words remembered by students given the random order!</p>
             <p>Furthermore, students given the organized words had <em>perfect</em> recall of all 112 words by a 3rd study session compared to a measly 52.8 average words recalled by the students given the randomized words.<sup>[7]</sup></p>
-            <img class="shadow" src="/image/Organized_Vs_Random.png" style="max-width: 100%;width: 500px;margin: 30px auto;display: block;" />
+            <img class="shadow" src="{{ asset('/image/Organized_Vs_Random.png')}}" style="max-width: 100%;width: 500px;margin: 30px auto;display: block;" />
             <p>Information is not always delivered to us in the most organized manner. However, the best students spontaneously organize information as they get it by connecting the new information to other information they are learning or already know.</p>
             <p>Think of forming connections between ideas as creating mental pathways &ndash; the more connected an idea is to other information you know, the more likely you'll be able to find a pathway to reach it during a test.<sup>[8]</sup></p>
             <p>Connections can be made in all sorts of ways, such as by making categories, timelines, flow charts, or other diagrams out of the information you are trying to learn.</p>

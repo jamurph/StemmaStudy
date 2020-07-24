@@ -2,7 +2,7 @@
 
 @section('header')
 
-<script src="{{mix('js/assessmentNetwork.js')}}"></script>
+<script src="{{asset('js/assessmentNetwork.js')}}"></script>
 @endsection
 
 @section('content')

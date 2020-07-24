@@ -2,7 +2,7 @@
 
 @section('header')
 @if ($cards->count() != 0)
-<script src="{{mix('js/setNetwork.js')}}"></script>
+<script src="{{asset('js/setNetwork.js')}}"></script>
 @endif
 @endsection
 
