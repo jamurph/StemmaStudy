@@ -49,7 +49,7 @@
         background: var(--dark);
         color: var(--dark-acc);
         border-top: 3px solid var(--light-acc);
-        padding: 30px 20px;
+        padding: 30px 20px 5px 20px;
     }
 
     footer h5 {
@@ -63,6 +63,11 @@
 
     footer a:hover {
         color: white;
+    }
+
+    .copyright {
+        color: var(--dark-acc);
+        font-size: 12px;
     }
 
     </style>
@@ -127,7 +132,7 @@
             </div>
         </nav>
     </header>
-    <main class="{!! (Request::url() == url('/') || Request::url() == url('/learn')) ? '' : 'py-4' !!}">
+    <main class="{!! (Request::url() == url('/') || Request::url() == url('/learn') || Request::url() == url('/about') || Request::url() == url('/tutorial') ) ? '' : 'py-4' !!}">
         @yield('content')
     </main>
     <footer>
@@ -135,13 +140,13 @@
             <div class="row flex-column flex-md-row justify-content-md-around justify-content-left">
                 <div class="mb-4">
                     <h5>StemmaStudy</h5>
-                    <a href="#" class="text-decoration-none">About</a>
+                    <a href="{{route('about')}}" class="text-decoration-none">About</a>
                     <a href="{{route('contact_create')}}" class="text-decoration-none">Contact</a>
                 </div>
                 <div class="mb-4">
                     <h5>Learn</h5>
-                    <a href="#" class="text-decoration-none">StemmaStudy Tutorial</a>
-                    <a href="/learn" class="text-decoration-none">Essential Study Techniques</a>
+                    <a href="{{route('tutorial')}}" class="text-decoration-none">StemmaStudy Tutorial</a>
+                    <a href="{{route('learn')}}" class="text-decoration-none">Essential Study Techniques</a>
                 </div>
                 <div class="mb-4">
                     <h5>Legal</h5>
@@ -150,6 +155,7 @@
                 </div>
             </div>
         </div>
+        <div class="text-right mt-3 copyright">Copyright &copy; {{ now()->year }} StemmaStudy</div>
     </footer>
     @yield('scripts')
 </body>

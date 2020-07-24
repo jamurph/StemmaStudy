@@ -68,7 +68,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <h1 class="mb-0">How to Study to Remember More</h1>
-            <small>Approx. 5 minutes reading time</small>
+            <small>Approx. 5 minutes to read</small>
             <hr>
             <p>Much of our lives revolve around learning &ndash; and <em>many</em> years are spent attending school for the sole purpose it.</p>
             <p>Learning <em>well</em> earns us the right to attend better classes, to get into better colleges, or even land better jobs.</p>
@@ -179,7 +179,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="green my-2 view-sources">View Sources</div>
+            <div class="green my-2 view-sources d-inline-block">View Sources</div>
             <div class="sources">
                 <ol>
                     <li>
@@ -215,7 +215,7 @@
     </div>
 </div>
 
-<div class="text-center mt-5 px-2">
+<div class="text-center mt-5 mb-4 px-2">
     <h3 class="text-body">Learn Something?</h3>
     <h5>Help make the world smarter by sharing it with the people you care about.</h5>
     <a class="share-button unlink" href="http://www.facebook.com/sharer.php?u=https://stemmastudy.com/learn" target="_blank">
@@ -235,6 +235,7 @@
     </a>
 </div>
 
+@guest
 <div class="d-flex justify-content-center py-5 px-3 mt-5 you-are-container">
     <div class="you-are text-center">
         <h1>Forget Flashcards as You Know Them</h1>
@@ -242,6 +243,8 @@
         <a href="/learn" class="btn btn-light mt-3">Start my Free Trial <i class="fas fa-angle-double-right"></i></a>
     </div>
 </div>
+@endguest
+
 @endsection
 
 @section('scripts')

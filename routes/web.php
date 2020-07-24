@@ -15,7 +15,15 @@ Route::get('/', function () {
 
 Route::get('/learn', function () {
     return view('learning.learning');
-});
+})->name('learn');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/tutorial', function () {
+    return view('tutorial');
+})->name('tutorial');
 
 
 /*
