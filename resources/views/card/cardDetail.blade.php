@@ -2,11 +2,11 @@
 
     This code sucks, but it works. Works > pretty. 
 
-    I'm sorry. :(
+    I'm sorry. :'(
     
 --}}
-
 @extends('layouts.app')
+@section('title', 'StemmaStudy | ' . $card->title)
 
 @section('header')
 <style>

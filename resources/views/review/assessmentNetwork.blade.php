@@ -1,5 +1,7 @@
 @extends('layouts.blank')
 
+@section('title', 'StemmaStudy | Assessment Results')
+
 @section('header')
 
 <script src="{{asset('js/assessmentNetwork.js')}}"></script>

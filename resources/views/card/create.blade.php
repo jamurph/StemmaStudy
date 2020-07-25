@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'StemmaStudy | New Card')
+
 @section('header')
     @trixassets
 @endsection

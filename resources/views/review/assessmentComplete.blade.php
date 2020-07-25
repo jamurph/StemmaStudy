@@ -1,5 +1,7 @@
 @extends('layouts.blank')
 
+@section('title', 'StemmaStudy | Assessment Results')
+
 @section('header')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.3/rangeslider.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.3/rangeslider.min.js"></script>

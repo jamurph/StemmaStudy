@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'How to Study to Remember More | StemmaStudy')
+@section('title', 'StemmaStudy | How to Study to Remember More')
 
 @section('header')
 <style>

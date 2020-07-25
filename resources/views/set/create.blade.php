@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'StemmaStudy | New Set')
+
 @section('content')
 <div class="container mb-4">
     <div class="row justify-content-center">

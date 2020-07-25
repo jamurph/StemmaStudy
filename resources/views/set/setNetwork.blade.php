@@ -1,5 +1,7 @@
 @extends('layouts.blank')
 
+@section('title', 'StemmaStudy | Set Network')
+
 @section('header')
 @if ($cards->count() != 0)
 <script src="{{asset('js/setNetwork.js')}}"></script>
