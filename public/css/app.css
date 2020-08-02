@@ -10941,6 +10941,14 @@ a.text-dark:focus {
   }
 }
 
+img {
+  max-width: 100%;
+}
+
+.icon {
+  width: 25px;
+}
+
 /* Bootstrap Overrides */
 
 .navbar-light .navbar-brand {

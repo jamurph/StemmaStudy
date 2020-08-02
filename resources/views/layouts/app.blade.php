@@ -13,7 +13,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="icon" type="image/png" href="{{asset('/image/icon.png')}}"/>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -90,7 +90,7 @@
         <nav style="border-bottom: 3px solid var(--light-acc);" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <i class="fab fa-pagelines green"></i> Stemma<span class="green">Study</span>
+                    <img class="icon" src="{{asset('/image/icon.png')}}"/> Stemma<span class="green">Study</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -125,12 +125,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('settings') }}">
+                                        {{ __('Settings') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

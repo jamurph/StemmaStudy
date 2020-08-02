@@ -8,8 +8,15 @@
         <div class="col-lg-8">
         <div class="d-flex align-items-center justify-content-between">
             <h1 class="m-0">My Sets</h1>
-            <a href="{{route('set_create')}}" class="btn btn-primary ml-3 new-btn"><i class="fas fa-plus"></i> New</a>
+            @if (Auth::user()->onTrialOrSubscribed())
+                <a href="{{route('set_create')}}" class="btn btn-primary ml-3 new-btn"><i class="fas fa-plus"></i> New</a>
+            @endif
         </div>
+        @if (!Auth::user()->onTrialOrSubscribed())
+            <div class="alert alert-info">
+                Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to create new sets.
+            </div>
+        @endif
         <div class="mt-4"></div>
         @foreach ($sets as $set)
             <div class="set shadow-sm mb-3">

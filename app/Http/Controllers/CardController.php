@@ -16,13 +16,24 @@ class CardController extends Controller
         return view('card.cardDetail', ['set' => $set, 'card' => $card]);
     }
 
-    public function create(Set $set){
+    public function create(Set $set, Request $request){
+        if(!$request->user()->onTrialOrSubscribed()){
+            return redirect()->route('user_sets');
+        }
         $this->authorize('view-set', $set);
         return view('card.create', ['set'=> $set]);
     }
 
     public function store(Set $set, Request $request){
+        if(!$request->user()->onTrialOrSubscribed()){
+            return redirect()->route('cards_in_set', $set);
+        }
         $this->authorize('view-set', $set);
+
+        //limit to 1000...
+        if($set->cards->count() >= 1000){
+            return redirect()->route('cards_in_set', $set);
+        }
 
         $v = Validator::make($request->all(),[
             'title' => ['required', 'min:3', 'max:100'],

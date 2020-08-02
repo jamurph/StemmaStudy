@@ -15,8 +15,8 @@
             <h1 class="px-2 mt-5"><b>You Can Do Better</b></h1>
             <h4 class="px-2 mt-4">Forget flashcards as you know them. Learn and remember more by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.</h4>
             <div class="px-2 mt-4 mb-5">
-                <a href="#" class="btn btn-primary">Free Trial <i class="fas fa-angle-double-right"></i></a>
-                <a href="#" class="btn btn-outline-primary">View the Tutorial</a>
+                <a href="{{route('register')}}" class="btn btn-primary">Free Trial <i class="fas fa-angle-double-right"></i></a>
+                <a href="{{route('tutorial')}}" class="btn btn-outline-primary">View the Tutorial</a>
             </div>
             <div class="pt-5"></div>
         </div>
@@ -27,7 +27,7 @@
     <h2>
         Understand More.<br class="d-md-none" /> Forget Less.
     </h2>
-    <a href="/learn" class="btn-light btn mt-2">How To Study Smarter <i class="fas fa-angle-double-right"></i></a>
+    <a href="{{route('learn')}}" class="btn-light btn mt-2">How To Study Smarter <i class="fas fa-angle-double-right"></i></a>
 </div>
 
 <div class="container">
@@ -43,12 +43,14 @@
             </ul></p>
         </div>
         <div class="col-lg-6">
+            <img src="{{asset('/image/ConnectTheDots.png')}}" class="img w-100" />
         </div>
     </div>
     <div class="row py-5">
-        <div class="col-lg-6">
+        <div class="col-lg-6 order-lg-1 order-2">
+            <img src="{{asset('/image/MaintainStrongMemories.png')}}" class="img w-100" />
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 order-lg-2 order-1">
             <h2>Maintain Strong Memories.</h2>
             <p>StemmaStudy uses the tried-and-true method of Spaced Repetition to help you:</p>
             <p><ul>
@@ -59,7 +61,7 @@
         </div>
     </div>
     <div class="row py-5">
-        <div class="col-lg-6">
+        <div class="col-lg-6 ">
             <h2>Concentrate Your Effort Where It Matters.</h2>
             <p>StemmaStudy Assessments help you:</p>
             <p><ul>
@@ -69,6 +71,7 @@
             </ul></p>
         </div>
         <div class="col-lg-6">
+            <img src="{{asset('/image/ConcentrateYourEffort.png')}}" class="img w-100" />
         </div>
     </div>
     <div class="mb-5"></div>

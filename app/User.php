@@ -5,10 +5,16 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+    use Billable;
+
+    protected $dates = [
+        'trial_ends_at',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -40,6 +46,16 @@ class User extends Authenticatable
 
     public function sets(){
         return $this->hasMany(Set::class);
+    }
+
+    /**
+     * Helper to determine if this User has the right to create new sets, cards, and connections.
+     */
+    public function onTrialOrSubscribed(){
+        $onTrial = $this->onTrial();
+        $subscription = $this->subscription('default');
+        $subscribed = $subscription == null ? false : !$subscription->ended();
+        return $onTrial || $subscribed;
     }
     
 }

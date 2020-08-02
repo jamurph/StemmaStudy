@@ -23,6 +23,9 @@ class ConnectionController extends Controller
     }
 
     public function store(Set $set, Request $request){
+        if(!$request->user()->onTrialOrSubscribed()){
+            return redirect()->route('cards_in_set', $set);
+        }
         $this->authorize('view-set', $set);
         $request->validate([
             'title' => ['required', 'min:3', 'max:100'],

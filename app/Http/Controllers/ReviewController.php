@@ -28,7 +28,10 @@ class ReviewController extends Controller
     }
 
     
-    public function assessment_card(Set $set, Assessment $assessment){
+    public function assessment_card(Set $set, Assessment $assessment, Request $request){
+        if(!$request->user()->onTrialOrSubscribed()){
+            return redirect()->route('set_review', $set);
+        }
         $this->authorize('view-set', $set);
         //about 100% sure there's like 7 better ways to do all of this authorization...
         if($set->id != $assessment->set->id){
@@ -66,6 +69,9 @@ class ReviewController extends Controller
     }
 
     public function assessment_card_store(Request $request, Set $set, Assessment $assessment){
+        if(!$request->user()->onTrialOrSubscribed()){
+            return redirect()->route('set_review', $set);
+        }
         $this->authorize('view-set', $set);
         $card_id = $request['card_id'];
         $score = $request['score'];
@@ -98,7 +104,10 @@ class ReviewController extends Controller
         return redirect()->route('assessment_card', ['set'=> $set, 'assessment' => $assessment]);
     }
 
-    public function new_assessment(Set $set){
+    public function new_assessment(Set $set, Request $request){
+        if(!$request->user()->onTrialOrSubscribed()){
+            return redirect()->route('set_review', $set);
+        }
         $this->authorize('view-set', $set);
 
         //any open assessments? Close. 
@@ -162,12 +171,12 @@ class ReviewController extends Controller
         } else {
 
             //based on http://www.blueraja.com/blog/477/a-better-spaced-repetition-learning-algorithm-sm2
-            //  implementing the original as described here for simplicity...
+            //  implementing a slightly modified version of the original as described, rather than the modified
             
             //perhaps consider looking at https://www.supermemo.com/en/archives1990-2015/english/ol/sm2
-            //or even other versions e.g. Anki's implementation...
+            //or even other versions
 
-            //consider correct if a score better than 70, higher than 60 (corresponding to 3 in SM2) 
+            //consider correct if a score better than 70, than than 60 (corresponding to 3 in SM2) 
             $correct = $score > 70;
 
             // bound to [0, 5]

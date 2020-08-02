@@ -38,13 +38,20 @@ class SetController extends Controller
 
    
 
-    public function create()
+    public function create(Request $request)
     {
+        if(!$request->user()->onTrialOrSubscribed()){
+            return redirect()->route('user_sets');
+        }
         return view('set.create');
     }
 
     public function store(Request $request)
     {
+        if(!$request->user()->onTrialOrSubscribed()){
+            return redirect()->route('user_sets');
+        }
+
         $request->validate([
             'title' => ['required', 'min:3', 'max:100'],
             'description' => ['max:500'],

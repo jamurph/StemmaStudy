@@ -70,7 +70,9 @@
             <h1 class="mb-0">How to Study to Remember More</h1>
             <small>Approx. 5 minutes to read</small>
             <hr>
-            <p>Much of our lives revolve around learning &ndash; and <em>many</em> years are spent attending school for the sole purpose it.</p>
+            <img style="width: 100%;" src="{{asset('/image/Brain.png')}}" />
+
+            <p class="mt-3">Much of our lives revolve around learning &ndash; and <em>many</em> years are spent attending school for the sole purpose of it.</p>
             <p>Learning <em>well</em> earns us the right to attend better classes, to get into better colleges, or even land better jobs.</p>
             <p>Yet, this ability to learn effectively is often taken for granted and the best techniques for studying, that save us time and help us remember, are seldom discussed.</p>
             <p>This guide will introduce you to a few of the most powerful and practical ways to improve your studying so that you can understand, remember, and achieve more.</p>
@@ -101,7 +103,7 @@
             <h3><b>Self-Explanation</b></h3>
             <p>Self-explanation occurs when we explain a text to ourselves as we read it or recite the steps we are taking while solving a problem.</p>
             <p>For example, you would be engaging in self-explanation if, at the end of each section of this guide, you stopped to ask yourself, "What did I just read?" and summarized the content in your own words.</p>
-            <p>This type of self-explanation has been shown to lead to <em>better solutions</em> while problem-solving as well as an <em>increased understanding</em> of a text when reading</p>
+            <p>This type of self-explanation has been shown to lead to <em>better solutions</em> while problem-solving as well as an <em>increased understanding</em> of a text when reading.</p>
             <p>Self-explanations are even <em>more</em> effective when they go beyond the information presented in a text by further elaborating or making inferences about the material. </p>
             <p>You might engage in this higher form of self-explanation while reading this guide by asking and inferring answers to questions like "How can I make use of this technique?" or "Why does this technique work so well?".<sup>[1]</sup></p>
             <hr>

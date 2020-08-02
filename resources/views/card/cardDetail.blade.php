@@ -55,6 +55,7 @@
                 </div>
             </div>
 
+            
 
             @if ($set->cards->count() < 2)
                 <div class="text-center">
@@ -64,8 +65,15 @@
             @else
                 <div id="connections" class="d-flex mt-5 mb-2 align-items-center justify-content-between">
                     <h3 class="m-0">Connections</h3>
-                    <a data-toggle="collapse" href="#collapseNewConnection" id="newBtn" role="button" class="btn btn-secondary ml-3 new-btn"><i class="fas fa-plus"></i> New</a>
+                    @if (Auth::user()->onTrialOrSubscribed())
+                        <a data-toggle="collapse" href="#collapseNewConnection" id="newBtn" role="button" class="btn btn-secondary ml-3 new-btn"><i class="fas fa-plus"></i> New</a>
+                    @endif
                 </div>
+                @if (!Auth::user()->onTrialOrSubscribed())
+                    <div class="alert alert-info">
+                        Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to create new connections between cards.
+                    </div>
+                @else
                 <div class="collapse" id="collapseNewConnection">
                     <div class="NewConnection mb-3">
                         <div class="form-group">
@@ -112,6 +120,7 @@
                         <button class="btn btn-link cancel" type="button">Cancel</button>
                     </div>
                 </div>
+                @endif
                 <div class="collapse" id="collapseUpdateConnection">
                     <div class="UpdateConnection mb-3">
                         <input type="hidden" name="updateConnectionId" id="updateConnectionId" value="">
@@ -158,6 +167,7 @@
                         <button class="btn btn-link cancel" type="button">Cancel</button>
                     </div>
                 </div>
+                
                 @foreach ($card->connectionsIn as $in)
                 <div class="card-connection shadow-sm mb-3" data-id="{{$in->id}}" data-direction="from" data-card="{{$in->fromCard->id}}" data-title="{{$in->title}}" data-description="{{$in->description}}">
                     <span class="more-options dropdown dropleft">

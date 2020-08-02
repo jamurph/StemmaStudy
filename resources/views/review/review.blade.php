@@ -25,20 +25,26 @@
                     <div class="col-lg-6 mb-3">
                         <div class="review-option shadow-sm h-100 text-center">
                             <h3>Assessment</h3>
-                            @if ($unfinishedAssessment != null)
-                            <p class="text-muted">You have an unfinished assessment. Would you like to continue where you left off, or start over?</p>
-                            @else
-                            <p class="text-muted">Discover where your weaknesses are and make more effective use of your study time.</p>
-                            @endif
-                            
-                            <div class="">
-                                @if ($unfinishedAssessment != null)
-                                    <a href="{{route('new_assessment', $set)}}" class="btn btn-secondary"><i class="fas fa-plus"></i> New</a>
-                                    <a href="{{ route('assessment_card', ['set'=> $set, 'assessment' => $unfinishedAssessment]) }}" class="btn btn-primary"><i class="fas fa-angle-double-right"></i> Continue</a>
-                                @else
-                                    <a href="{{route('new_assessment', $set)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New</a>
-                                @endif
+                            @if (!Auth::user()->onTrialOrSubscribed())
+                            <div class="alert alert-info">
+                                Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to create new connections between cards.
                             </div>
+                            @else
+                                @if ($unfinishedAssessment != null)
+                                <p class="text-muted">You have an unfinished assessment. Would you like to continue where you left off, or start over?</p>
+                                @else
+                                <p class="text-muted">Discover where your weaknesses are and make more effective use of your study time.</p>
+                                @endif
+                                
+                                <div class="">
+                                    @if ($unfinishedAssessment != null)
+                                        <a href="{{route('new_assessment', $set)}}" class="btn btn-secondary"><i class="fas fa-plus"></i> New</a>
+                                        <a href="{{ route('assessment_card', ['set'=> $set, 'assessment' => $unfinishedAssessment]) }}" class="btn btn-primary"><i class="fas fa-angle-double-right"></i> Continue</a>
+                                    @else
+                                        <a href="{{route('new_assessment', $set)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New</a>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

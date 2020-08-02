@@ -29,49 +29,49 @@ Route::get('/tutorial', function () {
 /*
     Set
 */
-Route::get('/my-sets', 'SetController@index')->middleware('auth')->name('user_sets');
-Route::post('/my-sets', 'SetController@store')->middleware('auth')->name('set_store');
-Route::get('/my-sets/new', 'SetController@create')->middleware('auth')->name('set_create');
-Route::get('/my-sets/{set}/edit', 'SetController@edit')->middleware('auth')->name('set_edit');
-Route::get('/my-sets/{set}', 'SetController@show')->middleware('auth')->name('cards_in_set');
-Route::put('/my-sets/{set}', 'SetController@update')->middleware('auth')->name('set_update');
-Route::delete('/my-sets/{set}', 'SetController@destroy')->middleware('auth')->name('set_destroy');
+Route::get('/my-sets', 'SetController@index')->middleware('verified')->name('user_sets');
+Route::post('/my-sets', 'SetController@store')->middleware('verified')->name('set_store');
+Route::get('/my-sets/new', 'SetController@create')->middleware('verified')->name('set_create');
+Route::get('/my-sets/{set}/edit', 'SetController@edit')->middleware('verified')->name('set_edit');
+Route::get('/my-sets/{set}', 'SetController@show')->middleware('verified')->name('cards_in_set');
+Route::put('/my-sets/{set}', 'SetController@update')->middleware('verified')->name('set_update');
+Route::delete('/my-sets/{set}', 'SetController@destroy')->middleware('verified')->name('set_destroy');
 
 /* 
     Network
 */
-Route::get('/network/{set}', 'SetController@network')->middleware('auth')->name('set_network');
+Route::get('/network/{set}', 'SetController@network')->middleware('verified')->name('set_network');
 
 /* 
     Cards
 */
-Route::get('/my-sets/{set}/card/{card}', 'CardController@show')->middleware('auth')->name('user_card');
-Route::post('/my-sets/{set}/card', 'CardController@store')->middleware('auth')->name('card_store');
-Route::get('/my-sets/{set}/new-card', 'CardController@create')->middleware('auth')->name('card_create');
-Route::get('/my-sets/{set}/card/{card}/edit', 'CardController@edit')->middleware('auth')->name('card_edit');
-Route::put('/my-sets/{set}/card/{card}', 'CardController@update')->middleware('auth')->name('card_update');
-Route::delete('/my-sets/{set}/card/{card}', 'CardController@destroy')->middleware('auth')->name('card_destroy');
+Route::get('/my-sets/{set}/card/{card}', 'CardController@show')->middleware('verified')->name('user_card');
+Route::post('/my-sets/{set}/card', 'CardController@store')->middleware('verified')->name('card_store');
+Route::get('/my-sets/{set}/new-card', 'CardController@create')->middleware('verified')->name('card_create');
+Route::get('/my-sets/{set}/card/{card}/edit', 'CardController@edit')->middleware('verified')->name('card_edit');
+Route::put('/my-sets/{set}/card/{card}', 'CardController@update')->middleware('verified')->name('card_update');
+Route::delete('/my-sets/{set}/card/{card}', 'CardController@destroy')->middleware('verified')->name('card_destroy');
 
 
 /*
     Connections
 */
-Route::put('/my-sets/{set}/connection/{connection}', 'ConnectionController@update')->middleware('auth')->name('connection_update');
-Route::post('/my-sets/{set}/connection/', 'ConnectionController@store')->middleware('auth')->name('connection_store');
-Route::delete('/my-sets/{set}/card/{card}/connection/{connection}', 'ConnectionController@destroy')->middleware('auth')->name('connection_destroy');
+Route::put('/my-sets/{set}/connection/{connection}', 'ConnectionController@update')->middleware('verified')->name('connection_update');
+Route::post('/my-sets/{set}/connection/', 'ConnectionController@store')->middleware('verified')->name('connection_store');
+Route::delete('/my-sets/{set}/card/{card}/connection/{connection}', 'ConnectionController@destroy')->middleware('verified')->name('connection_destroy');
 
 /* 
     Review
 */
-Route::get('/my-sets/{set}/review', 'ReviewController@review')->middleware('auth')->name('set_review');
-Route::get('/my-sets/{set}/review/maintenance', 'ReviewController@maintenance')->middleware('auth')->name('set_maintenance');
-Route::put('/my-sets/{set}/review/maintenance', 'ReviewController@maintenance_put')->middleware('auth')->name('set_maintenance_put');
-Route::get('/my-sets/{set}/assessment/new', 'ReviewController@new_assessment')->middleware('auth')->name('new_assessment');
-Route::get('/my-sets/{set}/assessment/{assessment}/', 'AssessmentController@show')->middleware('auth')->name('assessment_complete');
-Route::delete('/my-sets/{set}/assessment/{assessment}/', 'AssessmentController@destroy')->middleware('auth')->name('assessment_destroy');
-Route::get('/my-sets/{set}/assessment/{assessment}/quiz', 'ReviewController@assessment_card')->middleware('auth')->name('assessment_card');
-Route::post('/my-sets/{set}/assessment/{assessment}/quiz', 'ReviewController@assessment_card_store')->middleware('auth')->name('assessment_card_store');
-Route::get('/my-sets/{set}/assessment/{assessment}/detail', 'AssessmentController@network')->middleware('auth')->name('assessment_network');
+Route::get('/my-sets/{set}/review', 'ReviewController@review')->middleware('verified')->name('set_review');
+Route::get('/my-sets/{set}/review/maintenance', 'ReviewController@maintenance')->middleware('verified')->name('set_maintenance');
+Route::put('/my-sets/{set}/review/maintenance', 'ReviewController@maintenance_put')->middleware('verified')->name('set_maintenance_put');
+Route::get('/my-sets/{set}/assessment/new', 'ReviewController@new_assessment')->middleware('verified')->name('new_assessment');
+Route::get('/my-sets/{set}/assessment/{assessment}/', 'AssessmentController@show')->middleware('verified')->name('assessment_complete');
+Route::delete('/my-sets/{set}/assessment/{assessment}/', 'AssessmentController@destroy')->middleware('verified')->name('assessment_destroy');
+Route::get('/my-sets/{set}/assessment/{assessment}/quiz', 'ReviewController@assessment_card')->middleware('verified')->name('assessment_card');
+Route::post('/my-sets/{set}/assessment/{assessment}/quiz', 'ReviewController@assessment_card_store')->middleware('verified')->name('assessment_card_store');
+Route::get('/my-sets/{set}/assessment/{assessment}/detail', 'AssessmentController@network')->middleware('verified')->name('assessment_network');
 
 
 /* Contact Form */
@@ -80,7 +80,15 @@ Route::post('/contact', 'ContactFormController@store')->name('contact_store');
 Route::get('/contact/submitted', 'ContactFormController@thanks')->name('contact_thanks');
 
 
-Auth::routes();
+/* Settings */
+Route::get('/settings', 'SettingsController@show')->middleware('verified')->name('settings');
+Route::post('/settings', 'SettingsController@updateName')->middleware('verified')->name('update_name');
+Route::get('/settings/portal', 'SettingsController@portal')->middleware('verified')->name('billing_portal');
+Route::get('/settings/subscribe', 'SettingsController@subscribe')->middleware('verified')->name('subscribe');
+
+
+
+Auth::routes(['verify' => true]);
 /*
     Minor Logout get request fix. (user middle mouse clicks "Logout")
 */

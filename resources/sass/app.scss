@@ -8,6 +8,14 @@
 @import '~bootstrap/scss/bootstrap';
 
 
+img {
+    max-width: 100%;
+}
+
+.icon {
+    width: 25px;
+}
+
 /* Bootstrap Overrides */
 .navbar-light .navbar-brand {
     color: var(--dark);

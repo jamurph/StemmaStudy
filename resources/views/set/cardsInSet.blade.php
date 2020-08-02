@@ -8,9 +8,21 @@
         <div class="col-lg-8">
             <a class="text-decoration-none mb-3 d-inline-block" href="{{route('user_sets')}}"><i class="fas fa-arrow-left"></i> Back to My Sets</a>
             <h1 class="m-0 mb-2">{{ $set->title }}</h1>
-            <div class="text-right">
-            <a href="{{route('card_create', $set)}}" class="btn btn-primary new-btn"><i class="fas fa-plus"></i> New</a>
-            </div>
+            @if (Auth::user()->onTrialOrSubscribed() || $set->cards->count() >= 1000)
+                <div class="text-right">
+                    <a href="{{route('card_create', $set)}}" class="btn btn-primary new-btn"><i class="fas fa-plus"></i> New</a>
+                </div>
+            @endif
+            @if (!Auth::user()->onTrialOrSubscribed())
+                <div class="alert alert-info">
+                    Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to create new cards.
+                </div>
+            @endif
+            @if ($set->cards->count() >= 1000)
+                <div class="alert alert-info">
+                    This set has reached the limit of 1000 cards.
+                </div>
+            @endif
             <div class="mt-4"></div>
             @foreach ($set->cards->sortBy('created_at') as $card)
                 <div class="ss-card shadow-sm mb-3">
