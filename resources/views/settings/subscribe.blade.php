@@ -114,6 +114,7 @@
 
             if (error) {
                 showError(error.message);
+                $('#card-button').prop('disabled', false);
             } else {
                 var form = $('#subscription-form');
                 var hiddenInput = document.createElement('input');
@@ -124,9 +125,10 @@
                 form.submit();
             }
         } else {
-            showError('Name on Card is required.')
+            showError('Name on Card is required.');
+            $('#card-button').prop('disabled', false);
         }
-        $('#card-button').prop('disabled', false);
+        
     });
 
     function showError(message){
