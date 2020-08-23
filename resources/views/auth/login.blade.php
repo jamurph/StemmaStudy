@@ -1,5 +1,15 @@
 @extends('layouts.app')
-@section('title', 'StemmaStudy | Login')
+@section('title', 'Login | StemmaStudy')
+
+@section('header')
+<meta name="description" content="Log in to StemmaStudy and start creating Connected Flashcards.">
+<meta property="og:title" content="Login | StemmaStudy">
+<meta property="og:description" content="Log in to StemmaStudy and start creating Connected Flashcards.">
+<meta property="og:image" content="{{asset('/image/ConnectTheDots.png')}}">
+<meta property="og:url" content="{{route('login')}}">
+<meta name="twitter:card" content="summary_large_image">
+@endsection
+
 
 @section('content')
 <div class="container">

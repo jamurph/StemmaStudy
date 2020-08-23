@@ -1,8 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'StemmaStudy | Connected Flashcards')
+@section('title', 'Connected Flashcards | StemmaStudy')
 
 @section('header')
+<meta name="description" content="Learn and remember more by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.">
+<meta property="og:title" content="Connected Flashcards | StemmaStudy">
+<meta property="og:description" content="Learn and remember more by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.">
+<meta property="og:image" content="{{asset('/image/ConnectTheDots.png')}}">
+<meta property="og:url" content="{{route('home')}}">
+<meta name="twitter:card" content="summary_large_image">
+
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 @endsection
 

@@ -162,8 +162,8 @@
                 </div>
                 <div class="mb-4">
                     <h5>Legal</h5>
-                    <a href="#" class="text-decoration-none">Privacy Policy</a>
-                    <a href="#" class="text-decoration-none">Terms of Use</a>
+                    <a href="{{route('privacy')}}" class="text-decoration-none">Privacy Policy</a>
+                    <a href="{{route('terms')}}" class="text-decoration-none">Terms of Service</a>
                 </div>
             </div>
         </div>

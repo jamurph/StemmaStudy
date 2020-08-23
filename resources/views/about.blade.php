@@ -3,6 +3,13 @@
 @section('title', 'About StemmaStudy')
 
 @section('header')
+<meta name="description" content="Learning is the process by which we make something of ourselves. We believe technology can help us make this process better.">
+<meta property="og:title" content="About StemmaStudy">
+<meta property="og:description" content="Learning is the process by which we make something of ourselves. We believe technology can help us make this process better.">
+<meta property="og:image" content="{{asset('/image/ConnectTheDots.png')}}">
+<meta property="og:url" content="{{route('about')}}">
+<meta name="twitter:card" content="summary_large_image">
+
 <style>
     
     p, .about li{

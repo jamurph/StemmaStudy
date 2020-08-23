@@ -1,8 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'StemmaStudy | How to Study to Remember More')
+@section('title', 'How to Study to Remember More | StemmaStudy')
 
 @section('header')
+<meta name="description" content="This guide will introduce you to 6 of the most powerful and practical ways to improve your studying so that you can understand, remember, and achieve more.">
+<meta property="og:title" content="How to Study to Remember More | StemmaStudy">
+<meta property="og:description" content="This guide will introduce you to 6 of the most powerful and practical ways to improve your studying so that you can understand, remember, and achieve more.">
+<meta property="og:image" content="{{asset('/image/Brain.png')}}">
+<meta property="og:url" content="{{route('learn')}}">
+<meta name="twitter:card" content="summary_large_image">
+
 <style>
     h3, h4 {
         color: var(--main);

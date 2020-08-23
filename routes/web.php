@@ -10,7 +10,7 @@ Route::get('/', function () {
     }
 
     return view('index');
-});
+})->name('home');
 
 
 Route::get('/learn', function () {
@@ -25,6 +25,13 @@ Route::get('/tutorial', function () {
     return view('tutorial');
 })->name('tutorial');
 
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('privacy');
+
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
 
 /*
     Set

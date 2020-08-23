@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'StemmaStudy | Contact')
+@section('title', 'Contact | StemmaStudy')
+
+@section('header')
+<meta name="description" content="Questions? Suggestions? Feedback? Whatever is on your mind, we'd love to hear from you.">
+<meta property="og:title" content="Contact | StemmaStudy">
+<meta property="og:description" content="Questions? Suggestions? Feedback? Whatever is on your mind, we'd love to hear from you.">
+<meta property="og:image" content="{{asset('/image/ConcentrateYourEffort.png')}}">
+<meta property="og:url" content="{{route('contact_create')}}">
+<meta name="twitter:card" content="summary_large_image">
+@endsection
 
 @section('content')
 <div class="container mb-4">

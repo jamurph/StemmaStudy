@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'StemmaStudy | Verify')
+@section('title', 'Verify | StemmaStudy')
 
 @section('content')
 <div class="container">

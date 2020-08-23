@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ContactForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactFormController extends Controller
 {
@@ -21,14 +22,19 @@ class ContactFormController extends Controller
             'email' => ['required','email', 'max:320'],
             'message' => ['required', 'min:10', 'max:1000'],
         ]);
-        $set = new ContactForm([
+        $form = new ContactForm([
             'name' => request('name'),
             'email' => request('email'),
             'message' => request('message'),
         ]);
-        $set->save();
+        $form->save();
 
         $request->session()->put('contact_form_submitted', true);
+
+        Mail::raw('A contact form was submitted by ' . request('name') . ' at ' . request('email') . ". \r\nHere is what they said: \r\n\r\n" . request('message'), function ($message) {
+            $message->to('murph@stemmastudy.com');
+            $message->subject('New Contact Form');
+        });
         
         return redirect()->route('contact_thanks');
     }

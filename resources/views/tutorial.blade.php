@@ -1,8 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'StemmaStudy Tutorial')
+@section('title', 'StemmaStudy Tutorial | How to Create Connected Flashcards')
 
 @section('header')
+<meta name="description" content="Connected Flashcards help make the learning process better. Here's how to create them!">
+<meta property="og:title" content="StemmaStudy Tutorial | How to Create Connected Flashcards">
+<meta property="og:description" content="Connected Flashcards help make the learning process better. Here's how to create them!">
+<meta property="og:image" content="{{asset('/image/MaintainStrongMemories.png')}}">
+<meta property="og:url" content="{{route('tutorial')}}">
+<meta name="twitter:card" content="summary_large_image">
+
 <style>
     
     p, .about li{

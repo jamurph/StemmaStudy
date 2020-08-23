@@ -29,9 +29,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-        
-            
-            <a class="text-decoration-none mb-3 d-inline-block" href="{{route('cards_in_set', $set->id)}}"><i class="fas fa-arrow-left"></i> {{$set->title}}</a>
+            @if (session()->has('source') && session('source') == 'network')
+                <a class="text-decoration-none mb-3 d-inline-block" href="{{route('set_network', $set->id)}}"><i class="fas fa-arrow-left"></i> {{$set->title}}</a>
+            @else
+                <a class="text-decoration-none mb-3 d-inline-block" href="{{route('cards_in_set', $set->id)}}"><i class="fas fa-arrow-left"></i> {{$set->title}}</a>
+            @endif
                 
         
             <div class="card-detail shadow-sm mb-4">

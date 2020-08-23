@@ -24,6 +24,10 @@ class SetController extends Controller
     public function show(Set $set)
     {
         $this->authorize('view-set', $set);
+
+        //so we will redirect back to list from a card
+        session()->put('source', 'list');
+
         return view('set.cardsInSet', ['set' => $set]);
     }
 
@@ -33,6 +37,10 @@ class SetController extends Controller
         $connections = Connection::with(['fromCard'])->whereHas('fromCard', function($c) use ($set){
             $c->where('set_id', '=', $set->id);
         })->get();
+
+        //so we will redirect back to network from a card
+        session()->put('source', 'network');
+
         return view('set.setNetwork', ['set' => $set ,'cards' => $set->cards, 'connections' => $connections]);
     }
 
