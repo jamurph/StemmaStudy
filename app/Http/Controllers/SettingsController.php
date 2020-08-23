@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Exceptions\IncompletePayment;
+use Illuminate\Support\Carbon;
 
 class SettingsController extends Controller
 {
     public function show(Request $request){
-        $onTrial = $request->user()->onTrial();
         $subscription = $request->user()->subscription('default');
         $subscribed = $subscription == null ? false : !$subscription->ended();
+        $onTrial = $request->user()->onGenericTrial() && !$subscribed; //onGenericTrial and Stripe "trialing" may coincide
         $trialEnd = $request->user()->trial_ends_at == null ? now()->toFormattedDateString() : $request->user()->trial_ends_at->toFormattedDateString();
         return view('settings.show', ['user' => $request->user(), 'freeTrial' => $onTrial, 'trialEnd' => $trialEnd, 'subscribed' => $subscribed]);
     }
@@ -36,6 +39,37 @@ class SettingsController extends Controller
 
     public function subscribe(Request $request){
         //verify that the user can actually subscribe, or redirect back to settings. (Something weird...?)
+        $subscription = $request->user()->subscription('default');
+        if($subscription != null && !$subscription->ended()){
+            return redirect()->route('settings');
+        }
+
         return view('settings.subscribe', ['intent' => $request->user()->createSetupIntent()]);
     }
+
+
+    public function subscribe_store(Request $request){
+
+        /*
+            * Subscribe page show card error in form
+        */
+        $user = $request->user();
+        $trialEnd = Carbon::createFromTimestamp(strtotime($user->trial_ends_at));
+        try {
+            if($trialEnd < Carbon::now()){
+                $user->newSubscription('default', 'price_1H90K9EtyrRgwUBdGoBhSEzL')
+                    ->create($request['payment_method']); 
+            }else {
+                $user->newSubscription('default', 'price_1H90K9EtyrRgwUBdGoBhSEzL')
+                    ->trialUntil($trialEnd)
+                    ->create($request['payment_method']); 
+            }
+        }catch (IncompletePayment $exception){
+            return redirect()->route('cashier.payment', [$exception->payment->id, 'redirect' => route('user_sets')]);
+        }
+
+        
+        return redirect()->route('user_sets');
+    }
+
 }

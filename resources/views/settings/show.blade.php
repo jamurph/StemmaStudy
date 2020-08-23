@@ -45,7 +45,7 @@
                             <p>Your free trial expires on {{$trialEnd}}.</p>
                             <div class="">
                                 <a href="{{route('subscribe')}}" class="btn btn-primary">Start My Subscription</a>
-                                <p><small>Payment starts after your free trial ends.</small></p>
+                                <p><small>$4.99 per month. Payment starts after your free trial ends.</small></p>
                             </div>
                         @elseif($subscribed)
                             <p>You have an active subscription!</p>

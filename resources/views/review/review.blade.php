@@ -27,7 +27,7 @@
                             <h3>Assessment</h3>
                             @if (!Auth::user()->onTrialOrSubscribed())
                             <div class="alert alert-info">
-                                Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to create new connections between cards.
+                                Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to start new assessments.
                             </div>
                             @else
                                 @if ($unfinishedAssessment != null)

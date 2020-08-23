@@ -13,7 +13,7 @@
     <div class="d-flex justify-content-center p-2">
         <div class="home-head">
             <h1 class="px-2 mt-5"><b>You Can Do Better</b></h1>
-            <h4 class="px-2 mt-4">Forget flashcards as you know them. Learn and remember more by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.</h4>
+            <h4 class="px-2 mt-4">Forget flashcards as you know them. Connected Flashcards help you learn and remember more by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.</h4>
             <div class="px-2 mt-4 mb-5">
                 <a href="{{route('register')}}" class="btn btn-primary">Free Trial <i class="fas fa-angle-double-right"></i></a>
                 <a href="{{route('tutorial')}}" class="btn btn-outline-primary">View the Tutorial</a>
@@ -87,7 +87,7 @@
             Try it free for 30 days &ndash; no strings attached &ndash; and see how your scores improve!
         </div>
         <div class="mt-4 mb-4 text-center">
-            <a href="#" class="btn btn-primary">Start Free Trial <i class="fa fa-angle-double-right"></i></a>
+            <a href="{{route('register')}}" class="btn btn-primary">Start Free Trial <i class="fa fa-angle-double-right"></i></a>
         </div>
     </div>
 </div>
@@ -97,7 +97,7 @@
     <div class="you-are text-center">
         <h1>You Are What You Remember</h1>
         <h4>Don't study just to pass a test.<br class="d-lg-none"/> Study to become unforgettable.</h4>
-        <a href="/learn" class="btn btn-light mt-3">How to Remember More <i class="fas fa-angle-double-right"></i></a>
+        <a href="{{route('learn')}}" class="btn btn-light mt-3">How to Remember More <i class="fas fa-angle-double-right"></i></a>
     </div>
 </div>
 

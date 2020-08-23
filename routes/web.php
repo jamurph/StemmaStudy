@@ -85,7 +85,7 @@ Route::get('/settings', 'SettingsController@show')->middleware('verified')->name
 Route::post('/settings', 'SettingsController@updateName')->middleware('verified')->name('update_name');
 Route::get('/settings/portal', 'SettingsController@portal')->middleware('verified')->name('billing_portal');
 Route::get('/settings/subscribe', 'SettingsController@subscribe')->middleware('verified')->name('subscribe');
-
+Route::post('/settings/subscribe', 'SettingsController@subscribe_store')->middleware('verified')->name('subscribe_store');
 
 
 Auth::routes(['verify' => true]);
