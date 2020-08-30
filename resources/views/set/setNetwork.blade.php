@@ -134,7 +134,7 @@
     <div id="loader" class="spinner-container">
         <div class="shadow-lg spinner-box">
             <div class="spinner-border text-primary"></div>
-            <img src="/image/icon500.png" class="spinner-icon">
+            <img src="{{asset('/image/icon500.png')}}" class="spinner-icon">
             <p id="loader-message" class="mt-5 text-muted">Initializing...</p>
         </div>
     </div>
