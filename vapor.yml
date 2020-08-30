@@ -3,7 +3,7 @@ name: stemmastudy
 environments:
     production:
         domain: stemmastudy.com
-        concurrency: 50
+        concurrency: 5
         scheduler: false
         memory: 1024
         cli-memory: 512
@@ -15,7 +15,7 @@ environments:
         
     staging:
         database: stemmastudy-staging
-        concurrency: 10
+        concurrency: 1
         scheduler: false
         memory: 1024
         cli-memory: 512

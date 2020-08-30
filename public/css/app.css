@@ -4887,7 +4887,7 @@ input[type=button].btn-block {
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: rgba(0, 0, 0, 0.5);
+  color: #192332;
 }
 
 .navbar-light .navbar-nav .nav-link:hover,
@@ -4907,16 +4907,16 @@ input[type=button].btn-block {
 }
 
 .navbar-light .navbar-toggler {
-  color: rgba(0, 0, 0, 0.5);
+  color: #192332;
   border-color: rgba(0, 0, 0, 0.1);
 }
 
 .navbar-light .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='%23192332' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .navbar-light .navbar-text {
-  color: rgba(0, 0, 0, 0.5);
+  color: #192332;
 }
 
 .navbar-light .navbar-text a {
@@ -10946,7 +10946,7 @@ img {
 }
 
 .logo {
-  width: 185px;
+  width: 215px;
 }
 
 /* Bootstrap Overrides */
@@ -11034,6 +11034,21 @@ a.unlink:hover {
   box-shadow: 0px 0px 3px 0px var(--light-acc);
 }
 
+.navigation-btn {
+  display: inline-block;
+  text-decoration: none !important;
+  color: var(--dark) !important;
+  border: 1px solid var(--light-acc);
+  border-radius: 4px;
+  padding: 6px 10px;
+  background-color: white;
+}
+
+.navigation-btn:hover {
+  box-shadow: 0px 0px 3px 0px var(--light-acc);
+  cursor: pointer;
+}
+
 .card-detail {
   position: relative;
   background: white;
@@ -11110,6 +11125,26 @@ trix-toolbar .trix-button-group--file-tools {
 
 .rangeslider .rangeslider__fill {
   background: transparent;
+}
+
+/*Network*/
+
+.menu-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10000;
+  text-decoration: none !important;
+  color: var(--dark) !important;
+  border: 1px solid var(--light-acc);
+  border-radius: 4px;
+  padding: 6px 10px;
+  background-color: white;
+}
+
+.menu-btn:hover {
+  box-shadow: 0px 0px 3px 0px var(--light-acc);
+  cursor: pointer;
 }
 
 /* Homepage */

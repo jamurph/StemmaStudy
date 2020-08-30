@@ -7,6 +7,7 @@ use App\Connection;
 use App\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class for handling of viewing/editing sets owned by the user. "My Sets" 
@@ -30,21 +31,6 @@ class SetController extends Controller
 
         return view('set.cardsInSet', ['set' => $set]);
     }
-
-    public function network(Set $set)
-    {
-        $this->authorize('view-set', $set);
-        $connections = Connection::with(['fromCard'])->whereHas('fromCard', function($c) use ($set){
-            $c->where('set_id', '=', $set->id);
-        })->get();
-
-        //so we will redirect back to network from a card
-        session()->put('source', 'network');
-
-        return view('set.setNetwork', ['set' => $set ,'cards' => $set->cards, 'connections' => $connections]);
-    }
-
-   
 
     public function create(Request $request)
     {
@@ -106,5 +92,45 @@ class SetController extends Controller
         $set->delete();
 
         return redirect()->route('user_sets');
+    }
+
+    public function network(Set $set)
+    {
+        $this->authorize('view-set', $set);
+        $connections = Connection::with(['fromCard'])->whereHas('fromCard', function($c) use ($set){
+            $c->where('set_id', '=', $set->id);
+        })->get();
+
+        //so we will redirect back to network from a card
+        session()->put('source', 'network');
+
+        return view('set.setNetwork', ['set' => $set ,'cards' => $set->cards, 'connections' => $connections]);
+    }
+
+    public function update_network(Set $set, Request $request){
+        $this->authorize('view-set', $set);
+        //get JSON. 
+        $changes = $request->input('changes');
+        if(!$changes){
+            return false;
+        }
+        DB::transaction(function() use ($set, $changes){
+
+            foreach ($changes as $change) {
+                $card_id = $change['card_id'];
+                $position_x = $change['position']['x'];
+                $position_y = $change['position']['y'];
+                
+                $card = Card::find($card_id);
+                if($card->set_id == $set->id && is_numeric($position_x) && is_numeric($position_y)){
+                    $card->position_x = $position_x + 0;
+                    $card->position_y = $position_y + 0;
+                    $card->is_new = false;
+                    $card->save();
+                }
+            }
+        });
+
+        return true;
     }
 }

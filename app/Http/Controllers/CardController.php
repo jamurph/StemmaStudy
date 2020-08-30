@@ -6,6 +6,7 @@ use App\Card;
 use App\Set;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class CardController extends Controller
@@ -60,6 +61,11 @@ class CardController extends Controller
             'next_review' => Carbon::now()->addDay()->subHour(),
             'card-trixFields' => ['content' => $stripped_content],
         ]);
+
+        $position_y = DB::table('cards')->where('set_id', 1)->max('position_y');
+        if($position_y && is_numeric($position_y)){
+            $card->position_y = $position_y + 100;
+        }
         $card->save();
 
         return redirect()->route('user_card', [$set, $card]);
@@ -111,7 +117,12 @@ class CardController extends Controller
         return redirect()->route('cards_in_set', $set);
     }
 
-    //this will be fun one day
+    
+    
+
+
+
+    //TODO for images.
     public function store_attachment(Request $request){
         return response('', 501);
     }
@@ -126,7 +137,6 @@ class CardController extends Controller
      * 
      * Source: https://alanwhipple.com/2011/05/25/php-truncate-string-preserving-html-tags-words/
      * 
-     *  Should be moved to own file.
      * 
      * @param string $text String to truncate.
      * @param integer $length Length of returned string, including ellipsis.

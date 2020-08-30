@@ -170,13 +170,7 @@ class ReviewController extends Controller
             return redirect()->route('set_maintenance', $set);
         } else {
 
-            //based on http://www.blueraja.com/blog/477/a-better-spaced-repetition-learning-algorithm-sm2
-            //  implementing a slightly modified version of the original as described, rather than the modified
-            
-            //perhaps consider looking at https://www.supermemo.com/en/archives1990-2015/english/ol/sm2
-            //or even other versions
-
-            //consider correct if a score better than 70, than than 60 (corresponding to 3 in SM2) 
+            //consider correct if a score better than 70, rather than 60 (corresponding to 3 in SM2) 
             $correct = $score > 70;
 
             // bound to [0, 5]
@@ -188,7 +182,7 @@ class ReviewController extends Controller
             $next = $card->next_review;
 
             //easiness
-            $easiness = $easiness + (-0.8 + 0.28 * $perfRating + 0.02 * ($perfRating * $perfRating));
+            $easiness = $easiness + (-0.8 + 0.28 * $perfRating - 0.02 * ($perfRating * $perfRating));
             if($easiness < 1.3){
                 $easiness = 1.3;
             }

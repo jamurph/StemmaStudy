@@ -34,16 +34,28 @@ class ConnectionController extends Controller
         $fromCardId = request('fromCardId');
         $toCardId = request('toCardId');
 
-        $fromCardValid = Card::where('id', '=', $fromCardId)->where('set_id', '=', $set->id)->exists();
-        $toCardValid = Card::where('id', '=', $toCardId)->where('set_id', '=', $set->id)->exists();
+        $fromCard = Card::where('id', '=', $fromCardId)->where('set_id', '=', $set->id)->first();
+        $toCard = Card::where('id', '=', $toCardId)->where('set_id', '=', $set->id)->first();
 
-        if($fromCardValid && $toCardValid){
+        if($fromCard && $toCard){
             $connection = new Connection([
                 'title' => request('title'),
                 'description' => request('description') ?? '',
                 'from_card_id' => $fromCardId,
                 'to_card_id' => $toCardId,
             ]);
+
+            //If one of the cards is new, put it on top of the other to help with the layout the next time the network view loads.
+            if($fromCard->is_new && !$toCard->is_new){
+                $fromCard->position_x = $toCard->position_x;
+                $fromCard->position_y = $toCard->position_y;
+                $fromCard->save();
+            } else if (!$fromCard->is_new && $toCard->is_new){
+                $toCard->position_x = $fromCard->position_x;
+                $toCard->position_y = $fromCard->position_y;
+                $toCard->save();
+            }
+            
             return ['created' => $connection->save()];
         } else {
             return ['created' => false];

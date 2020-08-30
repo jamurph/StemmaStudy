@@ -4,6 +4,8 @@ let popper = require('cytoscape-popper');
 
 let fcose = require('cytoscape-fcose');
 
+cytoscape.warnings(false);
+
 cytoscape.use( fcose );
 
 cytoscape.use( popper ); // register extension
@@ -66,49 +68,59 @@ $(function(){
                 }
             }
         ],
-        
-        
-          
-          layout: {
-            name:'fcose',
-            quality: "proof",
-            // Use random node positions at beginning of layout
-            // if this is set to false, then quality option must be "proof"
-            randomize: true, 
-            // Whether or not to animate the layout
-            animate: true, 
-            // Duration of animation in ms, if enabled
-            animationDuration: 1000, 
-            // Fit the viewport to the repositioned nodes
-            fit: true, 
-            // Padding around layout
-            padding: 30,
-            // Whether to include labels in node dimensions. Valid in "proof" quality
-            nodeDimensionsIncludeLabels: true,
-            // Whether or not simple nodes (non-compound nodes) are of uniform dimensions
-            uniformNodeDimensions: false,
-            // Whether to pack disconnected components - valid only if randomize: true
-            packComponents: true,
-            
-            // Separation amount between nodes
-            nodeSeparation: 250,
-            
-            // Node repulsion (non overlapping) multiplier
-            nodeRepulsion: 4500,
-            // Ideal edge (non nested) length
-            idealEdgeLength: 70,
-            // Divisor to compute edge forces
-            edgeElasticity: 0.2,
-            // Nesting factor (multiplier) to compute ideal edge length for nested edges
-            nestingFactor: 0.1,
-            // Maximum number of iterations to perform
-            numIter: 2500,
-            
-          },
-         
+        layout: {
+            name:'preset',
+            animate: true,
+            animationDuration: 1000,
+            animationEasing: 'ease-in-out',
+            stop: function(){
+                if(has_new_cards){
+                    //change message on popup
+                    $('#loader-message').text('Shifting for new cards...')
+                    cy.layout({
+                        name:'fcose',
+                        quality: "proof",
+                        randomize: false, 
+                        animate: true,
+                        animationDuration: 1000,
+                        fit: true, 
+                        padding: 30,
+                        nodeDimensionsIncludeLabels: true,
+                        uniformNodeDimensions: false,
+                        nodeSeparation: 250,
+                        nodeRepulsion: 4579,
+                        idealEdgeLength: 71, 
+                        edgeElasticity: 0.2,
+                        nestingFactor: 0.1,
+                        numIter: 2500,
+                        stop: function(){
+                            $('#loader').fadeOut();
+                            var changes = [];
+                            var nodes = cy.nodes();
+                            for(var i = 0; i < nodes.length; i++){
+                                element = nodes[i];
+                                changes.push({
+                                    card_id: element.data('card_id'), position: element.position()
+                                });
+                            }
+                            changes = {changes: changes};
+                            $.ajax({
+                                method: "PUT",
+                                url :'/network/' + set_id + '/update/',
+                                data: JSON.stringify(changes),
+                                contentType: "application/json"
+                            });
+                        }
+                    }).start();
+                } else {
+                    $('#loader').fadeOut();
+                }
+                
+            }
+        },
         wheelSensitivity: 0.25,
         maxZoom: 2.5,
-        minZoom: 0.2,
+        minZoom: 0.1,
     });
 
     cy.on('vclick', 'edge', function(event){
@@ -179,6 +191,26 @@ $(function(){
         }
     });
 
-    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    cy.on('dragfreeon', 'node', function(event){
+        element = event.target;
+        if(!element){
+            return;
+        }
+        
+        var changes = {changes:[{ card_id: element.data('card_id'), position: element.position() }]};
+
+        $.ajax({
+            method: "PUT",
+            url :'/network/' + set_id + '/update/',
+            data: JSON.stringify(changes),
+            contentType: "application/json"
+        });
+    });
 
 });
