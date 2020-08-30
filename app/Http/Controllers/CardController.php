@@ -113,8 +113,12 @@ class CardController extends Controller
         $this->authorize('view-set', $card->set);
 
         $card->delete();
-
-        return redirect()->route('cards_in_set', $set);
+        
+        if(session()->has('source') && session('source') == 'network'){
+            return redirect()->route('set_network', $set);
+        } else {
+            return redirect()->route('cards_in_set', $set);
+        }
     }
 
     
