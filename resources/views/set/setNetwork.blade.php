@@ -3,82 +3,19 @@
 @section('title', 'StemmaStudy | Set Network')
 
 @section('header')
-@if ($cards->count() != 0)
 <script src="{{asset('js/setNetwork.js')}}"></script>
-@endif
 @endsection
 
 @section('content')
-<style>
-    
-    .side-menu {
-        position: absolute;
-        left:0;
-        top:0;
-        width: 300px;
-        background: white;
-        height: 100vh;
-        transform: translate(-100%,0);
-        transition: transform .5s ease-in-out, box-shadow .5s ease-in-out;
-        z-index: 10001;
-        padding: 15px;
-        overflow: auto;
-    }
 
-    .menu-button-container {
-        height: 50px;
-    }
-
-    .close-menu {
-        display: inline-block;
-        float: right;
-        width: 50px;
-        height: 50px;
-        text-align: center;
-        padding-top: 11px;
-        border: 1px solid rgba(0,0,0,0.1);
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
-    .close-menu:hover {
-        border: 1px solid rgba(0,0,0,0.3);
-    }
-
-    .search {
-        display: inline-block;
-        float: left;
-        width: 50px;
-        height: 50px;
-        text-align: center;
-        padding-top: 11px;
-        border: 1px solid rgba(0,0,0,0.1);
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
-    .search:hover {
-        border: 1px solid rgba(0,0,0,0.3);
-    }
-
-    .side-link.unlink {
-        display: block;
-        color: #6e8789;
-        margin-top: 30px;
-        font-size: 25px;
-    }
-
-    .side-link:hover {
-        color: #192332;
-    }
-
-</style>
 
 <div class="menu-btn"><i class="fas fa-bars green"></i> Menu</div>
 <div class="side-menu">
     <div class="menu-button-container">
         <div class="close-menu"><i class="fas fa-angle-double-left green" style="font-size: 26px;"></i></div>
-        <div class="search"><i class="fas fa-search green" style="font-size: 26px;"></i></div>
+        @if ($cards->count() != 0)
+            <div class="search"><i class="fas fa-search green" style="font-size: 26px;"></i></div>
+        @endif
     </div>
     <hr>
     <a class="unlink side-link" href="{{route('user_sets')}}"><i class="fas fa-home green pr-4"></i> My Sets</a>
@@ -95,47 +32,28 @@
     @endif
 </div>
 @if ($cards->count() != 0)
-    <style>
-        .spinner-container {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            text-align: center;
-            background: rgba(255,255,255,0.8);
-        }
-
-        .spinner-box {
-            text-align: center;
-            background: white;
-            width: 250px;
-            display: inline-block;
-            padding: 25px;
-            padding-top: 40px;
-            margin-top: 25vh;
-            position: relative;
-        }
-
-        .spinner-border {
-            width: 100px;
-            height: 100px;
-        }
-
-        .spinner-icon {
-            position: absolute;
-            width: 50px;
-            margin: 25px;
-            left: 75px;
-        }
-
-    </style>
-
     <div id="loader" class="spinner-container">
         <div class="shadow-lg spinner-box">
             <div class="spinner-border text-primary"></div>
             <img src="{{asset('/image/icon500.png')}}" class="spinner-icon">
             <p id="loader-message" class="mt-5 text-muted">Initializing...</p>
+        </div>
+    </div>
+    <div class="search-container">
+        <div class="search-box shadow-lg">
+            <div class="search-input">
+                <input id="search-text"  type="text" class="form-control" placeholder="Search"/>
+                <div class="close-search text-secondary">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="scroll-container">
+                <div class="search-result">
+                    @foreach ($cards as $card)
+                        <div data-card="{{$card->id}}">{{$card->title}}</div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 @endif
@@ -173,17 +91,5 @@
         @endforeach
     ];
 
-</script>
-<script>
-    $(function(){
-        $('.menu-btn').click(function(){
-            $('.side-menu').css({"transform": "translate(0,0)"});
-            $('.side-menu').addClass('shadow-lg');
-        });
-        $('.close-menu').click(function(){
-            $('.side-menu').css({"transform": "translate(-100%,0)"});
-            $('.side-menu').removeClass('shadow-lg');
-        });
-    });
 </script>
 @endsection

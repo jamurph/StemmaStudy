@@ -11147,6 +11147,163 @@ trix-toolbar .trix-button-group--file-tools {
   cursor: pointer;
 }
 
+.spinner-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.spinner-box {
+  text-align: center;
+  background: white;
+  width: 250px;
+  display: inline-block;
+  padding: 25px;
+  padding-top: 40px;
+  margin-top: 25vh;
+  position: relative;
+}
+
+.spinner-border {
+  width: 100px;
+  height: 100px;
+}
+
+.spinner-icon {
+  position: absolute;
+  width: 50px;
+  margin: 25px;
+  left: 75px;
+}
+
+.side-menu {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 300px;
+  background: white;
+  height: 100vh;
+  transform: translate(-100%, 0);
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  z-index: 10001;
+  padding: 15px;
+  overflow: auto;
+}
+
+.menu-button-container {
+  height: 50px;
+}
+
+.close-menu {
+  float: right;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  padding-top: 11px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.close-menu:hover {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.search {
+  float: left;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  padding-top: 11px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.search:hover {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.side-link.unlink {
+  display: block;
+  color: #6e8789;
+  margin-top: 30px;
+  font-size: 25px;
+}
+
+.side-link:hover {
+  color: #192332;
+}
+
+.search-container {
+  display: none;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  z-index: 10002;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.search-box {
+  display: inline-block;
+  width: 800px;
+  height: 600px;
+  max-width: 100%;
+  max-height: 100%;
+  background: white;
+}
+
+.search-input {
+  position: relative;
+  padding: 10px;
+  padding-right: 60px;
+  height: 60px;
+}
+
+.scroll-container {
+  overflow: auto;
+  height: 540px;
+  max-height: calc(100% - 60px);
+}
+
+.close-search {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 40px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.close-search:hover {
+  color: var(--dark) !important;
+}
+
+.search-result div {
+  display: none;
+  text-align: left;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.search-result div.visible {
+  display: block;
+}
+
+.search-result div:hover {
+  background: var(--light);
+  cursor: pointer;
+}
+
 /* Homepage */
 
 .price-box {

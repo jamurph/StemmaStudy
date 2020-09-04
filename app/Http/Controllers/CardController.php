@@ -68,6 +68,9 @@ class CardController extends Controller
         }
         $card->save();
 
+        //to "add another card" from card detail
+        session()->flash('card_created', true);
+        
         return redirect()->route('user_card', [$set, $card]);
     }
 

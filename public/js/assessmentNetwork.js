@@ -43893,8 +43893,23 @@ function destroyPopper() {
     popperInstance = null;
   }
 }
+/* 
+cy.animate(
+    { 
+        zoom: 2, 
+        center: { 
+            eles: cy.nodes("[label = 'Time-out']")[0]
+        }
+    });
+*/
+
 
 $(function () {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
   var cy = cytoscape({
     container: $('#network'),
     // container to render in
@@ -44044,37 +44059,58 @@ $(function () {
       }
     }],
     layout: {
-      name: 'fcose',
-      quality: "proof",
-      // Use random node positions at beginning of layout
-      // if this is set to false, then quality option must be "proof"
-      randomize: true,
-      // Whether or not to animate the layout
+      name: 'preset',
       animate: true,
-      // Duration of animation in ms, if enabled
       animationDuration: 1000,
-      // Fit the viewport to the repositioned nodes
-      fit: true,
-      // Padding around layout
-      padding: 30,
-      // Whether to include labels in node dimensions. Valid in "proof" quality
-      nodeDimensionsIncludeLabels: true,
-      // Whether or not simple nodes (non-compound nodes) are of uniform dimensions
-      uniformNodeDimensions: false,
-      // Whether to pack disconnected components - valid only if randomize: true
-      packComponents: true,
-      // Separation amount between nodes
-      nodeSeparation: 250,
-      // Node repulsion (non overlapping) multiplier
-      nodeRepulsion: 4500,
-      // Ideal edge (non nested) length
-      idealEdgeLength: 70,
-      // Divisor to compute edge forces
-      edgeElasticity: 0.2,
-      // Nesting factor (multiplier) to compute ideal edge length for nested edges
-      nestingFactor: 0.1,
-      // Maximum number of iterations to perform
-      numIter: 2500
+      animationEasing: 'ease-in-out',
+      stop: function stop() {
+        if (has_new_cards) {
+          //change message on popup
+          $('#loader-message').text('Shifting for new cards...');
+          cy.layout({
+            name: 'fcose',
+            quality: "proof",
+            randomize: false,
+            animate: true,
+            animationDuration: 1000,
+            fit: true,
+            padding: 30,
+            nodeDimensionsIncludeLabels: true,
+            uniformNodeDimensions: false,
+            nodeSeparation: 250,
+            nodeRepulsion: 4579,
+            idealEdgeLength: 71,
+            edgeElasticity: 0.5,
+            nestingFactor: 0.1,
+            numIter: 2500,
+            stop: function stop() {
+              $('#loader').fadeOut();
+              var changes = [];
+              var nodes = cy.nodes();
+
+              for (var i = 0; i < nodes.length; i++) {
+                element = nodes[i];
+                changes.push({
+                  card_id: element.data('card_id'),
+                  position: element.position()
+                });
+              }
+
+              changes = {
+                changes: changes
+              };
+              $.ajax({
+                method: "PUT",
+                url: '/network/' + set_id + '/update/',
+                data: JSON.stringify(changes),
+                contentType: "application/json"
+              });
+            }
+          }).start();
+        } else {
+          $('#loader').fadeOut();
+        }
+      }
     },
     wheelSensitivity: 0.25,
     maxZoom: 2.5,
@@ -44131,6 +44167,26 @@ $(function () {
     if (event.target === cy) {
       destroyPopper();
     }
+  });
+  cy.on('dragfreeon', 'node', function (event) {
+    element = event.target;
+
+    if (!element) {
+      return;
+    }
+
+    var changes = {
+      changes: [{
+        card_id: element.data('card_id'),
+        position: element.position()
+      }]
+    };
+    $.ajax({
+      method: "PUT",
+      url: '/network/' + set_id + '/update/',
+      data: JSON.stringify(changes),
+      contentType: "application/json"
+    });
   });
 });
 

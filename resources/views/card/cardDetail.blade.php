@@ -29,13 +29,23 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            @if (session()->has('source') && session('source') == 'network')
-                <a class="text-decoration-none mb-3 d-inline-block" href="{{route('set_network', $set->id)}}"><i class="fas fa-arrow-left"></i> {{$set->title}}</a>
-            @else
-                <a class="text-decoration-none mb-3 d-inline-block" href="{{route('cards_in_set', $set->id)}}"><i class="fas fa-arrow-left"></i> {{$set->title}}</a>
+            @if (session()->has('card_created') && session('card_created') == true)
+                <div class="text-center mb-3">
+                    <a class="btn btn-primary" href="{{route('card_create', $set->id)}}"><i class="fas fa-plus"></i> Add Another Card</a>
+                </div>
             @endif
-                
-        
+            <div class="row mb-3">
+                <div class="col-md-8 mb-3 mb-md-0">
+                @if (session()->has('source') && session('source') == 'network')
+                    <a class="text-decoration-none" href="{{route('set_network', $set->id)}}"><i class="fas fa-arrow-left"></i> {{$set->title}}</a>
+                @else
+                    <a class="text-decoration-none" href="{{route('cards_in_set', $set->id)}}"><i class="fas fa-arrow-left"></i> {{$set->title}}</a>
+                @endif
+                </div>
+                <div class="col-md-4 text-md-right">
+                    <a class="navigation-btn" href="{{route('set_network', $set->id)}}?card={{$card->id}}"><i class="fas fa-project-diagram green"></i> View on Network</a>    
+                </div>
+            </div>
             <div class="card-detail shadow-sm mb-4">
                 <span class="more-options dropdown dropleft">
                     <a class="" href="#" role="button" id="dropdownMenuLink{{$card->id}}" data-toggle="dropdown">
