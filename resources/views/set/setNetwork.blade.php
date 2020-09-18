@@ -4,10 +4,17 @@
 
 @section('header')
 <script src="{{asset('js/setNetwork.js')}}"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 @endsection
 
 @section('content')
+<style>
 
+    .select2-dropdown {
+        z-index: 10003;
+    }
+</style>
 
 <div class="menu-btn"><i class="fas fa-bars green"></i> Menu</div>
 <div class="side-menu">
@@ -56,6 +63,55 @@
             </div>
         </div>
     </div>
+    <div class="connection-container">
+        <div class="connection-box shadow-lg">
+            <h2 id="connection-box-title">Add Connection</h2>
+            <h5 id="card-name" class="green">Edward Thorndike</h5>
+            <input id="mode" type="hidden" value="" />
+            <input id="newConnectionCard" type="hidden" value="" />
+            <input id="editConnectionId" type="hidden" value="" />
+            <div class="form-group">
+                    <div class="form-check form-check-inline">
+                        <span class="pr-2">Connect</span>
+                        <input class="form-check-input" type="radio" name="newDirection" id="newFrom" value="from">
+                        <label class="form-check-label" for="newFrom">
+                            From
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="newDirection" id="newTo" checked value="to">
+                    <label class="form-check-label" for="newTo">
+                        To
+                    </label>
+                </div>
+                <select id="newSelect" style="width: 300px; max-width: 100%;">
+                    <option selected value=""></option>
+                    @foreach ($set->cards as $setCard)
+                        <option value="{{$setCard->id}}">{{$setCard->title}}</option>
+                    @endforeach
+                </select>
+                <small class="form-text text-muted">What are you connecting to this card?</small>
+            </div>
+            <div class="form-group position-relative">
+                <label for="new-title">Relationship</label>
+                <div class="position-relative">
+                    <input type="text" class="form-control" id="new-title" name="new-title"  value="">
+                    <div class="invalid-tooltip">Please enter a longer title.</div>
+                </div>
+                <small class="form-text text-muted">What is a good name for this connection?</small>
+            </div>
+            <div class="form-group">
+                <label for="new-description">Description <small>(Optional)</small></label>
+                <div class="position-relative"> 
+                    <textarea class="form-control" id="new-description" name="new-description" rows="3"></textarea>
+                    <div class="invalid-tooltip">Descriptions must contain fewer than 500 characters.</div>
+                </div>
+                <small class="form-text text-muted">Anything you should remember about this connection?</small>
+            </div>
+            <button id="newConnectionSubmit" class="btn btn-primary" type="button">Create</button>
+            <button class="btn btn-link connection-cancel" type="button">Cancel</button>
+        </div>
+    </div>
 @endif
 @endsection
 
@@ -86,6 +142,7 @@
                 description: {!! json_encode($connection->description) !!}, 
                 source: 'card-{{$connection->fromCard->id}}', 
                 target: 'card-{{$connection->toCard->id}}',
+                connection_id: '{{$connection->id}}',
             }
         },
         @endforeach

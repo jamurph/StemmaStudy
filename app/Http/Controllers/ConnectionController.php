@@ -13,7 +13,7 @@ class ConnectionController extends Controller
     public function update(Set $set, Connection $connection, Request $request){
         $this->authorize('view-set', $connection->fromCard->set);
         $request->validate([
-            'title' => ['required', 'min:3', 'max:100'],
+            'title' => ['required', 'min:1', 'max:100'],
             'description' => ['max:500']
         ]);
         return ['updated' => $connection->update([
@@ -28,7 +28,7 @@ class ConnectionController extends Controller
         }
         $this->authorize('view-set', $set);
         $request->validate([
-            'title' => ['required', 'min:3', 'max:100'],
+            'title' => ['required', 'min:1', 'max:100'],
             'description' => ['max:500']
         ]);
         $fromCardId = request('fromCardId');
@@ -56,7 +56,7 @@ class ConnectionController extends Controller
                 $toCard->save();
             }
             
-            return ['created' => $connection->save()];
+            return ['created' => $connection->save(), 'id' => $connection->id];
         } else {
             return ['created' => false];
         }
@@ -70,6 +70,12 @@ class ConnectionController extends Controller
         $connection->delete();
 
         return redirect()->route('user_card', [$set, $card]);
+    }
+
+    public function destroy_async(Set $set, Connection $connection){
+        $this->authorize('view-set', $connection->fromCard->set);
+
+        return ['deleted' => $connection->delete()];
     }
 
 }

@@ -67,6 +67,7 @@ Route::delete('/my-sets/{set}/card/{card}', 'CardController@destroy')->middlewar
 Route::put('/my-sets/{set}/connection/{connection}', 'ConnectionController@update')->middleware('verified')->name('connection_update');
 Route::post('/my-sets/{set}/connection/', 'ConnectionController@store')->middleware('verified')->name('connection_store');
 Route::delete('/my-sets/{set}/card/{card}/connection/{connection}', 'ConnectionController@destroy')->middleware('verified')->name('connection_destroy');
+Route::delete('/my-sets/{set}/connection/{connection}', 'ConnectionController@destroy_async')->middleware('verified')->name('connection_destroy_async');
 
 /* 
     Review

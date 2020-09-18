@@ -293,12 +293,12 @@
             $('#collapseNewConnection').collapse('hide');
             $('#newBtn i').removeClass('rotate45');
 
-            connection = $(this).closest('.card-connection');
-            direction = connection.attr('data-direction');
-            id = connection.attr('data-id');
-            otherCardId = connection.attr('data-card');
-            relTitle = connection.attr('data-title');
-            relDescription = connection.attr('data-description');
+            var connection = $(this).closest('.card-connection');
+            var direction = connection.attr('data-direction');
+            var id = connection.attr('data-id');
+            var otherCardId = connection.attr('data-card');
+            var relTitle = connection.attr('data-title');
+            var relDescription = connection.attr('data-description');
 
             $('#updateConnectionId').val(id);
             $('#updateSelect').val(otherCardId).change();
@@ -327,13 +327,13 @@
 
         $('#updateSubmit').click(function(){
             clearValidation();
-            connectionId = $('#updateConnectionId').val();
-            newTitle = $('#update-title').val();
-            newDescription = $('#update-description').val();
+            var connectionId = $('#updateConnectionId').val();
+            var newTitle = $('#update-title').val();
+            var newDescription = $('#update-description').val();
 
             //run validation...
-            valid = true;
-            if(newTitle.length < 4){
+            var valid = true;
+            if(newTitle.length < 1){
                 valid = false;
                 $('#update-title').addClass('is-invalid');
             }
@@ -358,15 +358,15 @@
 
         $('#newSubmit').click(function(){
             clearValidation();
-            currentCardId = '{{$card->id}}';
-            newOtherCard = $('#newSelect').val();
-            newTitle = $('#new-title').val();
-            newDescription = $('#new-description').val();
+            var currentCardId = '{{$card->id}}';
+            var newOtherCard = $('#newSelect').val();
+            var newTitle = $('#new-title').val();
+            var newDescription = $('#new-description').val();
 
-            fromCard = null;
-            toCard = null;
+            var fromCard = null;
+            var toCard = null;
 
-            direction = $('input[name="newDirection"]:checked').val();
+            var direction = $('input[name="newDirection"]:checked').val();
             if(direction === 'from'){
                 fromCard = newOtherCard;
                 toCard = currentCardId;
@@ -374,9 +374,9 @@
                 toCard = newOtherCard;
                 fromCard = currentCardId;
             }
-            valid = true;
-            //run client validation...
-            if(newTitle.length < 4){
+            var valid = true;
+            
+            if(newTitle.length < 1){
                 valid = false;
                 $('#new-title').addClass('is-invalid');
             }

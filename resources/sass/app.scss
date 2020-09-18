@@ -375,6 +375,31 @@ trix-toolbar .trix-button-group--file-tools
     cursor: pointer;
 }
 
+
+.connection-container {
+    display: none;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top:0;
+    left:0;
+    text-align: center;
+    z-index: 10002;
+    padding: 10px;
+    background: rgba(255,255,255,0.8);
+}
+
+.connection-box {
+    display: inline-block;
+    text-align: left;
+    width: 800px;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 15px;
+    background:white;
+}
+
+
 /* Homepage */
 .price-box {
     width: 350px;

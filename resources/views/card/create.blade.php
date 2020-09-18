@@ -45,7 +45,11 @@
                     
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
+                @if (session()->has('source') && session('source') == 'network')
+                <a href="{{route('set_network', $set)}}" class="btn btn-link text-secondary">Cancel</a>
+                @else
                 <a href="{{route('cards_in_set', $set)}}" class="btn btn-link text-secondary">Cancel</a>
+                @endif
             </form>
         </div>
     </div>

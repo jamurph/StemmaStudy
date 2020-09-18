@@ -11,7 +11,7 @@ cytoscape.use( popper ); // register extension
 
 
 let popperInstance = null;
-let fitMaxZoom = 2.5;
+let reallyDelete = false;
 
 function destroyPopper(){
     if(popperInstance) {
@@ -39,9 +39,84 @@ function closeSearch(){
 
 function openSearch(){
     destroyPopper();
+    closeConnection();
     $('.search-result div').addClass('visible');
     $('.search-container').fadeIn();
     $('#search-text').focus();
+}
+
+function clearConnectionForm(){
+    $('.is-invalid').removeClass('is-invalid');
+    $('#newSelect').attr('disabled', false);
+    $('#newSelect').removeClass('disabled');
+    $('#newSelect').val('').change();
+    $('input[name=newDirection]').val(['to']);
+    $('#newFrom').attr('disabled', false);
+    $('#newFrom').removeClass('disabled');
+    $('#newTo').attr('disabled', false);
+    $('#newTo').removeClass('disabled');
+    $('#new-title').val('');
+    $('#new-description').val('');
+}
+
+function openConnectionAdd(card){
+    clearConnectionForm();
+    $('#mode').val('Create');
+    $('#newConnectionSubmit').text('Create');
+    $('.connection-container').fadeIn();
+    $('#card-name').text(card.data('label'));
+    $('#newConnectionCard').val(card.data('card_id'));
+    $('#newSelect option:disabled').attr('disabled', false);
+    $('#newSelect option[value="' + card.data('card_id') + '"]').attr('disabled', true);
+}
+
+function closeConnection(){
+    clearConnectionForm();
+    $('.connection-container').fadeOut();
+}
+
+function deleteConnection(connection_id, cy, edge){
+    $.ajax({
+        method: "DELETE",
+        url :'/my-sets/' + set_id + '/connection/' + connection_id
+    }).done(function(data){
+        if(data && data.deleted){
+            cy.remove(edge);
+        }
+    }).fail(function(){
+        alert('Something went wrong. Please refresh the page and try again.');
+    });
+}
+
+function openConnectionEdit(connection){
+    clearConnectionForm();
+    $('#mode').val('Update');
+    $('#editConnectionId').val(connection.data('connection_id'));
+    var fromCard = connection.source();
+    var toCard = connection.target();
+
+    $('#card-name').text(fromCard.data('label'));
+
+    $('#newSelect option:disabled').attr('disabled', false);
+
+    $('#newSelect').attr('disabled', true);
+    $('#newSelect').addClass('disabled');
+    $('#newSelect').val(toCard.data('card_id')).change();
+
+    $('#newFrom').attr('disabled', true);
+    $('#newFrom').addClass('disabled');
+    $('#newTo').attr('disabled', true);
+    $('#newTo').addClass('disabled');
+    $('input[name=newDirection]').val(['to']);
+
+    $('#new-title').val(connection.data('label'));
+    $('#new-description').val(connection.data('description'));
+
+    $('#newConnectionSubmit').text('Update');
+
+    $('#connection-box-title').text('Edit Connection');
+
+    $('.connection-container').fadeIn();
 }
 
 function panForParameter(cy){
@@ -184,11 +259,39 @@ $(function(){
                     $(div).html('<div class="close"><i class="fas fa-times"></i></div><a class="text-decoration-none mb-2 pr-3" href="/my-sets/' + set_id + '/card/' + edge.source().data('card_id') + '">' + edge.source().data('label') + '</a>'
                         + '<h3 class="mb-0"><i class="fas fa-angle-double-right"></i> ' + edge.data('label') + ' <i class="fas fa-angle-double-right"></i></h3>' + '<p class="has-newlines text-muted mb-0">' + edge.data('description') + '</p>'
                         + '<a class="text-decoration-none mt-2" href="/my-sets/' + set_id + '/card/' + edge.target().data('card_id') + '">' + edge.target().data('label') + '</a>'
+                        + '<div class="text-right"><div data-edge="'+ edge.data('id') + '" id="connection-delete" class="text-danger btn btn-text">Delete</div><div data-edge="'+ edge.data('id') + '" id="connection-edit" class="btn btn-text ml-2">Edit</div></div>'
                         );
                     document.body.appendChild(div);
                 
                     $('.close').click(function(){
                         destroyPopper();
+                    });
+
+                    reallyDelete = false;
+                    $('#connection-delete').click(function(){
+                        if(!reallyDelete){
+                            reallyDelete = true;
+                            $(this).text('Really Delete?');
+                            $(this).addClass('btn-danger');
+                            $(this).removeClass('text-danger');
+                        }else {
+                            var edge_id = $(this).data()['edge'];
+                            var connection = cy.getElementById(edge_id);
+                            if(connection != null){
+                                var connection_id = connection.data('connection_id');
+                                deleteConnection(connection_id, cy, connection);
+                                destroyPopper();
+                            }
+                        }
+                    });
+
+                    $('#connection-edit').click(function(){
+                        var edge_id = $(this).data()['edge'];
+                        var edge = cy.getElementById(edge_id);
+                        if(edge != null){
+                            destroyPopper();
+                            openConnectionEdit(edge);
+                        }
                     });
 
                     return div;
@@ -216,13 +319,22 @@ $(function(){
                     
                     $(div).addClass('network-detail').addClass('shadow').css('width', '500px').css('max-width', 'calc(100% - 10px)').css('z-index', '100001');
                     $(div).html('<div class="close"><i class="fas fa-times"></i></div><h3 class="mb-0 pr-3">' + node.data('label') + '</h3><hr>' + '<div class="card-definition text-muted mb-0">' + node.data('definition') + '</div>'
-                        + '<div class="text-right"><a class="btn btn-link text-decoration-none" href="/my-sets/' + set_id + '/card/' + node.data('card_id') + '"><span class="pr-2">View Details</span><i class="fas fa-angle-double-right"></i></a></div>'
+                        + '<div class="text-right mt-3"><div data-node="' + node.data('id') + '" class="add-connection btn btn-link text-decoration-none"><i class="fas fa-plus"></i><span class="pl-2">Add Connection</span></div><a class="btn btn-primary text-decoration-none" href="/my-sets/' + set_id + '/card/' + node.data('card_id') + '"><span class="pr-2">View Details</span><i class="fas fa-angle-double-right"></i></a></div>'
                     );
                     
                     document.body.appendChild(div);
 
                     $('.close').click(function(){
                         destroyPopper();
+                    });
+
+                    $('.add-connection').click(function(){
+                        var card_id = $(this).data()['node'];
+                        var card = cy.getElementById(card_id);
+                        if(card != null){
+                            destroyPopper();
+                            openConnectionAdd(card);
+                        }
                     });
                 
                     return div;
@@ -240,7 +352,7 @@ $(function(){
         });
 
         cy.on('dragfreeon', 'node', function(event){
-            element = event.target;
+            var element = event.target;
             if(!element){
                 return;
             }
@@ -300,10 +412,128 @@ $(function(){
 
         $('.search-result div').click(function(){
             var card_id = $(this).data()['card'];
-            console.log(card_id);
             if(card_id){
                 closeSearch();
                 panToCardId(cy, card_id);
+            }
+        });
+
+        $('.connection-cancel').click(function(){
+            closeConnection();
+        });
+
+        $('#newSelect').select2();
+
+        $('#newConnectionSubmit').click(function(){
+            if($('#mode').val() == 'Create'){
+                var currentCardId = $('#newConnectionCard').val();
+                var newOtherCard = $('#newSelect').val();
+                var newTitle = $('#new-title').val();
+                var newDescription = $('#new-description').val();
+
+                var fromCard = null;
+                var toCard = null;
+
+                var direction = $('input[name="newDirection"]:checked').val();
+                if(direction === 'from'){
+                    fromCard = newOtherCard;
+                    toCard = currentCardId;
+                } else if(direction === 'to'){
+                    toCard = newOtherCard;
+                    fromCard = currentCardId;
+                }
+                var valid = true;
+                
+                if(newTitle.length < 1){
+                    valid = false;
+                    $('#new-title').addClass('is-invalid');
+                    $('#new-title').siblings('.invalid-tooltip').text('Please enter a longer title.');
+                } else if (newTitle.length > 100){
+                    valid = false;
+                    $('#new-title').addClass('is-invalid');
+                    $('#new-title').siblings('.invalid-tooltip').text('Please enter a shorter title.');
+                }
+
+                if(newDescription.length > 500){
+                    valid = false;
+                    $('#new-description').addClass('is-invalid');
+                }
+
+                //submit
+                if(valid){
+                    $.ajax({
+                        method: "POST",
+                        url :'/my-sets/' + set_id + '/connection/',
+                        data: { 'title' : newTitle, 'description': newDescription, 'fromCardId' : fromCard, 'toCardId' : toCard},
+                    }).done(function(data){
+                        if(data && data.created){
+                            //Success. Close window and create connection on the current graph.
+                            closeConnection();
+                            cy.add(
+                                {
+                                    group: 'edges',
+                                    data:                    
+                                    { 
+                                        id: 'connection-' + data.id, 
+                                        label: newTitle, 
+                                        description: newDescription, 
+                                        source: 'card-'+ fromCard, 
+                                        target: 'card-' + toCard,
+                                        connection_id: data.id.toString()
+                                    }
+                                }
+                            );
+                        } else {
+                            alert('Something went wrong. Please refresh the page and try again.');
+                        }
+                    }).fail(function(){
+                        alert('Something went wrong. Please refresh the page and try again.');
+                    });
+                }
+            } else if($('#mode').val() == 'Update'){
+                console.log('UPDATE');
+                var newTitle = $('#new-title').val();
+                var newDescription = $('#new-description').val();
+                var editConnectionId = $('#editConnectionId').val();
+
+                var valid = true;
+                
+                if(newTitle.length < 1){
+                    valid = false;
+                    $('#new-title').addClass('is-invalid');
+                    $('#new-title').siblings('.invalid-tooltip').text('Please enter a longer title.');
+                } else if (newTitle.length > 100){
+                    valid = false;
+                    $('#new-title').addClass('is-invalid');
+                    $('#new-title').siblings('.invalid-tooltip').text('Please enter a shorter title.');
+                }
+
+                if(newDescription.length > 500){
+                    valid = false;
+                    $('#new-description').addClass('is-invalid');
+                }
+
+                if(valid){
+                    $.ajax({
+                        method: "PUT",
+                        url :'/my-sets/' + set_id + '/connection/' + editConnectionId,
+                        data: { 'title' : newTitle, 'description': newDescription},
+                    }).done(function(data){
+                        if(data && data.updated){
+                            //Success. Close window and edit connection on the current graph.
+                            closeConnection();
+                            var edge = cy.$('#connection-' + editConnectionId);
+                            if(edge){
+                                edge.data('label', newTitle);
+                                edge.data('description', newDescription);
+                            }
+                        } else {
+                            alert('Something went wrong. Please refresh the page and try again.');
+                        }
+                    }).fail(function(){
+                        alert('Something went wrong. Please refresh the page and try again.');
+                    });
+                }
             }
         });
     }
