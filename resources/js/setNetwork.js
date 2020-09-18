@@ -57,6 +57,12 @@ function clearConnectionForm(){
     $('#newTo').removeClass('disabled');
     $('#new-title').val('');
     $('#new-description').val('');
+    $('#newSelect').siblings('.select2').find('.select2-selection').removeClass('error-border');
+}
+
+function clearConnectionValidation(){
+    $('.is-invalid').removeClass('is-invalid');
+    $('#newSelect').siblings('.select2').find('.select2-selection').removeClass('error-border');
 }
 
 function openConnectionAdd(card){
@@ -426,6 +432,7 @@ $(function(){
 
         $('#newConnectionSubmit').click(function(){
             if($('#mode').val() == 'Create'){
+                clearConnectionValidation();
                 var currentCardId = $('#newConnectionCard').val();
                 var newOtherCard = $('#newSelect').val();
                 var newTitle = $('#new-title').val();
@@ -444,6 +451,12 @@ $(function(){
                 }
                 var valid = true;
                 
+                if(newOtherCard.length < 1){
+                    valid = false;
+                    $('#newSelect').siblings('.select2').find('.select2-selection').addClass('error-border');
+                }
+
+
                 if(newTitle.length < 1){
                     valid = false;
                     $('#new-title').addClass('is-invalid');
@@ -491,7 +504,7 @@ $(function(){
                     });
                 }
             } else if($('#mode').val() == 'Update'){
-                console.log('UPDATE');
+                clearConnectionValidation();
                 var newTitle = $('#new-title').val();
                 var newDescription = $('#new-description').val();
                 var editConnectionId = $('#editConnectionId').val();

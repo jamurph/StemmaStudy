@@ -265,6 +265,7 @@
 
     function clearValidation(){
         $('.is-invalid').removeClass('is-invalid');
+        $('#newSelect').siblings('.select2').find('.select2-selection').removeClass('error-border');
     }
 
     $(document).ready(function(){
@@ -336,6 +337,11 @@
             if(newTitle.length < 1){
                 valid = false;
                 $('#update-title').addClass('is-invalid');
+                $('#update-title').siblings('.invalid-tooltip').text('Please enter a longer title.');
+            }else if (newTitle.length > 100){
+                valid = false;
+                $('#update-title').addClass('is-invalid');
+                $('#update-title').siblings('.invalid-tooltip').text('Please enter a shorter title.');
             }
 
             if(newDescription.length > 500){
@@ -375,10 +381,20 @@
                 fromCard = currentCardId;
             }
             var valid = true;
-            
+
+            if(newOtherCard.length < 1){
+                valid = false;
+                $('#newSelect').siblings('.select2').find('.select2-selection').addClass('error-border');
+            }
+
             if(newTitle.length < 1){
                 valid = false;
                 $('#new-title').addClass('is-invalid');
+                $('#new-title').siblings('.invalid-tooltip').text('Please enter a longer title.');
+            }else if (newTitle.length > 100){
+                valid = false;
+                $('#new-title').addClass('is-invalid');
+                $('#new-title').siblings('.invalid-tooltip').text('Please enter a shorter title.');
             }
 
             if(newDescription.length > 500){
