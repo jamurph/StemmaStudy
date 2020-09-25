@@ -9,6 +9,8 @@
 <meta property="og:image" content="{{asset('/image/ConcentrateYourEffort.png')}}">
 <meta property="og:url" content="{{route('contact_create')}}">
 <meta name="twitter:card" content="summary_large_image">
+
+<script src="https://www.google.com/recaptcha/api.js"></script>
 @endsection
 
 @section('content')
@@ -18,7 +20,7 @@
             <div class="card p-4">
                 <h1>We're Here For You</h1>
                 <p>Questions? Suggestions? Feedback? Whatever is on your mind, we'd love to hear from you.</p>
-                <form action="{{route('contact_store')}}" method="POST" >
+                <form id="contactForm" action="{{route('contact_store')}}" method="POST" >
                     @csrf
                     <div class="form-group row">
                         <div class="col-lg-6">
@@ -58,10 +60,23 @@
                         </div>
                         <small class="form-text text-muted">Say what you need to say.</small>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <input type="hidden" id="recaptcha" name="recaptcha" value="" />
+                    <button class="g-recaptcha btn btn-primary" 
+                    data-sitekey="{{config('services.recaptcha.sitekey')}}" 
+                    data-callback='onContactSubmit' 
+                    data-action='contact'>Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    function onContactSubmit(token){
+        $('#recaptcha').val(token);
+        $('#contactForm').submit();
+    }
+</script>
 @endsection

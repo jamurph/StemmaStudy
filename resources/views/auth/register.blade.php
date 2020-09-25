@@ -9,6 +9,8 @@
 <meta property="og:image" content="{{asset('/image/ConnectTheDots.png')}}">
 <meta property="og:url" content="{{route('register')}}">
 <meta name="twitter:card" content="summary_large_image">
+
+<script src="https://www.google.com/recaptcha/api.js"></script>
 @endsection
 
 @section('content')
@@ -19,7 +21,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form id="registerForm" method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -74,7 +76,11 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <input type="hidden" id="recaptcha" name="recaptcha" value="" />
+                                <button class="g-recaptcha btn btn-primary" 
+                                data-sitekey="{{config('services.recaptcha.sitekey')}}" 
+                                data-callback='onRegisterSubmit' 
+                                data-action='register'>
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -85,4 +91,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    function onRegisterSubmit(token){
+        $('#recaptcha').val(token);
+        $('#registerForm').submit();
+    }
+</script>
 @endsection

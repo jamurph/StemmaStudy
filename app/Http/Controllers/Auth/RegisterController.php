@@ -8,6 +8,10 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
 
 class RegisterController extends Controller
 {
@@ -70,5 +74,37 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'trial_ends_at' => now()->addDays(30),
         ]);
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $recaptchaResponse = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('services.recaptcha.secret'),
+            'response' => $request->get('recaptcha')
+        ]);
+
+        if($recaptchaResponse['success'] && $recaptchaResponse['score'] > 0.5){
+            event(new Registered($user = $this->create($request->all())));
+
+            $this->guard()->login($user);
+
+            if ($response = $this->registered($request, $user)) {
+                return $response;
+            }
+
+            return $request->wantsJson()
+                        ? new Response('', 201)
+                        : redirect($this->redirectPath());
+        } 
+
+        return redirect()->route('home');
     }
 }

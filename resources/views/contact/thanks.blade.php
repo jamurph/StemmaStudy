@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <h1 class="text-primary">Thank You!</h1>
-            <p>Your message has been submitted. We'll try to get back to you as soon as we can!</p>
+            <p>Your message has been submitted.</p>
         </div>
     </div>
 </div>

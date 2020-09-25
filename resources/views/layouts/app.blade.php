@@ -162,12 +162,12 @@
                 </div>
                 <div class="mb-4">
                     <h5>Legal</h5>
-                    <a href="{{route('privacy')}}" class="text-decoration-none">Privacy Policy</a>
                     <a href="{{route('terms')}}" class="text-decoration-none">Terms of Service</a>
+                    <a href="{{route('privacy')}}" class="text-decoration-none">Privacy Policy</a>
                 </div>
             </div>
         </div>
-        <div class="text-right mt-3 copyright">Copyright &copy; {{ now()->year }} StemmaStudy</div>
+        <div class="text-right mt-3 copyright">Copyright &copy; {{ now()->year }} StemmaStudy, LLC.</div>
     </footer>
     @yield('scripts')
 </body>

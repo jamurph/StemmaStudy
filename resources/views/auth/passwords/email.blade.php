@@ -2,6 +2,10 @@
 
 @section('title', 'StemmaStudy | Reset Password')
 
+@section('header')
+<script src="https://www.google.com/recaptcha/api.js"></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -16,7 +20,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form id="emailForm" method="POST" action="{{ route('password.email') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -35,7 +39,11 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <input type="hidden" id="recaptcha" name="recaptcha" value="" />
+                                <button type="submit" class="g-recaptcha btn btn-primary"
+                                data-sitekey="{{config('services.recaptcha.sitekey')}}" 
+                                data-callback='onEmailSubmit' 
+                                data-action='reset'>
                                     {{ __('Send Password Reset Link') }}
                                 </button>
                             </div>
@@ -46,4 +54,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+<script>
+    function onEmailSubmit(token){
+        $('#recaptcha').val(token);
+        $('#emailForm').submit();
+    }
+</script>
 @endsection
