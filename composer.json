@@ -18,6 +18,8 @@
         "laravel/ui": "^2.0",
         "laravel/vapor-cli": "^1.7",
         "laravel/vapor-core": "^2.8",
+        "spatie/laravel-backup": "^6.11",
+        "spatie/laravel-newsletter": "^4.8",
         "te7a-houdini/laravel-trix": "^2.0"
     },
     "require-dev": {

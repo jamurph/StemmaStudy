@@ -6,15 +6,33 @@ use App\User;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Exceptions\IncompletePayment;
 use Illuminate\Support\Carbon;
+use Newsletter;
 
 class SettingsController extends Controller
 {
     public function show(Request $request){
+
+        $receives_emails = Newsletter::isSubscribed($request->user()->email);
+
         $subscription = $request->user()->subscription('default');
         $subscribed = $subscription == null ? false : !$subscription->ended();
         $onTrial = $request->user()->onGenericTrial() && !$subscribed; //onGenericTrial and Stripe "trialing" may coincide
         $trialEnd = $request->user()->trial_ends_at == null ? now()->toFormattedDateString() : $request->user()->trial_ends_at->toFormattedDateString();
-        return view('settings.show', ['user' => $request->user(), 'freeTrial' => $onTrial, 'trialEnd' => $trialEnd, 'subscribed' => $subscribed]);
+        return view('settings.show', ['user' => $request->user(), 'freeTrial' => $onTrial, 'trialEnd' => $trialEnd, 'subscribed' => $subscribed, 'receives_emails' => $receives_emails]);
+    }
+
+    public function email_unsubscribe(Request $request){
+        if(Newsletter::isSubscribed($request->user()->email)){
+            Newsletter::unsubscribe($request->user()->email);
+        }
+        return true;
+    }
+
+    public function email_subscribe(Request $request){
+        if(! Newsletter::isSubscribed($request->user()->email)){
+            Newsletter::subscribeOrUpdate($request->user()->email);
+        }
+        return true;
     }
 
     public function updateName(Request $request){

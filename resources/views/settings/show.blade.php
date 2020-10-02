@@ -18,12 +18,20 @@
                 <div class="card">
                     <div class="card-header"><h4>Settings</h4></div>
                     <div class="card-body">
-                        @if(session()->has('updatedName'))
-                        <div class="alert alert-success">
-                            Your account name has been updated.
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" name="receive_emails" id="receive_emails" {{ $receives_emails ? 'checked' : '' }}>
+
+                            <label class="form-check-label" for="receive_emails">
+                                Receive StemmaStudy News and Study Tips
+                            </label>
                         </div>
-                        @endif
-                        <form action="{{route('update_name')}}" method="POST" >
+                        <hr>
+                        <form class="mt-4 mb-4" action="{{route('update_name')}}" method="POST" >
+                            @if(session()->has('updatedName'))
+                            <div class="alert alert-success">
+                                Your account name has been updated.
+                            </div>
+                            @endif
                             @csrf
                             <div class="form-group position-relative">
                             <label for="username">Name</label>
@@ -40,7 +48,7 @@
                             <button type="submit" class="btn btn-secondary">Update</button>
                         </form>
                         <hr>
-                        <h4>Manage Your Subscription</h4>
+                        <h4 class="mt-4">Manage Your Subscription</h4>
                         @if ($freeTrial)
                             <p>Your free trial expires on {{$trialEnd}}.</p>
                             <div class="">
@@ -62,5 +70,35 @@
 @endsection
 
 @section('scripts')
+<script>
 
+$(document).ready(function(){
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#receive_emails').change(function(){
+        if(this.checked) {
+            $.ajax({
+                method: "POST",
+                url :'{{route('email_subscribe')}}'
+            }).fail(function(){
+                alert('Something went wrong. Please refresh the page and try again.');
+            });
+        } else {
+            $.ajax({
+                method: "POST",
+                url :'{{route('email_unsubscribe')}}'
+            }).fail(function(){
+                alert('Something went wrong. Please refresh the page and try again.');
+            });
+        }
+    });
+});
+
+
+</script>
 @endsection
