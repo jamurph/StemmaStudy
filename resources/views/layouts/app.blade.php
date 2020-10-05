@@ -80,6 +80,12 @@
         font-size: 12px;
     }
 
+    @media screen and (max-width: 767px){
+        #menu-dropdown {
+            box-shadow: none !important;
+        }
+    }
+
     </style>
 
     <script src="https://kit.fontawesome.com/31490b0d2f.js" crossorigin="anonymous"></script>
@@ -124,7 +130,7 @@
                                     {{ Str::limit(Auth::user()->name, 15) }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="navbarDropdown">
+                                <div id="menu-dropdown" class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('settings') }}">
                                         {{ __('Settings') }}
                                     </a>

@@ -52,8 +52,8 @@
             <h2>Connect the Dots.</h2>
             <p>Discover the big picture &ndash; one connection at a time. Creating connections helps you:</p>
             <ul>
-                <li>Integrate new items into your existing knowledge.</li>
                 <li>Find and bridge gaps in your understanding.</li>
+                <li>Integrate new concepts into your existing knowledge.</li>
                 <li>Gain top-down understanding from bottom-up facts.</li>
                 <li>Create mental "hooks" to help remember concepts.</li>    
             </ul>
@@ -95,7 +95,7 @@
 
 <div class="container mb-5">
     <hr/>
-    <h2 class="text-center mt-5 mb-4">Affordable Pricing</h2>
+    <h2 class="text-center mt-5 mb-4">Pricing</h2>
     <div class="price-box shadow" style="">
         <div class="text-center"><span class="price green"><small class="text-dark text-muted">$</small>4<sup>.99</sup><small class="text-dark text-muted">/mo</small></span></div>
         <div class="text-center text-muted">Start getting better grades for the price of your morning coffee. <span style="font-size: 120%">&#x2615;</span></div>
@@ -112,7 +112,7 @@
 <div class="d-flex justify-content-center py-5 px-3 you-are-container">
     <div class="you-are text-center">
         <h1>You Are What You Remember</h1>
-        <h4>Don't study just to pass a test.<br class="d-lg-none"/> Study to become unforgettable.</h4>
+        <h4>Don't study just to pass a test.<br class="d-lg-none"/> Study to make strong memories.</h4>
         <a href="{{route('learn')}}" class="btn btn-light mt-3">How to Remember More <i class="fas fa-angle-double-right"></i></a>
     </div>
 </div>
