@@ -11,6 +11,15 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<style>
+    p {
+        font-size: 18px;
+    }
+
+    ul {
+        font-size: 18px;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -42,12 +51,12 @@
         <div class="col-lg-6">
             <h2>Connect the Dots.</h2>
             <p>Discover the big picture &ndash; one connection at a time. Creating connections helps you:</p>
-            <p><ul>
+            <ul>
                 <li>Integrate new items into your existing knowledge.</li>
                 <li>Find and bridge gaps in your understanding.</li>
                 <li>Gain top-down understanding from bottom-up facts.</li>
                 <li>Create mental "hooks" to help remember concepts.</li>    
-            </ul></p>
+            </ul>
         </div>
         <div class="col-lg-6">
             <img src="{{asset('/image/ConnectTheDots.png')}}" class="img w-100" />
@@ -60,22 +69,22 @@
         <div class="col-lg-6 order-lg-2 order-1">
             <h2>Maintain Strong Memories.</h2>
             <p>StemmaStudy uses the tried-and-true method of Spaced Repetition to help you:</p>
-            <p><ul>
+            <ul>
                 <li>Study the concepts you find most difficult more often.</li>
                 <li>Efficiently space study to take advantage of your brain's natural memory processes.</li>
                 <li>Maximize memory retention over the long-term.</li>
-            </ul></p>
+            </ul>
         </div>
     </div>
     <div class="row py-5">
         <div class="col-lg-6 ">
             <h2>Concentrate Your Effort Where It Matters.</h2>
             <p>StemmaStudy Assessments help you:</p>
-            <p><ul>
+            <ul>
                 <li>See your performance on each card in context of the big picture.</li>
                 <li>Focus on poor-performing cards related to the cards you know well.</li>
                 <li>Plan your future learning efforts based on the results.</li>
-            </ul></p>
+            </ul>
         </div>
         <div class="col-lg-6">
             <img src="{{asset('/image/ConcentrateYourEffort.png')}}" class="img w-100" />

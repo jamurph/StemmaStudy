@@ -11415,6 +11415,12 @@ trix-toolbar .trix-button-group--file-tools {
   border: 1px solid #e3342f !important;
 }
 
+.raised-box {
+  background-color: white;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border-left: 3px solid var(--light-acc);
+}
+
 .score_color_100 {
   color: #38c172;
 }
