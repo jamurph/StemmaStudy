@@ -49,7 +49,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6 mt-5">
                 <div class="text-center mb-5">
-                    <img style="width: 240px;" src="{{asset('/image/logo.png')}}" />
+                    <img style="width: 240px;" src="{{asset('/image/logo.svg')}}" />
                 </div>
                 <div class="card shadow" style="border-top-width: 5px;">
                     <div class="card-header pb-0"><h4 class="text-center">Start Subscription</h4></div>
