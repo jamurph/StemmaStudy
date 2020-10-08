@@ -2,8 +2,11 @@
 
 namespace App\Console;
 
+use App\Notifications\DueForReview;
+use App\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Carbon;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +27,21 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        
+        $schedule->call(function(){
+            foreach(User::all() as $user){
+                $totalDue = 0;
+                foreach($user->sets as $set){
+                    $countDue = $set->cards->where('next_review', '<', Carbon::now())->count();
+                    $totalDue += $countDue;
+                }
+
+                if($totalDue > 10){
+                    $user->notify(new DueForReview($totalDue));
+                }
+            };
+        })->everyFiveMinutes();
+
     }
 
     /**
