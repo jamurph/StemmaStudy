@@ -27,7 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        
+
+        //Email Users who have more than 5 cards due
         $schedule->call(function(){
             foreach(User::all() as $user){
                 $totalDue = 0;
@@ -36,11 +37,14 @@ class Kernel extends ConsoleKernel
                     $totalDue += $countDue;
                 }
 
-                if($totalDue > 10){
+                if($totalDue > 5){
                     $user->notify(new DueForReview($totalDue));
                 }
             };
-        })->everyFiveMinutes();
+        })  
+            ->dailyAt('18:00')
+            ->timezone('America/New_York')
+        ;
 
     }
 
