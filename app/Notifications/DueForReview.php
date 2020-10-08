@@ -45,7 +45,7 @@ class DueForReview extends Notification
         return (new MailMessage)
                     ->subject('Your Connected Flashcards are Ready for Review.')
                     ->greeting("Hello!")
-                    ->line('You have ' . $this->numberDue . ' cards due for Memory Maintenance.')
+                    ->line('You have ' . $this->numberDue . ' card'  . ($this->numberDue > 1 ? 's' :'' ) . ' due for Memory Maintenance.')
                     ->action('Start Review', url('/my-sets'))
                     ->line('Remember: testing yourself and spacing your study over time helps form stronger memories.')
                     ->line('Thank you for using StemmaStudy!');

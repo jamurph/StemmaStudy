@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
                     $totalDue += $countDue;
                 }
 
-                if($totalDue > 5){
+                if($totalDue > 0){
                     $user->notify(new DueForReview($totalDue));
                 }
             };
