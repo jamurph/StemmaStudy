@@ -115,6 +115,7 @@ class CardController extends Controller
     public function destroy(Set $set, Card $card){
         $this->authorize('view-set', $card->set);
 
+        $card->trixRichText()->delete();
         $card->delete();
         
         if(session()->has('source') && session('source') == 'network'){

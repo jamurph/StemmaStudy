@@ -10,6 +10,8 @@ use Newsletter;
 
 class SettingsController extends Controller
 {
+
+
     public function show(Request $request){
 
         $receives_emails = Newsletter::isSubscribed($request->user()->email);
@@ -21,12 +23,6 @@ class SettingsController extends Controller
         return view('settings.show', ['user' => $request->user(), 'freeTrial' => $onTrial, 'trialEnd' => $trialEnd, 'subscribed' => $subscribed, 'receives_emails' => $receives_emails]);
     }
 
-    public function email_unsubscribe(Request $request){
-        if(Newsletter::isSubscribed($request->user()->email)){
-            Newsletter::unsubscribe($request->user()->email);
-        }
-        return true;
-    }
 
     public function email_subscribe(Request $request){
         if(! Newsletter::isSubscribed($request->user()->email)){
@@ -34,6 +30,33 @@ class SettingsController extends Controller
         }
         return true;
     }
+
+
+    public function email_unsubscribe(Request $request){
+        if(Newsletter::isSubscribed($request->user()->email)){
+            Newsletter::unsubscribe($request->user()->email);
+        }
+        return true;
+    }
+
+
+    public function notification_subscribe(Request $request){
+        if( !$request->user()->notify){
+            $request->user()->notify = true;
+            $request->user()->save();
+        }
+        return true;
+    }
+
+
+    public function notification_unsubscribe(Request $request){
+        if( $request->user()->notify ){
+            $request->user()->notify = false;
+            $request->user()->save();
+        }
+        return true;
+    }
+
 
     public function updateName(Request $request){
         $request->validate([

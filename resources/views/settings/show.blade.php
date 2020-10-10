@@ -19,11 +19,20 @@
                     <div class="card-header"><h4>Settings</h4></div>
                     <div class="card-body">
                         <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" name="receive_notifications" id="receive_notifications" {{ request()->user()->notify ? 'checked' : '' }}>
+
+                            <label class="form-check-label" for="receive_notifications">
+                                Receive Review Notifications
+                            </label>
+                            <small class="form-text text-muted">You'll get an email when you have cards to review as a helpful reminder to space your study.</small>
+                        </div>
+                        <div class="form-check mb-4">
                             <input class="form-check-input" type="checkbox" name="receive_emails" id="receive_emails" {{ $receives_emails ? 'checked' : '' }}>
 
                             <label class="form-check-label" for="receive_emails">
                                 Receive StemmaStudy News and Study Tips
                             </label>
+                            <small class="form-text text-muted">You'll receive infrequent news about StemmaStudy updates and other information we think can help improve your study.</small>
                         </div>
                         <hr>
                         <form class="mt-4 mb-4" action="{{route('update_name')}}" method="POST" >
@@ -92,6 +101,24 @@ $(document).ready(function(){
             $.ajax({
                 method: "POST",
                 url :'{{route('email_unsubscribe')}}'
+            }).fail(function(){
+                alert('Something went wrong. Please refresh the page and try again.');
+            });
+        }
+    });
+
+    $('#receive_notifications').change(function(){
+        if(this.checked) {
+            $.ajax({
+                method: "POST",
+                url :'{{route('notification_subscribe')}}'
+            }).fail(function(){
+                alert('Something went wrong. Please refresh the page and try again.');
+            });
+        } else {
+            $.ajax({
+                method: "POST",
+                url :'{{route('notification_unsubscribe')}}'
             }).fail(function(){
                 alert('Something went wrong. Please refresh the page and try again.');
             });

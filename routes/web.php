@@ -97,6 +97,8 @@ Route::get('/settings/subscribe', 'SettingsController@subscribe')->middleware('v
 Route::post('/settings/subscribe', 'SettingsController@subscribe_store')->middleware('verified')->name('subscribe_store');
 Route::post('/settings/emails/subscribe', 'SettingsController@email_subscribe')->middleware('verified')->name('email_subscribe');
 Route::post('/settings/emails/unsubscribe', 'SettingsController@email_unsubscribe')->middleware('verified')->name('email_unsubscribe');
+Route::post('/settings/notifications/subscribe', 'SettingsController@notification_subscribe')->middleware('verified')->name('notification_subscribe');
+Route::post('/settings/notifications/unsubscribe', 'SettingsController@notification_unsubscribe')->middleware('verified')->name('notification_unsubscribe');
 
 
 Auth::routes(['verify' => true]);

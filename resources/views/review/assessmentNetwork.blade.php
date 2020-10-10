@@ -9,7 +9,7 @@
 
 @section('content')
 
-<a href="{{route('set_review', [$set])}}" class="btn btn-secondary btn-sm" style="position: absolute; top: 10px; left: 10px; z-index:10000;"><i class="fas fa-arrow-left"></i> Back</a>
+<a href="{{route('set_review', [$set])}}" class="back-btn"><i class="fas fa-arrow-left green"></i> Back</a>
 <div id="network" style="width: 100%; height: 100vh;background:var(--light);"></div>
 
 <div id="loader" class="spinner-container">

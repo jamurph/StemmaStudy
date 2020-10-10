@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
 
         //Email Users who have more than 5 cards due
         $schedule->call(function(){
-            foreach(User::all() as $user){
+            foreach(User::where('notify', true)->get() as $user){
                 $totalDue = 0;
                 foreach($user->sets as $set){
                     $countDue = $set->cards->where('next_review', '<', Carbon::now())->count();
