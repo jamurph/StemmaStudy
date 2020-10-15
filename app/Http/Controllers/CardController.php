@@ -8,16 +8,28 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Te7aHoudini\LaravelTrix\Models\TrixAttachment;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 
 class CardController extends Controller
 {
 
     public function show(Set $set,Card $card){
         $this->authorize('view-set', $card->set);
+
+        //keep this, as adding connections refreshes the same page
+        request()->session()->keep(['card_created']);
+
         return view('card.cardDetail', ['set' => $set, 'card' => $card]);
     }
 
     public function create(Set $set, Request $request){
+
+        
+
+
         if(!$request->user()->onTrialOrSubscribed()){
             return redirect()->route('user_sets');
         }
@@ -26,6 +38,7 @@ class CardController extends Controller
     }
 
     public function store(Set $set, Request $request){
+
         if(!$request->user()->onTrialOrSubscribed()){
             return redirect()->route('cards_in_set', $set);
         }
@@ -49,10 +62,10 @@ class CardController extends Controller
         $content = str_replace('<a href=', '<a target="_blank" href=', request('card-trixFields.content'));
 
         //strip content of anything except what is allowed just in case... :)
-        $stripped_content = strip_tags($content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br', 'a']);
+        $stripped_content = strip_tags($content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br', 'a', 'h1', 'blockquote', 'pre', 'figure', 'img', 'figcaption']);
 
         //strip links from preview, and truncate
-        $preview = $this->truncateHtml(strip_tags($stripped_content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br']), 500);
+        $preview = $this->truncateHtml(strip_tags($stripped_content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br', 'h1', 'blockquote', 'pre', 'figure', 'img', 'figcaption']), 500);
 
         $card = new Card([
             'title' => request('title'),
@@ -60,6 +73,7 @@ class CardController extends Controller
             'set_id' => $set->id,
             'next_review' => Carbon::now()->addDay()->subHour(),
             'card-trixFields' => ['content' => $stripped_content],
+            'attachment-card-trixFields' => request('attachment-card-trixFields')
         ]);
 
         $position_y = DB::table('cards')->where('set_id', 1)->max('position_y');
@@ -81,7 +95,6 @@ class CardController extends Controller
 
     public function update(Set $set, Card $card, Request $request){
         $this->authorize('view-set', $card->set);
-        
 
         $v = Validator::make($request->all(),[
             'title' => ['required', 'min:3', 'max:100'],
@@ -96,17 +109,17 @@ class CardController extends Controller
         $content = str_replace('<a href=', '<a target="_blank" href=', request('card-trixFields.content'));
 
         //strip content of anything except what is allowed just in case... :)
-        $stripped_content = strip_tags($content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br', 'a']);
+        $stripped_content = strip_tags($content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br', 'a', 'h1', 'blockquote', 'pre', 'figure', 'img', 'figcaption']);
 
         //strip links from preview, and truncate
-        $preview = $this->truncateHtml(strip_tags($stripped_content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br']), 500);
+        $preview = $this->truncateHtml(strip_tags($stripped_content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br', 'h1', 'blockquote', 'pre', 'figure', 'img', 'figcaption']), 500);
 
-        
 
         $card->update([
             'title' => request('title'),
             'definition' => $preview,
             'card-trixFields' => ['content' => $stripped_content],
+            'attachment-card-trixFields' => request('attachment-card-trixFields')
         ]);
 
         return redirect()->route('user_card', [$set, $card]);
@@ -115,7 +128,15 @@ class CardController extends Controller
     public function destroy(Set $set, Card $card){
         $this->authorize('view-set', $card->set);
 
-        $card->trixRichText()->delete();
+        foreach($card->trixAttachments as $attachment){
+            //removes from s3 and db
+            $attachment->purge();
+        }
+        
+        //will only be one
+        foreach($card->trixRichText as $richText){
+            $richText->delete();
+        }
         $card->delete();
         
         if(session()->has('source') && session('source') == 'network'){
@@ -128,15 +149,84 @@ class CardController extends Controller
     
     
 
+    public function get_attachment(Request $request, TrixAttachment $trixattachment){
+        // if the attachment is pending, we trust that this user is the one who created it, as the file name is generated (thus virtually unguessable in short term).
+        $can_view = false;
+        if( $trixattachment->is_pending ){
+            $can_view = true;
+        }else {
+            $card = Card::where('id', $trixattachment->attachable_id)->first();
+            if($card && $card->set->user->id === $request->user()->id){
+                $can_view = true;
+            }
+        }
 
+        if( !$can_view ){
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
 
-    //TODO for images.
+        $file = '';
+
+        if(App::environment('local')){
+            $file = '/public/';
+        }
+
+        $file = $file . $trixattachment->attachment;
+
+        return response()->stream(function() use($file) {
+            $stream = Storage::readStream($file);
+            fpassthru($stream);
+            if (is_resource($stream)) {
+                fclose($stream);
+            }
+        }, 200, [
+            "Content-Type" => Storage::mimeType($file),
+            "Content-Length" => Storage::size($file),
+            "Content-disposition" => "inline; filename=\"" . basename($file). "\"",
+        ]); 
+    }
+
+    
     public function store_attachment(Request $request){
-        return response('', 501);
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|file|mimetypes:image/jpeg,image/gif,image/bmp,image/png,image/webp,image/svg+xml|max:512',
+            'modelClass' => 'required',
+            'field' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors'=>$validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $attachment = $request->file->store('/', $request->disk ?? config('laravel-trix.storage_disk'));
+        
+        $trixAttachment = TrixAttachment::create([
+            'field' => $request->field,
+            'attachable_type' => $request->modelClass,
+            'attachment' => $attachment,
+            'disk' => $request->disk ?? config('laravel-trix.storage_disk'),
+            ]);
+        
+        $url = route('get_attachment', ['trixattachment'=>$trixAttachment->attachment]);
+
+        return response()->json(['url' => $url], Response::HTTP_CREATED);
     }
 
     public function destroy_attachment($url){
-        return response('', 501);
+        $attachment = TrixAttachment::where('attachment', basename($url))->first();
+
+        //if it is pending, then we can delete it, as the user is on the same screen as it was uploaded. 
+        //Otherwise, we simply hold on to it until the card is deleted. 
+        //this may be revisited in the future, but as it stands this doesn't seem like this should be a big deal, storage-wise, as
+        //  1. Edits to cards ought be rare as is, but edits that also change the image ought be even less prevalent
+        //  2. Deleting cards will remove all the attachments
+        //  3. The functionality for laravel-trix can be overridden
+        //  4. A fix could be implemented to scrape for urls present in attachments but not trix rich texts and remove them.
+        if($attachment->is_pending){
+            return response()->json(optional($attachment)->purge());
+        } else {
+            return response()->json(optional($attachment));
+        }
     }
 
 

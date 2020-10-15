@@ -20,6 +20,8 @@
 
 </style>
 
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
@@ -62,7 +64,7 @@
                 </span>
                 <h1 class="m-0">{{ $card->title }}</h1>
                 <hr>
-                <div>
+                <div class="trix-content">
                     {!! $card->trixRender('content') !!}
                 </div>
             </div>
@@ -181,7 +183,7 @@
                 </div>
                 
                 @foreach ($card->connectionsIn as $in)
-                <div class="card-connection shadow-sm mb-3" data-id="{{$in->id}}" data-direction="from" data-card="{{$in->fromCard->id}}" data-title="{{$in->title}}" data-description="{{$in->description}}">
+                <div class="card-connection shadow-sm mb-3 break-word" data-id="{{$in->id}}" data-direction="from" data-card="{{$in->fromCard->id}}" data-title="{{$in->title}}" data-description="{{$in->description}}">
                     <span class="more-options dropdown dropleft">
                         <a class="" href="#" role="button" id="dropdownMenuLinkConnection{{$in->id}}" data-toggle="dropdown">
                             <i class="fas fa-ellipsis-v text-secondary"></i>
@@ -203,7 +205,7 @@
                 </div>
                 @endforeach
                 @foreach ($card->connectionsOut as $out)
-                <div class="card-connection shadow-sm mb-3" data-id="{{$out->id}}" data-direction="to" data-card="{{$out->toCard->id}}" data-title="{{$out->title}}" data-description="{{$out->description}}">
+                <div class="card-connection shadow-sm mb-3 break-word" data-id="{{$out->id}}" data-direction="to" data-card="{{$out->toCard->id}}" data-title="{{$out->title}}" data-description="{{$out->description}}">
                     <span class="more-options dropdown dropleft">
                         <a class="" href="#" role="button" id="dropdownMenuLinkConnection{{$out->id}}" data-toggle="dropdown">
                             <i class="fas fa-ellipsis-v text-secondary"></i>

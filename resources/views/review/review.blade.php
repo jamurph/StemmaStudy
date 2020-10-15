@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <a class="text-decoration-none mb-3 d-inline-block" href="{{route('user_sets')}}"><i class="fas fa-arrow-left"></i> Back to My Sets</a>
-            <h1 class="m-0 mb-2">Review: {{ $set->title }}</h1>
+            <h1 class="m-0 mb-2 break-word">Review: {{ $set->title }}</h1>
             <div class="mt-4"></div>
             @if ($set->cards->count() > 0)
                 <div class="row">

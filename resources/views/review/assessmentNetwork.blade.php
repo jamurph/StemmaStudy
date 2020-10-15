@@ -3,7 +3,7 @@
 @section('title', 'StemmaStudy | Assessment Results')
 
 @section('header')
-
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css">
 <script src="{{asset('js/assessmentNetwork.js')}}"></script>
 @endsection
 

@@ -3,6 +3,7 @@
 @section('title', 'StemmaStudy | Assessment')
 
 @section('header')
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.3/rangeslider.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.3/rangeslider.min.js"></script>
     <style>
@@ -28,7 +29,7 @@
                 <hr>
                 <div style="min-height: 27px">
                     <div style="display: none" class="" id="definition">
-                        <div>
+                        <div class="trix-content">
                             {!! $card->trixRender('content') !!}
                         </div>
                     </div>
@@ -40,7 +41,7 @@
             <div id="connections" style="display:none;">
                 <h3 class="mt-5 mb-2">Connections</h3>
                 @foreach ($card->connectionsIn as $in)
-                <div class="card-connection shadow-sm mb-3">
+                <div class="card-connection shadow-sm mb-3 break-word">
                     <h4><i class="fas fa-arrow-left"></i> {{ $in->fromCard->title }}</h4>
                     <h5 class="m-0"><i class="fas fa-angle-double-right"></i> <b>{{$in->title}}</b> <i class="fas fa-angle-double-right"></i></h5>
                     @if (!empty($in->description))
@@ -49,7 +50,7 @@
                 </div>
                 @endforeach
                 @foreach ($card->connectionsOut as $out)
-                <div class="card-connection shadow-sm mb-3">
+                <div class="card-connection shadow-sm mb-3 break-word">
                     <h5 class="m-0"><i class="fas fa-angle-double-right"></i> <b>{{$out->title}}</b> <i class="fas fa-angle-double-right"></i></h5>
                     @if (!empty($out->description))
                     <p class="text-muted has-newlines">{{$out->description}}</p>

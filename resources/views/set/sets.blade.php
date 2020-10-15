@@ -20,7 +20,7 @@
             @endif
             <div class="mt-4"></div>
             @foreach ($sets as $set)
-                <div class="set shadow-sm mb-3">
+                <div class="set shadow-sm mb-3 break-word">
                     <span class="more-options dropdown dropleft">
                         <a class="" href="#" role="button" id="dropdownMenuLink{{$set->id}}" data-toggle="dropdown">
                             <i class="fas fa-ellipsis-v"></i>

@@ -44153,7 +44153,7 @@ $(function () {
         }
 
         $(div).addClass('network-detail').addClass('shadow').css('width', '500px').css('max-width', 'calc(100% - 10px)').css('z-index', '100001');
-        $(div).html('<div class="close"><i class="fas fa-times"></i></div><h3 class="mb-0 pr-3">' + node.data('label') + scoreHtml + '</h3><hr>' + '<div class="card-definition text-muted mb-0">' + node.data('definition') + '</div>' + '<div class="text-right"><a class="btn btn-link text-decoration-none" href="/my-sets/' + set_id + '/card/' + node.data('card_id') + '"><span class="pr-2">View Details</span><i class="fas fa-angle-double-right"></i></a></div>');
+        $(div).html('<div class="close"><i class="fas fa-times"></i></div><h3 class="mb-0 pr-3">' + node.data('label') + scoreHtml + '</h3><hr>' + '<div class="card-definition text-muted mb-0 trix-content">' + node.data('definition') + '</div>' + '<div class="text-right"><a class="btn btn-link text-decoration-none" href="/my-sets/' + set_id + '/card/' + node.data('card_id') + '"><span class="pr-2">View Details</span><i class="fas fa-angle-double-right"></i></a></div>');
         document.body.appendChild(div);
         $('.close').click(function () {
           destroyPopper();

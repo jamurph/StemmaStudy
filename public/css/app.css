@@ -11005,6 +11005,7 @@ a.unlink:hover {
   background: white;
   padding: 12px 20px;
   border-radius: 3px;
+  overflow-wrap: break-word;
 }
 
 .ss-card .ss-card-btn {
@@ -11054,6 +11055,7 @@ a.unlink:hover {
   background: white;
   padding: 12px 20px;
   border-radius: 3px;
+  overflow-wrap: break-word;
 }
 
 .network-detail {
@@ -11062,6 +11064,7 @@ a.unlink:hover {
   padding: 12px 20px;
   border-radius: 3px;
   max-height: 95vh;
+  overflow-wrap: break-word;
   overflow: auto;
 }
 
@@ -11085,16 +11088,17 @@ a.unlink:hover {
   border-radius: 3px;
 }
 
-.trix-button--icon-heading-1,
-.trix-button--icon-code,
-.trix-button--icon-quote,
-trix-toolbar .trix-button-group--file-tools {
-  display: none !important;
+trix-toolbar .trix-button-row {
+  flex-wrap: wrap !important;
 }
 
 .trix-content,
 .trix-button-group {
   background: white;
+}
+
+.trix-content figcaption.attachment__caption {
+  margin-top: 2px;
 }
 
 /* Review */
@@ -11437,6 +11441,10 @@ trix-toolbar .trix-button-group--file-tools {
   background-color: white;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   border-left: 3px solid var(--light-acc);
+}
+
+.break-word {
+  overflow-wrap: break-word;
 }
 
 .score_color_100 {

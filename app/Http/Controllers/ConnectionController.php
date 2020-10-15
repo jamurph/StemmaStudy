@@ -12,6 +12,10 @@ class ConnectionController extends Controller
     
     public function update(Set $set, Connection $connection, Request $request){
         $this->authorize('view-set', $connection->fromCard->set);
+
+        //keep this, as adding connections refreshes the same page
+        $request->session()->keep(['card_created']);
+
         $request->validate([
             'title' => ['required', 'min:1', 'max:100'],
             'description' => ['max:500']
@@ -27,6 +31,8 @@ class ConnectionController extends Controller
             return redirect()->route('cards_in_set', $set);
         }
         $this->authorize('view-set', $set);
+        //keep this, as adding connections refreshes the same page
+        $request->session()->keep(['card_created']);
         $request->validate([
             'title' => ['required', 'min:1', 'max:100'],
             'description' => ['max:500']
@@ -66,6 +72,8 @@ class ConnectionController extends Controller
     {
         $this->authorize('view-set', $connection->fromCard->set);
 
+        //keep this, as adding connections refreshes the same page
+        request()->session()->keep(['card_created']);
 
         $connection->delete();
 

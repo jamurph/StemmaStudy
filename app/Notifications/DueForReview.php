@@ -47,8 +47,8 @@ class DueForReview extends Notification
                     ->greeting("Hello!")
                     ->line('You have ' . $this->numberDue . ' card'  . ($this->numberDue > 1 ? 's' :'' ) . ' due for Memory Maintenance.')
                     ->action('Start Review', url('/my-sets'))
-                    ->line('Remember: testing yourself and spacing your study over time helps form stronger memories.')
-                    ->line('Thank you for using StemmaStudy!');
+                    ->line("Remember: testing yourself and spacing your study over time isn't just a good habit - it has been proven to help form stronger memories.")
+                    ->line("Thank you for using StemmaStudy! To manage your receipt of these notifications, visit your account Settings.");
     }
 
     /**

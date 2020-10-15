@@ -14,7 +14,7 @@
                 <div class="form-group position-relative">
                 <label for="title">Title</label>
                 <div class="position-relative">
-                    <input type="text" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" id="title" name="title"  value="{{old('title')}}">
+                    <input type="text" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" id="title" name="title"  value="{{old('title')}}" autocomplete="off">
                     @error('title')
                     <div class="invalid-tooltip">
                         {{$errors->first('title')}}

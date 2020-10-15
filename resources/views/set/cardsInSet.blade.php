@@ -2,13 +2,17 @@
 
 @section('title', 'StemmaStudy | ' . $set->title)
 
+@section('header')
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css">
+@endsection
+
 @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <a class="text-decoration-none mb-3 d-inline-block" href="{{route('user_sets')}}"><i class="fas fa-arrow-left"></i> Back to My Sets</a>
-            <h1 class="m-0 mb-2">{{ $set->title }}</h1>
+            <h1 class="m-0 mb-2 break-word">{{ $set->title }}</h1>
             @if (!Auth::user()->onTrialOrSubscribed())
                 <div class="alert alert-info">
                     Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to create new cards.
@@ -37,11 +41,8 @@
             @foreach ($set->cards->sortBy('created_at') as $card)
                 <div class="ss-card shadow-sm mb-3">
                     <h3 class="mb-0"><a class="unlink" href="{{ route('user_card', [$set->id, $card->id]) }}">{{ $card->title }}</a></h3>
-                    {{-- Excluded for initial prototype --}}
-                    {{-- @foreach ($card->tags as $tag)
-                        <a href="#" class="badge badge-pill ml-2" style="background-color: {{$tag->color}}; color: white;">{{$tag->title}}</a>
-                    @endforeach --}}
-                    <div class="text-muted card-definition">{!! $card->definition !!}</div>
+                    
+                    <div class="text-muted card-definition trix-content">{!! $card->definition !!}</div>
                     
                     <div class="text-right">
                     <a class="btn btn-link ss-card-btn" href="{{ route('user_card', [$set->id, $card->id]) }}">

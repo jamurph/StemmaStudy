@@ -26,7 +26,7 @@
                         <div class="col-lg-6">
                             <label for="name">Name</label>
                             <div class="position-relative">
-                                <input type="text" class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}" id="name" name="name"  value="{{old('name')}}">
+                                <input type="text" class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}" id="name" name="name"  value="{{old('name')}}" autocomplete="off">
                                 @error('name')
                                 <div class="invalid-tooltip">
                                     {{$errors->first('name')}}
@@ -38,7 +38,7 @@
                         <div class="col-lg-6">
                             <label for="email">Email</label>
                             <div class="position-relative">
-                                <input type="text" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" id="email" name="email"  value="{{old('email')}}">
+                                <input type="text" class="form-control {{$errors->has('email') ? 'is-invalid' : ''}}" id="email" name="email"  value="{{old('email')}}" autocomplete="off">
                                 @error('email')
                                 <div class="invalid-tooltip">
                                     {{$errors->first('email')}}
