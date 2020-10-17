@@ -68,6 +68,7 @@
                 
             @endforeach
         @else
+        <div class="raised-box p-3">
             <h1>Welcome to StemmaStudy, {{request()->user()->name}}!</h1>
             <p>We want to help you understand more and forget less. To help you get started, consider taking a few minutes to familiarize yourself with these resources:</p>
             <p>
@@ -80,6 +81,7 @@
             <div class="text-center">
                 <a href="{{route('set_create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> My First Set</a>
             </div>
+        </div>
         @endif
     </div>
 </div>

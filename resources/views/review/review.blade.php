@@ -92,7 +92,7 @@
                     <p class="text-center">Complete an assessment to view past results.</p>
                 @endif
             @else 
-            <div class="text-center" style="">
+            <div class="text-center raised-box p-3" style="">
                 <h2>There's nothing to review yet!</h2>
                 <p>Get started by adding your first card.</p>
                 <a href="{{route('card_create', $set->id)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New Card</a>

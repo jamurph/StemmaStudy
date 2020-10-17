@@ -23,35 +23,45 @@
                     This set has reached the limit of 1000 cards.
                 </div>
             @endif
-            <div class="row">
-                <div class="col-6">
-                    <div class="text-left">
-                        <a class="navigation-btn" href="{{route('set_network', $set->id)}}"><i class="fas fa-project-diagram green"></i> Network</a>
+            @if ($set->cards->count() > 0)
+                <div class="row">
+                    <div class="col-6">
+                        <div class="text-left">
+                            <a class="navigation-btn" href="{{route('set_network', $set->id)}}"><i class="fas fa-project-diagram green"></i> Network</a>
+                        </div>
                     </div>
-                </div>
-                @if (Auth::user()->onTrialOrSubscribed() && $set->cards->count() < 1000)
-                <div class="col-6">
-                    <div class="text-right">
-                        <a href="{{route('card_create', $set)}}" class="btn btn-primary new-btn"><i class="fas fa-plus"></i> New</a>
+                    @if (Auth::user()->onTrialOrSubscribed() && $set->cards->count() < 1000)
+                    <div class="col-6">
+                        <div class="text-right">
+                            <a href="{{route('card_create', $set)}}" class="btn btn-primary new-btn"><i class="fas fa-plus"></i> New</a>
+                        </div>
                     </div>
+                    @endif
                 </div>
-                @endif
+                <div class="mt-4"></div>
+                @foreach ($set->cards->sortBy('created_at') as $card)
+                    <div class="ss-card shadow-sm mb-3">
+                        <h3 class="mb-0"><a class="unlink" href="{{ route('user_card', [$set->id, $card->id]) }}">{{ $card->title }}</a></h3>
+                        
+                        <div class="text-muted card-definition trix-content">{!! $card->definition !!}</div>
+                        
+                        <div class="text-right">
+                        <a class="btn btn-link ss-card-btn" href="{{ route('user_card', [$set->id, $card->id]) }}">
+                                <span class="pr-2">View Details</span>
+                                <i class="fas fa-angle-double-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+            <div class="raised-box p-3">
+                <p>This page will show a list of the cards in this set and previews of their content. Click the button below to start adding cards. Then, visit the network view to start connecting them.</p>
+                <p></p>
+                <div class="text-center">
+                    <a href="{{route('card_create', $set)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New Card</a>
+                </div>
             </div>
-            <div class="mt-4"></div>
-            @foreach ($set->cards->sortBy('created_at') as $card)
-                <div class="ss-card shadow-sm mb-3">
-                    <h3 class="mb-0"><a class="unlink" href="{{ route('user_card', [$set->id, $card->id]) }}">{{ $card->title }}</a></h3>
-                    
-                    <div class="text-muted card-definition trix-content">{!! $card->definition !!}</div>
-                    
-                    <div class="text-right">
-                    <a class="btn btn-link ss-card-btn" href="{{ route('user_card', [$set->id, $card->id]) }}">
-                            <span class="pr-2">View Details</span>
-                            <i class="fas fa-angle-double-right"></i>
-                        </a>
-                    </div>
-                </div>
-            @endforeach
+            @endif
         </div>
     </div>
 </div>
