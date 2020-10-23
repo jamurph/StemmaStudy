@@ -35,7 +35,6 @@
             <p>We're not resting on our laurels. <b>We're here to improve learning</b>.</p>
             <p>Here are some ways we are looking to improve:</p>
             <ul>
-                <li><b>Add images</b> to cards. Visuals can often aid memory. We want to make sure you can leverage this in your study.</li>
                 <li>More ways to <b>sort, search, and filter</b> to find the cards you want to see.</li>
                 <li>Learn together. We want to enable you to <b>share your sets</b> with your friends and the world.</li>
                 <li><b>User interface and process improvements</b> to make StemmaStudy easier to use.</li>

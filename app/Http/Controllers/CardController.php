@@ -12,6 +12,7 @@ use Te7aHoudini\LaravelTrix\Models\TrixAttachment;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
+use Intervention\Image\Facades\Image;
 
 class CardController extends Controller
 {
@@ -189,7 +190,7 @@ class CardController extends Controller
     
     public function store_attachment(Request $request){
         $validator = Validator::make($request->all(), [
-            'file' => 'required|file|mimetypes:image/jpeg,image/gif,image/bmp,image/png,image/webp,image/svg+xml|max:512',
+            'file' => 'required|file|mimetypes:image/jpeg,image/png',
             'modelClass' => 'required',
             'field' => 'required',
         ]);
@@ -198,12 +199,29 @@ class CardController extends Controller
             return response()->json(['errors'=>$validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $attachment = $request->file->store('/', $request->disk ?? config('laravel-trix.storage_disk'));
+        $file = $request->file('file');
+
+        $resized = Image::make($file)->widen(1280, function($constraint){
+            $constraint->upsize();
+        })->encode();
+
+        //file still too large after resizing. must be less than 1MB
+        if($resized->filesize() > 1000000){
+            return response()->json(['errors'=> ['file' => ['File size too large.']]], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        
+        $filename = uniqid() . '_' . $file->getClientOriginalName();
+        $attached = Storage::disk($request->disk ?? config('laravel-trix.storage_disk'))->put($filename, (string)$resized);
+        
+        if( !$attached ){
+            return response()->json(['errors'=> ['file' => ['File upload failed.']]], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        
         
         $trixAttachment = TrixAttachment::create([
             'field' => $request->field,
             'attachable_type' => $request->modelClass,
-            'attachment' => $attachment,
+            'attachment' => $filename,
             'disk' => $request->disk ?? config('laravel-trix.storage_disk'),
             ]);
         

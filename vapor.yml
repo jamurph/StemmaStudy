@@ -4,7 +4,7 @@ environments:
     production:
         domain: stemmastudy.com
         storage: stemmastudy-production-bucket
-        concurrency: 5
+        concurrency: 25
         memory: 1024
         cli-memory: 512
         runtime: php-7.4
@@ -16,13 +16,13 @@ environments:
     staging:
         database: stemmastudy-staging
         storage: stemmastudy-staging-bucket
-        concurrency: 1
+        concurrency: 5
         memory: 1024
         cli-memory: 512
         runtime: php-7.4
         build:
-            - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install'
+            - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'
             - 'php artisan event:cache'
-            - 'npm ci && npm run dev && rm -rf node_modules'
+            - 'npm ci && npm run prod && rm -rf node_modules'
         deploy:
             - 'php artisan migrate --force'

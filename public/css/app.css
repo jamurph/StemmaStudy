@@ -11088,6 +11088,10 @@ a.unlink:hover {
   border-radius: 3px;
 }
 
+trix-editor .attachment__metadata-container {
+  display: none;
+}
+
 trix-toolbar .trix-button-row {
   flex-wrap: wrap !important;
 }

@@ -108,6 +108,14 @@
 
     <script>
 
+
+        addEventListener("trix-before-initialize", function(event) {
+            Trix.config.attachments.preview.caption.size = false;
+            Trix.config.attachments.preview.caption.name = false;
+            Trix.config.attachments.file.caption.size = false;
+            Trix.config.lang.attachFiles = "Attach Image";
+        });
+
         addEventListener("trix-file-accept", function(event) {
             var config = laravelTrixConfig(event);
         
@@ -117,6 +125,15 @@
                 (config.hideButtonIcons && config.hideButtonIcons.indexOf("attach") != -1)
             ) {
                 return event.preventDefault();
+            }
+
+            //only accept images
+            if(event.file && event.file.type){
+                var types = ['image/jpeg', 'image/png'];
+                if(types.indexOf(event.file.type) === -1){
+                    alert('Images must be jpg or png file types.');
+                    event.preventDefault();
+                }
             }
         });
         
@@ -164,7 +181,7 @@
                     attachment.remove();
                     var response = JSON.parse(xhr.response);
                     if(response.errors && response.errors.file && response.errors.file.length > 0){
-                        alert(response.errors.file[0].replaceAll('image\/', '').replace('+xml',''));
+                        alert(response.errors.file[0].replaceAll('image\/', ''));
                     }else {
                         alert("Error Processing Upload.");
                     }
