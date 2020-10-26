@@ -154,21 +154,13 @@ class CardController extends Controller
 
         $file = $trixattachment->attachment;
 
-        if( ! Storage::exists($trixattachment->attachment)){
+        if( ! Storage::exists($file)){
             return response()->json(['message' => 'Not Found'], 404);
         }
 
-        return response()->stream(function() use($file) {
-            $stream = Storage::readStream($file);
-            fpassthru($stream);
-            if (is_resource($stream)) {
-                fclose($stream);
-            }
-        }, 200, [
-            "Content-Type" => Storage::mimeType($file),
-            "Content-Length" => Storage::size($file),
-            "Content-disposition" => "inline; filename=\"" . basename($file). "\"",
-        ]); 
+        return redirect(Storage::temporaryUrl(
+            $file, now()->addMinutes(5)
+        ));
     }
 
     
