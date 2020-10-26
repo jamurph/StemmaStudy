@@ -203,7 +203,19 @@ class CardController extends Controller
             return response()->json(['message' => 'Forbidden'], 403);
         }
         $path = $attachment->attachment;
-        $attachment->purge();
+
+        /* 
+         *  delete new images entirely. If they are editing, they may still hit cancel. 
+         *  I am banking on the idea that edits are rare (and edits that remove images 
+         *  must be strictly more so) to know that wasted storage would be low. 
+         * 
+         *  Some sort of job, or on-save check, could prevent this waste.
+         */
+
+        if(Str::startsWith($path, 'tmp/')){
+            $attachment->purge();
+        }
+
         return response()->json(['attachment' => $path]);
     }
 

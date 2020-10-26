@@ -74,11 +74,13 @@ a.unlink {
 .ss-card {
     position: relative;
     background: white;
-    padding: 12px 20px;
+    padding: 15px 20px;
     border-radius: 3px;
     overflow-wrap: break-word;
 
     .ss-card-btn {
+        display: inline-block;
+        padding-top: 5px;
         text-decoration: none;
     }
 }

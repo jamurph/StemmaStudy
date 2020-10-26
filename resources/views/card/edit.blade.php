@@ -112,6 +112,9 @@
 
         $(document).ready(function(){
 
+            var attachmentCount = {{ $card->trixAttachments ->count() }};
+            console.log({{ $card->trixAttachments ->count() }});
+            
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -136,18 +139,25 @@
                     var types = ['image/jpeg', 'image/png'];
                     if(types.indexOf(event.file.type) === -1){
                         alert('Images must be jpg or png file types.');
-                        event.preventDefault();
+                        return event.preventDefault();
                     }
+                }
+
+                if(attachmentCount >= 5){
+                    alert("Cards cannot have more than 5 images.");
+                    return event.preventDefault();
+                } else {
+                    attachmentCount = attachmentCount + 1;
                 }
             });
             
             addEventListener("trix-attachment-remove", function(event) {
                 var config = laravelTrixConfig(event);
             
-                var xhr = new XMLHttpRequest();
-            
                 var attachment = event.attachment.attachment.attributes.values.url.split("/").pop();
                 
+                attachmentCount = Math.max(attachmentCount - 1, 0);
+
                 $.ajax({
                     method: "DELETE",
                     url : "{{route('laravel-trix.destroy',['attachment' => ':attachment'])}}".replace(':attachment',attachment),
@@ -200,6 +210,9 @@
                 
                                 return collector;
                             });
+
+                            
+
                         }).fail(function(response){
                             attachment.remove();
                             if(response.errors && response.errors.file && response.errors.file.length > 0){
@@ -207,6 +220,8 @@
                             }else {
                                 alert("Error Processing Upload.");
                             }
+
+                            attachmentCount = Math.max(0, attachmentCount - 1);
                         });
                     });
                 }

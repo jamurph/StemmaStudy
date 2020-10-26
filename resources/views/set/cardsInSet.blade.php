@@ -40,13 +40,13 @@
                 </div>
                 <div class="mt-4"></div>
                 @foreach ($set->cards->sortBy('created_at') as $card)
-                    <div class="ss-card shadow-sm mb-3">
-                        <h3 class="mb-0"><a class="unlink" href="{{ route('user_card', [$set->id, $card->id]) }}">{{ $card->title }}</a></h3>
-                        
-                        <div class="text-muted card-definition trix-content">{!! $card->definition !!}</div>
+                    <div class="ss-card d-sm-flex shadow-sm mb-3">
+                        <h3 class="mb-0 mt-0 flex-grow-1"><a class="unlink" href="{{ route('user_card', [$set->id, $card->id]) }}">{{ $card->title }}</a></h3>
+
+                        {{-- <div class="text-muted card-definition trix-content">{!! $card->definition !!}</div> --}}
                         
                         <div class="text-right">
-                        <a class="btn btn-link ss-card-btn" href="{{ route('user_card', [$set->id, $card->id]) }}">
+                            <a class="ss-card-btn" href="{{ route('user_card', [$set->id, $card->id]) }}">
                                 <span class="pr-2">View Details</span>
                                 <i class="fas fa-angle-double-right"></i>
                             </a>
@@ -55,8 +55,7 @@
                 @endforeach
             @else
             <div class="raised-box p-3">
-                <p>This page will show a list of the cards in this set and previews of their content. Click the button below to start adding cards. Then, visit the network view to start connecting them.</p>
-                <p></p>
+                <p>This page will show a list of the cards in this set. Click the button below to start adding cards. Then, visit the network view to start connecting them.</p>
                 <div class="text-center">
                     <a href="{{route('card_create', $set)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New Card</a>
                 </div>
