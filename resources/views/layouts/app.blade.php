@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    @if(App::environment('production') || App::environment('staging'))
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173526157-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -10,6 +10,7 @@
 
         gtag('config', 'UA-173526157-1');
     </script>
+    @endif
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

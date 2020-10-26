@@ -60,7 +60,12 @@ Route::get('/my-sets/{set}/card/{card}/edit', 'CardController@edit')->middleware
 Route::put('/my-sets/{set}/card/{card}', 'CardController@update')->middleware('verified')->name('card_update');
 Route::delete('/my-sets/{set}/card/{card}', 'CardController@destroy')->middleware('verified')->name('card_destroy');
 
-Route::get('/images/{trixattachment:attachment}', 'CardController@get_attachment')->middleware('verified')->name('get_attachment')->where('trixattachment', '.*');
+Route::get('/images/{trixattachment}', 'CardController@get_attachment')->middleware('verified')->name('get_attachment')->where('trixattachment', '.*');
+
+//override laravel-trix created routes to get web middleware.
+Route::post('attachment', config('laravel-trix.store_attachment_action'))->middleware('verified')->name('laravel-trix.store');
+Route::delete('attachment/{attachment}', config('laravel-trix.destroy_attachment_action'))->middleware('verified')->name('laravel-trix.destroy');
+
 
 /*
     Connections

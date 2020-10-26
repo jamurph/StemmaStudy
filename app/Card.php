@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Te7aHoudini\LaravelTrix\Models\TrixAttachment;
 use Te7aHoudini\LaravelTrix\Models\TrixRichText;
+
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+
 
 class Card extends Model
 {
@@ -76,11 +81,38 @@ class Card extends Model
 
                 $attachments = Arr::get($model->savedAttachments, $field, []);
 
-                TrixAttachment::whereIn('attachment', is_string($attachments) ? json_decode($attachments) : $attachments)
-                    ->update([
-                        'is_pending' => 0,
-                        'attachable_id' => $model->id,
-                    ]);
+                //move each attachment to user folder.
+                $trixAttachments = TrixAttachment::whereIn('attachment', is_string($attachments) ? json_decode($attachments) : $attachments)->get();
+
+                foreach($trixAttachments as $attachment){
+                    if(Str::startsWith($attachment->attachment, 'tmp')){
+
+                            $oldpath = $attachment->attachment;
+                            $filename = Str::substr($oldpath, 4);
+                            $newpath = $attachment->user_id . '/' . $filename;
+        
+                            $resized = Image::make(Storage::get($oldpath))->resize(1280, 6400, function ($constraint) {
+                                $constraint->aspectRatio();
+                                $constraint->upsize();
+                            });
+        
+                            //insert onto white canvas. This will make png->jpg background white instead of black. Also cut images that are too tall.
+                            $jpg = Image::canvas($resized->width(), $resized->height(), '#ffffff');
+                            $jpg->insert($resized);
+                            $resized = $jpg->encode('jpg', 90);
+                            
+                            $attached = Storage::put($newpath, (string)$resized);
+
+                            if($attached){
+                                $attachment->update([
+                                    'is_pending' => 0,
+                                    'attachable_id' => $model->id,
+                                    'attachment' => $newpath
+                                ]);
+                            }
+                        
+                    }
+                }
             }
 
             $model->savedTrixFields = [];

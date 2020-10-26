@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class CardController extends Controller
 {
@@ -27,10 +28,6 @@ class CardController extends Controller
     }
 
     public function create(Set $set, Request $request){
-
-        
-
-
         if(!$request->user()->onTrialOrSubscribed()){
             return redirect()->route('user_sets');
         }
@@ -151,28 +148,15 @@ class CardController extends Controller
     
 
     public function get_attachment(Request $request, TrixAttachment $trixattachment){
-        // if the attachment is pending, we trust that this user is the one who created it, as the file name is generated (thus virtually unguessable in short term).
-        $can_view = false;
-        if( $trixattachment->is_pending ){
-            $can_view = true;
-        }else {
-            $card = Card::where('id', $trixattachment->attachable_id)->first();
-            if($card && $card->set->user->id === $request->user()->id){
-                $can_view = true;
-            }
-        }
-
-        if( !$can_view ){
+        if(! $trixattachment->user_id == $request->user()->id){
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        $file = '';
+        $file = $trixattachment->attachment;
 
-        if(App::environment('local')){
-            $file = '/public/';
+        if( ! Storage::exists($trixattachment->attachment)){
+            return response()->json(['message' => 'Not Found'], 404);
         }
-
-        $file = $file . $trixattachment->attachment;
 
         return response()->stream(function() use($file) {
             $stream = Storage::readStream($file);
@@ -190,7 +174,7 @@ class CardController extends Controller
     
     public function store_attachment(Request $request){
         $validator = Validator::make($request->all(), [
-            'file' => 'required|file|mimetypes:image/jpeg,image/png',
+            'key' => 'required',
             'modelClass' => 'required',
             'field' => 'required',
         ]);
@@ -199,52 +183,36 @@ class CardController extends Controller
             return response()->json(['errors'=>$validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $file = $request->file('file');
-
-        $resized = Image::make($file)->widen(1280, function($constraint){
-            $constraint->upsize();
-        })->encode();
-
-        //file still too large after resizing. must be less than 1MB
-        if($resized->filesize() > 1000000){
-            return response()->json(['errors'=> ['file' => ['File size too large.']]], Response::HTTP_UNPROCESSABLE_ENTITY);
+        if( ! Str::startsWith($request->get('key'), 'tmp') || ! Storage::exists($request->get('key'))){
+            return response()->json(['errors'=> ['file' => ['File could not be saved.']]], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
-        $filename = uniqid() . '_' . $file->getClientOriginalName();
-        $attached = Storage::disk($request->disk ?? config('laravel-trix.storage_disk'))->put($filename, (string)$resized);
-        
-        if( !$attached ){
-            return response()->json(['errors'=> ['file' => ['File upload failed.']]], Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        if( ! in_array(Storage::mimeType($request->get('key')), ['image/png', 'image/jpeg'])){
+            return response()->json(['errors'=> ['file' => ['File must be a png or jpg image.']]], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
+
+        $filepath = $request->get('key');
         
         $trixAttachment = TrixAttachment::create([
             'field' => $request->field,
             'attachable_type' => $request->modelClass,
-            'attachment' => $filename,
-            'disk' => $request->disk ?? config('laravel-trix.storage_disk'),
+            'attachment' => $filepath,
+            'disk' => config('laravel-trix.storage_disk'),
+            'user_id' => $request->user()->id,
             ]);
         
-        $url = route('get_attachment', ['trixattachment'=>$trixAttachment->attachment]);
+        $url = route('get_attachment', ['trixattachment'=>$trixAttachment->id]);
 
-        return response()->json(['url' => $url], Response::HTTP_CREATED);
+        return response()->json(['url' => $url, 'attachment' => $filepath], Response::HTTP_CREATED);
     }
 
-    public function destroy_attachment($url){
-        $attachment = TrixAttachment::where('attachment', basename($url))->first();
-
-        //if it is pending, then we can delete it, as the user is on the same screen as it was uploaded. 
-        //Otherwise, we simply hold on to it until the card is deleted. 
-        //this may be revisited in the future, but as it stands this doesn't seem like this should be a big deal, storage-wise, as
-        //  1. Edits to cards ought be rare as is, but edits that also change the image ought be even less prevalent
-        //  2. Deleting cards will remove all the attachments
-        //  3. The functionality for laravel-trix can be overridden
-        //  4. A fix could be implemented to scrape for urls present in attachments but not trix rich texts and remove them.
-        if($attachment->is_pending){
-            return response()->json(optional($attachment)->purge());
-        } else {
-            return response()->json(optional($attachment));
+    public function destroy_attachment(Request $request, TrixAttachment $attachment){
+        if(!$request->user()->id === $attachment->user_id){
+            return response()->json(['message' => 'Forbidden'], 403);
         }
+        $path = $attachment->attachment;
+        $attachment->purge();
+        return response()->json(['attachment' => $path]);
     }
 
 

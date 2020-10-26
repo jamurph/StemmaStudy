@@ -66,7 +66,7 @@
         }
 
         function errorMessage(ele, message){
-            parent = ele.parent();
+            var parent = ele.parent();
             ele.addClass('is-invalid');
             parent.append('<div class="invalid-tooltip">' + message + '</div>');
         }
@@ -107,8 +107,7 @@
     </script>
 
     <script>
-
-
+        
         addEventListener("trix-before-initialize", function(event) {
             Trix.config.attachments.preview.caption.size = false;
             Trix.config.attachments.preview.caption.name = false;
@@ -116,136 +115,124 @@
             Trix.config.lang.attachFiles = "Attach Image";
         });
 
-        addEventListener("trix-file-accept", function(event) {
-            var config = laravelTrixConfig(event);
-        
-            if(
-                config.hideToolbar ||
-                (config.hideTools && config.hideTools.indexOf("file-tools") != -1) ||
-                (config.hideButtonIcons && config.hideButtonIcons.indexOf("attach") != -1)
-            ) {
-                return event.preventDefault();
-            }
+        $(document).ready(function(){
 
-            //only accept images
-            if(event.file && event.file.type){
-                var types = ['image/jpeg', 'image/png'];
-                if(types.indexOf(event.file.type) === -1){
-                    alert('Images must be jpg or png file types.');
-                    event.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
                 }
-            }
-        });
-        
-        addEventListener("trix-attachment-remove", function(event) {
-            var config = laravelTrixConfig(event);
-        
-            var xhr = new XMLHttpRequest();
-        
-            var attachment = event.attachment.attachment.attributes.values.url.split("/").pop();
-        
-            xhr.open("DELETE", "{{route('laravel-trix.destroy',['attachment' => ':attachment'])}}".replace(':attachment',attachment), true);
-        
-            setAttachementUrlCollectorValue('attachment-' + config['id'], function(collector){
-                for( var i = 0; i < collector.length; i++){
-                    if ( collector[i] === attachment) {
-                        collector.splice(i, 1);
+            });
+
+
+            addEventListener("trix-file-accept", function(event) {
+
+                var config = laravelTrixConfig(event);
+            
+                if(
+                    config.hideToolbar ||
+                    (config.hideTools && config.hideTools.indexOf("file-tools") != -1) ||
+                    (config.hideButtonIcons && config.hideButtonIcons.indexOf("attach") != -1)
+                ) {
+                    return event.preventDefault();
+                }
+
+                //only accept images
+                if(event.file && event.file.type){
+                    var types = ['image/jpeg', 'image/png'];
+                    if(types.indexOf(event.file.type) === -1){
+                        alert('Images must be jpg or png file types.');
+                        event.preventDefault();
                     }
                 }
-        
-                return collector;
             });
-        
-            xhr.send();
-        });
-        
-        addEventListener("trix-attachment-add", function(event) {
-            var config = laravelTrixConfig(event);
-        
-            if (event.attachment.file) {
-                var attachment = event.attachment;
-        
-                config['attachment'] = attachment;
-        
-                uploadFile(config, setProgress, setAttributes, errorCallback);
-        
+            
+            addEventListener("trix-attachment-remove", function(event) {
+                var config = laravelTrixConfig(event);
+            
+                var xhr = new XMLHttpRequest();
+            
+                var attachment = event.attachment.attachment.attributes.values.url.split("/").pop();
+                
+                $.ajax({
+                    method: "DELETE",
+                    url : "{{route('laravel-trix.destroy',['attachment' => ':attachment'])}}".replace(':attachment',attachment),
+                }).done(function(response){
+                    setAttachementUrlCollectorValue('attachment-' + config['id'], function(collector){
+                        for( var i = 0; i < collector.length; i++){
+                            if ( collector[i] === response.attachment) {
+                                collector.splice(i, 1);
+                            }
+                        }
+                
+                        return collector;
+                    });
+                });
+            });
+            
+            addEventListener("trix-attachment-add", function(event) {
+                var config = laravelTrixConfig(event);
+            
+                if (event.attachment.file) {
+                    var attachment = event.attachment;
+            
+                    config['attachment'] = attachment;
+            
+                    Vapor.store(attachment.file, {
+                        progress: function(progress) {
+                            setProgress(Math.round(progress * 100));
+                        }
+                    }).then(function(response){
+                        //post upload info to StemmaStudy.
+                        $.ajax({
+                            method: "POST",
+                            url :'{{route('laravel-trix.store')}}',
+                            data: { 
+                                'key' : response.key, 
+                                'field': config.field,
+                                'modelClass' : config.modelClass,
+                            }
+                        }).done(function(response){
+
+                            attachment.setAttributes({
+                                url : response.url,
+                                href: response.url
+                            });
+
+                            //set laravel-trix collector value
+                            setAttachementUrlCollectorValue('attachment-' + config['id'], function(collector){
+
+                                collector.push(response.attachment)
+                
+                                return collector;
+                            });
+                        }).fail(function(response){
+                            attachment.remove();
+                            if(response.errors && response.errors.file && response.errors.file.length > 0){
+                                alert(response.errors.file[0].replaceAll('image\/', ''));
+                            }else {
+                                alert("Error Processing Upload.");
+                            }
+                        });
+                    });
+                }
+
                 function setProgress(progress) {
                     attachment.setUploadProgress(progress);
                 }
-        
-                function setAttributes(attributes) {
-                    attachment.setAttributes(attributes);
-                }
-        
-                function errorCallback(xhr,attachment){
-                    attachment.remove();
-                    var response = JSON.parse(xhr.response);
-                    if(response.errors && response.errors.file && response.errors.file.length > 0){
-                        alert(response.errors.file[0].replaceAll('image\/', ''));
-                    }else {
-                        alert("Error Processing Upload.");
-                    }
-                }
+            });
+            
+            function setAttachementUrlCollectorValue(inputId, callback){
+                var attachmentCollector = document.getElementById(inputId);
+            
+                attachmentCollector.value = JSON.stringify(callback(JSON.parse(attachmentCollector.value)));
             }
+
+            function laravelTrixConfig (event) {
+                return JSON.parse(event.target.getAttribute("data-config"));
+            }
+        
         });
         
-        
-        function uploadFile(data, progressCallback, successCallback, errorCallback) {
-            var formData = createFormData(data);
-            var xhr = new XMLHttpRequest();
-        
-            xhr.open("POST", "{{route('laravel-trix.store')}}", true);
-        
-            xhr.upload.addEventListener("progress", function(event) {
-                var progress = (event.loaded / event.total) * 100;
-                progressCallback(progress);
-            });
-        
-            xhr.addEventListener("load", function(event) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    var response = JSON.parse(xhr.response);
-        
-                    setAttachementUrlCollectorValue('attachment-' + data['id'], function(collector){
-                        collector.push(response.url.split("/").pop())
-        
-                        return collector;
-                    });
-        
-                    successCallback({
-                        url : response.url,
-                        href: response.url
-                    })
-                } else {
-                    errorCallback(xhr,data.attachment)
-                }
-            });
-        
-            xhr.send(formData);
-        }
-        
-        function setAttachementUrlCollectorValue(inputId, callback){
-            var attachmentCollector = document.getElementById(inputId);
-        
-            attachmentCollector.value = JSON.stringify(callback(JSON.parse(attachmentCollector.value)));
-        }
-        
-        function createFormData(data) {
-            var formData = new FormData();
-            formData.append("Content-Type", data.attachment.file.type);
-            formData.append("file", data.attachment.file);
-            formData.append("field", data.field);
-            formData.append("modelClass", data.modelClass);
-        
-            if(data.disk != undefined) {
-                formData.append("disk", data.disk);
-            }
-        
-            return formData;
-        }
-        
-        function laravelTrixConfig (event) {
-            return JSON.parse(event.target.getAttribute("data-config"));
-        }
         
         window.onload = function() {
             var laravelTrixInstanceStyles =  document.getElementsByTagName('laravel-trix-instance-style');
@@ -259,7 +246,7 @@
         
             document.getElementsByTagName('head')[0].appendChild(style);
         }
-    
+
     </script>
     
 @endsection

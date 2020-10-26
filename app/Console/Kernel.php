@@ -55,7 +55,8 @@ class Kernel extends ConsoleKernel
         $schedule->call(function(){
             foreach(TrixAttachment::where('is_pending', true)->where('created_at', '<', Carbon::now()->subDays(1))->get() as $attachment){
                 try {
-                    $attachment->purge();
+                    //delete, not purge(), as the files are still in tmp/ and will be removed via rule. Simply delete db entry.
+                    $attachment->delete();
                 } catch (\Throwable $th) {
                     //ignore
                 }

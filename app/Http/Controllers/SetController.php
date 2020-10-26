@@ -89,6 +89,19 @@ class SetController extends Controller
     {
         $this->authorize('view-set', $set);
 
+        //remove trix text and attachments associated with each card, as they do not cascade in db.
+        foreach($set->cards as $card){
+            foreach($card->trixAttachments as $attachment){
+                //removes from s3 and db
+                $attachment->purge();
+            }
+            
+            //will only be one
+            foreach($card->trixRichText as $richText){
+                $richText->delete();
+            }
+        }
+
         $set->delete();
 
         return redirect()->route('user_sets');
