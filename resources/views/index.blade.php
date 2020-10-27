@@ -28,13 +28,12 @@
     <div class="particle-cover"></div>
     <div class="d-flex justify-content-center p-2">
         <div class="home-head">
-            <h1 class="px-2 mt-5"><b>You Can Do Better</b></h1>
+            <h1 class="px-2"><b>You Can Do Better</b></h1>
             <h4 class="px-2 mt-4">Forget flashcards as you know them. Connected Flashcards help you learn and remember by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.</h4>
-            <div class="px-2 mt-4 mb-5">
+            <div class="px-2 mt-4 mb-3">
                 <a href="{{route('register')}}" class="btn btn-primary">Free Trial <i class="fas fa-angle-double-right"></i></a>
                 <a href="{{route('tutorial')}}" class="btn btn-outline-primary">View the Tutorial</a>
             </div>
-            <div class="pt-5"></div>
         </div>
     </div>
 </div>

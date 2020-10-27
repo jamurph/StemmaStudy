@@ -469,6 +469,25 @@ trix-toolbar .trix-button-row {
     flex: 0 0 100%;
     max-width: 700px;
     width: 100%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+@media screen and (min-width: 768px){
+
+    .home-head {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        background: white;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        padding: 20px;
+    }
+
+    .home-head h1 {
+        border-bottom: 1px solid #aaaaaa;
+        padding-bottom: 10px;
+    }
+
 }
 
 .home-learning {
