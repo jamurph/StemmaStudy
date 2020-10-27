@@ -98,9 +98,9 @@
     <h2 class="text-center mt-5 mb-4">Pricing</h2>
     <div class="price-box shadow" style="">
         <div class="text-center"><span class="price green"><small class="text-dark text-muted">$</small>4<sup>.99</sup><small class="text-dark text-muted">/mo</small></span></div>
-        <div class="text-center text-muted">Start getting better grades for the price of your morning coffee. <span style="font-size: 120%">&#x2615;</span></div>
+        <div class="text-center text-muted">Make better memories for the price of your morning coffee. <span style="font-size: 120%">&#x2615;</span></div>
         <div class="text-center mt-3">
-            Try it free for 30 days &ndash; no strings attached &ndash; and see how your scores improve!
+            Try it free for 30 days &ndash; no strings attached &ndash; and see how much more you remember!
         </div>
         <div class="mt-4 mb-4 text-center">
             <a href="{{route('register')}}" class="btn btn-primary">Start Free Trial <i class="fa fa-angle-double-right"></i></a>
