@@ -68,20 +68,26 @@
                 
             @endforeach
         @else
-        <div class="raised-box p-3">
-            <h1>Welcome to StemmaStudy, {{request()->user()->name}}!</h1>
-            <p>We want to help you understand more and forget less. To help you get started, consider taking a few minutes to familiarize yourself with these resources:</p>
-            <p>
-                <ul>
-                    <li><a target="_blank" href="{{route('tutorial')}}">StemmaStudy Tutorial</a> &mdash; Get a full overview of how Connected Flashcards work.</li>
-                    <li><a target="_blank" href="{{route('learn')}}">Essential Study Techniques</a> &mdash; A five minute read on what <em>really</em> works when studying that can save you many hours of frustration.</li>
-                </ul>
-            </p>
-            <p>Ready to begin? Click the button below to create your first Set of Connected Flashcards.</p>
-            <div class="text-center">
-                <a href="{{route('set_create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> My First Set</a>
+            @if (!Auth::user()->onTrialOrSubscribed())
+            <div class="alert alert-info">
+                Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to create new sets.
             </div>
-        </div>
+            @else
+            <div class="raised-box p-3">
+                <h1 class="break-word">Welcome to StemmaStudy, {{request()->user()->name}}!</h1>
+                <p>We want to help you understand more and forget less. To help you get started, consider taking a few minutes to familiarize yourself with these resources:</p>
+                <p>
+                    <ul>
+                        <li><a target="_blank" href="{{route('tutorial')}}">StemmaStudy Tutorial</a> &mdash; Get a full overview of how Connected Flashcards work.</li>
+                        <li><a target="_blank" href="{{route('learn')}}">Essential Study Techniques</a> &mdash; A five minute read on what <em>really</em> works when studying that can save you many hours of frustration.</li>
+                    </ul>
+                </p>
+                <p>Ready to begin? Click the button below to create your first Set of Connected Flashcards.</p>
+                <div class="text-center">
+                    <a href="{{route('set_create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> My First Set</a>
+                </div>
+            </div>
+            @endif
         @endif
     </div>
 </div>

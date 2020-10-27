@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Exceptions\IncompletePayment;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Newsletter;
 
 class SettingsController extends Controller
@@ -91,19 +92,31 @@ class SettingsController extends Controller
 
     public function subscribe_store(Request $request){
 
-        /*
-            * Subscribe page show card error in form
-        */
         $user = $request->user();
         $trialEnd = Carbon::createFromTimestamp(strtotime($user->trial_ends_at));
         try {
             if($trialEnd < Carbon::now()){
-                $user->newSubscription('default', 'price_1H90K9EtyrRgwUBdGoBhSEzL')
-                    ->create($request['payment_method']); 
+                //if not production, use test keys.
+                if(!App::environment('production')){
+                    $user->newSubscription('default', 'price_1H90K9EtyrRgwUBdGoBhSEzL')
+                        ->create($request['payment_method']); 
+                }else {
+                    //we are in production!
+                    $user->newSubscription('default', 'price_1HgeJHEtyrRgwUBddlbSp3Ml')
+                        ->create($request['payment_method']); 
+                }
             }else {
-                $user->newSubscription('default', 'price_1H90K9EtyrRgwUBdGoBhSEzL')
-                    ->trialUntil($trialEnd)
-                    ->create($request['payment_method']); 
+                //if not production use test keys.
+                if(!App::environment('production')){
+                    $user->newSubscription('default', 'price_1H90K9EtyrRgwUBdGoBhSEzL')
+                        ->trialUntil($trialEnd)
+                        ->create($request['payment_method']); 
+                }else {
+                    //we are in production!
+                    $user->newSubscription('default', 'price_1HgeJHEtyrRgwUBddlbSp3Ml')
+                        ->trialUntil($trialEnd)
+                        ->create($request['payment_method']); 
+                }
             }
         }catch (IncompletePayment $exception){
             return redirect()->route('cashier.payment', [$exception->payment->id, 'redirect' => route('user_sets')]);
