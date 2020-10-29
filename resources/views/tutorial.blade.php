@@ -73,6 +73,7 @@
             <p>To create a connection, navigate to one of the cards you want to connect. You can get there by clicking <b>View Details</b> from the List page. Click the gray <b>New</b> button.</p>
             <img src="{{ asset('/image/tutorial/NewConnection.png')}}" class="tut-img shadow" />
             <p>Specify the direction of the connection and the other card to connect to. Then, give a name for the relationship and, optionally, provide any information about it that you might need to remember.</p>
+            <p>You can also create connections from the <b>Network</b> page, as you will see in the next section.</p>
             <div class="p-3 raised-box">
                 <h4><b>Heads up!</b></h4>
                 <p>When first starting, you might know two flashcards are connected in some way, but struggle to come up with a name for the relationship. 
@@ -86,6 +87,7 @@
             <img src="{{ asset('/image/tutorial/BigPicture.png')}}" class="tut-img shadow" />
             <p>Click the title of a card or the connections to <b>see more details</b>.</p>
             <p>Click and drag to move the cards around if you want to <b>arrange them on the screen</b>. Positions of the cards are saved. However, when returning to the Network after creating new cards, it will shift to automatically incorporate the new cards.</p>
+            <p>The <b>Network</b> page will help you gain a deeper understanding of how concepts are related as you add connections and arrange the cards.</p>
             <hr class="my-4">
 
             <h2>Maintain Strong Memories</h2>
