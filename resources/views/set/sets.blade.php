@@ -79,7 +79,7 @@
                 <p>
                     <ul>
                         <li><a target="_blank" href="{{route('tutorial')}}">StemmaStudy Tutorial</a> &mdash; Get a full overview of how Connected Flashcards work.</li>
-                        <li><a target="_blank" href="{{route('learn')}}">Essential Study Techniques</a> &mdash; A five minute read on what <em>really</em> works when studying that can save you many hours of frustration.</li>
+                        <li><a target="_blank" href="https://blog.stemmastudy.com/">StemmaStudy Blog</a> &mdash; Get some practical study tips, see what's new in StemmaStudy updates, and learn about learning.</li>
                     </ul>
                 </p>
                 <p>Ready to begin? Click the button below to create your first Set of Connected Flashcards.</p>

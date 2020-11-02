@@ -42,7 +42,7 @@
     <h2>
         Understand More.<br class="d-md-none" /> Forget Less.
     </h2>
-    <a href="{{route('learn')}}" class="btn-light btn mt-2">How To Study Smarter <i class="fas fa-angle-double-right"></i></a>
+    <a href="https://blog.stemmastudy.com/6-powerful-study-tips-to-improve-memory/" class="btn-light btn mt-2">How To Study Smarter <i class="fas fa-angle-double-right"></i></a>
 </div>
 
 <div class="container">
@@ -112,7 +112,7 @@
     <div class="you-are text-center">
         <h1>You Are What You Remember</h1>
         <h4>Don't study just to pass a test.<br class="d-lg-none"/> Study to make strong memories.</h4>
-        <a href="{{route('learn')}}" class="btn btn-light mt-3">How to Remember More <i class="fas fa-angle-double-right"></i></a>
+        <a href="https://blog.stemmastudy.com/6-powerful-study-tips-to-improve-memory/" class="btn btn-light mt-3">How to Remember More <i class="fas fa-angle-double-right"></i></a>
     </div>
 </div>
 

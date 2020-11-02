@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Te7aHoudini\LaravelTrix\Models\TrixAttachment;
 
 class Kernel extends ConsoleKernel
@@ -29,27 +30,31 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-        //Email Users who have more than 5 cards due
-        $schedule->call(function(){
-            foreach(User::where('notify', true)->get() as $user){
-                try{
-                    $totalDue = 0;
-                    foreach($user->sets as $set){
-                        $countDue = $set->cards->where('next_review', '<', Carbon::now())->count();
-                        $totalDue += $countDue;
-                    }
 
-                    if($totalDue > 0){
-                        $user->notify(new DueForReview($totalDue));
+
+        //Email Users who have more than 5 cards due
+        if(App::environment('production')){
+            $schedule->call(function(){
+                foreach(User::where('notify', true)->get() as $user){
+                    try{
+                        $totalDue = 0;
+                        foreach($user->sets as $set){
+                            $countDue = $set->cards->where('next_review', '<', Carbon::now())->count();
+                            $totalDue += $countDue;
+                        }
+    
+                        if($totalDue > 0){
+                            $user->notify(new DueForReview($totalDue));
+                        }
+                    } catch (\Throwable $th) {
+                        //ignore
                     }
-                } catch (\Throwable $th) {
-                    //ignore
-                }
-            };
-        })  
-            ->dailyAt('18:00')
-            ->timezone('America/New_York')
-        ;
+                };
+            })  
+                ->dailyAt('18:00')
+                ->timezone('America/New_York')
+            ;
+        }
 
         //check for old pending attachments and remove them.
         $schedule->call(function(){

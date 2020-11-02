@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 
 Route::get('/learn', function () {
-    return view('learning.learning');
+    return redirect('https://blog.stemmastudy.com/6-powerful-study-tips-to-improve-memory/');
 })->name('learn');
 
 Route::get('/about', function () {

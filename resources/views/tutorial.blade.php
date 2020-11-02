@@ -129,7 +129,7 @@
             <p>While StemmaStudy was made to help you understand more and forget less, there are many <b>other things you can do to improve</b> your learning!</p>
             <p>We've written a small (5 minute read) guide to some of the <b>most effective and practical principles</b> to improve your studying so that you can understand, remember, and achieve more.</p>
             <div class="text-center">
-                <a href="{{route('learn')}}" class="btn btn-primary">Read the Guide <i class="fas fa-angle-double-right"></i></a>
+                <a href="https://blog.stemmastudy.com/6-powerful-study-tips-to-improve-memory/" class="btn btn-primary">Read the Guide <i class="fas fa-angle-double-right"></i></a>
             </div>
         </div>
     </div>
