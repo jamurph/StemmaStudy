@@ -51,6 +51,8 @@ class VerificationController extends Controller
     protected function verified(Request $request)
     {
         //register them for the newsletter. 
-        Newsletter::subscribeOrUpdate($request->user()->email);
+        if(! Newsletter::isSubscribed($request->user()->email)){
+            Newsletter::subscribeOrUpdate($request->user()->email);
+        }
     }
 }
