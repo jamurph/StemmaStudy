@@ -49,6 +49,7 @@ Route::delete('/my-sets/{set}', 'SetController@destroy')->middleware('verified')
 */
 Route::get('/network/{set}', 'SetController@network')->middleware('verified')->name('set_network');
 Route::put('/network/{set}/update', 'SetController@update_network')->middleware('verified')->name('update_network');
+Route::post('/network/{set}/add-card', 'CardController@network_store_card')->middleware('verified')->name('network_store_card');
 
 /* 
     Cards

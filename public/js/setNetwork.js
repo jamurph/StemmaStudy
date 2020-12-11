@@ -43895,6 +43895,13 @@ function destroyPopper() {
   }
 }
 
+function highlightNode(node) {
+  node.addClass('selected');
+  window.setTimeout(function () {
+    node.removeClass('selected');
+  }, 1000);
+}
+
 function closeMenu() {
   $('.side-menu').css({
     "transform": "translate(-100%,0)"
@@ -43908,6 +43915,133 @@ function openMenu() {
     "transform": "translate(0,0)"
   });
   $('.side-menu').addClass('shadow-lg');
+}
+
+function openCreateCard() {
+  destroyPopper();
+  $('.add-card-container').fadeIn();
+}
+
+function closeCreateCard() {
+  $('.add-card-container').fadeOut();
+}
+
+function clearCreateCard() {
+  $('trix-editor').val('');
+  $('#create-card-title').val('');
+  $('#attachment-card-content-new-model').val('[]');
+  $('#card-content-new-model').val('');
+}
+
+function createCardClearErrors() {
+  $('.invalid-tooltip').remove();
+  $('.is-invalid').removeClass('is-invalid');
+}
+
+function createCardError(ele, message) {
+  var parent = ele.parent();
+  ele.addClass('is-invalid');
+  parent.append('<div class="invalid-tooltip">' + message + '</div>');
+}
+
+function validateCardForm() {
+  var valid = true;
+  var titleEle = $('#create-card-title');
+  var contentContainer = $('#trixContainer');
+  var title = titleEle.val();
+  var content = $('trix-editor').val();
+
+  if (!title || 0 === title.length || !title.trim()) {
+    valid = false;
+    createCardError(titleEle, "Please provide a title.");
+  } else if (title.length < 3) {
+    valid = false;
+    createCardError(titleEle, "Please provide a longer title.");
+  } else if (title.length > 100) {
+    valid = false;
+    createCardError(titleEle, "Titles must be 100 characters or less.");
+  }
+
+  if (!content || 0 === content.length || !content.trim()) {
+    valid = false;
+    createCardError(contentContainer, "Please provide a definition.");
+  } else if (content.length > 20000) {
+    valid = false;
+    createCardError(contentContainer, "Definition too long.");
+  }
+
+  return valid;
+}
+
+function createCard(cy) {
+  $('#create-card').prop('disabled', true);
+  createCardClearErrors();
+
+  if (validateCardForm()) {
+    $.ajax({
+      method: "POST",
+      url: '/network/' + set_id + '/add-card/',
+      data: $('#create-card-form').serialize()
+    }).done(function (data) {
+      if (data && data.created && data.id) {
+        //Success. Close form, clear form, and create card on the current graph
+        closeCreateCard();
+        window.setTimeout(clearCreateCard, 500);
+        var extent = cy.extent();
+        var collection = cy.add({
+          group: 'nodes',
+          data: {
+            id: 'card-' + data.id,
+            label: data.title,
+            definition: data.definition,
+            card_id: "" + data.id
+          },
+          position: {
+            x: (extent.x1 + extent.x2) / 2,
+            y: (extent.y1 + extent.y2) / 2
+          }
+        });
+        var element = collection[0];
+        var changes = {
+          changes: [{
+            card_id: element.data('card_id'),
+            position: element.position()
+          }]
+        };
+        $.ajax({
+          method: "PUT",
+          url: '/network/' + set_id + '/update/',
+          data: JSON.stringify(changes),
+          contentType: "application/json"
+        });
+        highlightNode(element); //add to search
+
+        $('.search-result').append('<div data-card="' + element.data('card_id') + '">' + element.data('label') + '</div>');
+        $('.search-result div').off('click');
+        $('.search-result div').click(function () {
+          var card_id = $(this).data()['card'];
+
+          if (card_id) {
+            closeSearch();
+            panToCardId(cy, card_id);
+          }
+        }); //add to connection options
+
+        $('#newSelect').append('<option value="' + element.data('card_id') + '">' + element.data('label') + '</option>');
+      } else {
+        if (data && data.error) {
+          alert(error);
+        }
+
+        alert('Something went wrong. Please refresh the page and try again.');
+      }
+
+      $('#create-card').prop('disabled', false);
+    }).fail(function () {
+      alert('Something went wrong. Please refresh the page and try again.');
+      $('#create-card').prop('disabled', false);
+    });
+  }
 }
 
 function closeSearch() {
@@ -43946,7 +44080,7 @@ function clearConnectionValidation() {
 function openConnectionAdd(card) {
   clearConnectionForm();
   $('#mode').val('Create');
-  $('#newConnectionSubmit').text('Create');
+  $('#newConnectionSubmit span').text('Create');
   $('.connection-container').fadeIn();
   $('#card-name').text(card.data('label'));
   $('#newConnectionCard').val(card.data('card_id'));
@@ -43990,7 +44124,7 @@ function openConnectionEdit(connection) {
   $('input[name=newDirection]').val(['to']);
   $('#new-title').val(connection.data('label'));
   $('#new-description').val(connection.data('description'));
-  $('#newConnectionSubmit').text('Update');
+  $('#newConnectionSubmit span').text('Update');
   $('#connection-box-title').text('Edit Connection');
   $('.connection-container').fadeIn();
 }
@@ -44016,6 +44150,7 @@ function panToCardId(cy, id) {
         eles: nodes[0]
       }
     });
+    highlightNode(nodes[0]);
   }
 }
 
@@ -44063,6 +44198,11 @@ $(function () {
           'text-justification': 'left',
           'color': '#192332'
         }
+      }, {
+        selector: 'node.selected',
+        style: {
+          'border-color': 'rgb(246,181,65)'
+        }
       }],
       layout: {
         name: 'preset',
@@ -44070,59 +44210,49 @@ $(function () {
         animationDuration: 1000,
         animationEasing: 'ease-in-out',
         stop: function stop() {
-          if (has_new_cards) {
-            //change message on popup
-            $('#loader-message').text('Shifting for new cards...');
-            cy.layout({
-              name: 'fcose',
-              quality: "proof",
-              randomize: false,
-              animate: true,
-              animationDuration: 1000,
-              fit: true,
-              padding: 30,
-              nodeDimensionsIncludeLabels: true,
-              uniformNodeDimensions: false,
-              nodeSeparation: 250,
-              nodeRepulsion: 4579,
-              idealEdgeLength: 71,
-              edgeElasticity: 0.5,
-              nestingFactor: 0.1,
-              numIter: 2500,
-              stop: function stop() {
-                $('#loader').fadeOut();
-                panForParameter(cy);
-                var changes = [];
-                var nodes = cy.nodes();
-
-                for (var i = 0; i < nodes.length; i++) {
-                  element = nodes[i];
-                  changes.push({
-                    card_id: element.data('card_id'),
-                    position: element.position()
-                  });
-                }
-
-                changes = {
-                  changes: changes
-                };
-                $.ajax({
-                  method: "PUT",
-                  url: '/network/' + set_id + '/update/',
-                  data: JSON.stringify(changes),
-                  contentType: "application/json"
-                });
-              }
-            }).start();
-          } else {
-            $('#loader').fadeOut();
-            panForParameter(cy);
-          }
+          $('#loader').fadeOut();
+          panForParameter(cy);
         }
       },
       wheelSensitivity: 0.25,
       maxZoom: 2.5,
       minZoom: 0.1
+    });
+    cy.on('cxttap', function (event) {
+      target = event.target;
+      destroyPopper();
+
+      if (target.isNode && target.isNode()) {//maybe ;)
+      } else if (target.isEdge && target.isEdge()) {//maybe ;)
+      } else {
+        //bg menu
+        popperInstance = target.popper({
+          renderedPosition: function renderedPosition() {
+            return {
+              x: event.renderedPosition.x,
+              y: event.renderedPosition.y
+            };
+          },
+          content: function content() {
+            var div = document.createElement('div');
+            $(div).addClass('network-detail').addClass('shadow').css('width', '200px').css('max-width', 'calc(100% - 10px)').css('z-index', '100001');
+            $(div).html('<div class="unlink soft-link add-card"><i class="fas fa-plus green pr-4"></i> Add New Card</div>' + '<div class="unlink soft-link search"><i class="fas fa-search green pr-4"></i> Search</div>');
+            document.body.appendChild(div);
+            $('.search').off('click');
+            $('.search').click(function () {
+              closeMenu();
+              openSearch();
+            });
+            $('.add-card').off('click');
+            $('.add-card').click(function () {
+              closeMenu();
+              openCreateCard();
+            });
+            return div;
+          },
+          popper: {}
+        });
+      }
     });
     cy.on('vclick', 'edge', function (event) {
       var edge = event.target;
@@ -44160,6 +44290,7 @@ $(function () {
 
             if (edge != null) {
               destroyPopper();
+              closeMenu();
               openConnectionEdit(edge);
             }
           });
@@ -44192,6 +44323,7 @@ $(function () {
 
             if (card != null) {
               destroyPopper();
+              closeMenu();
               openConnectionAdd(card);
             }
           });
@@ -44274,6 +44406,8 @@ $(function () {
     });
     $('#newSelect').select2();
     $('#newConnectionSubmit').click(function () {
+      $('#newConnectionSubmit').prop('disabled', true);
+
       if ($('#mode').val() == 'Create') {
         clearConnectionValidation();
         var currentCardId = $('#newConnectionCard').val();
@@ -44343,9 +44477,14 @@ $(function () {
             } else {
               alert('Something went wrong. Please refresh the page and try again.');
             }
+
+            $('#newConnectionSubmit').prop('disabled', false);
           }).fail(function () {
             alert('Something went wrong. Please refresh the page and try again.');
+            $('#newConnectionSubmit').prop('disabled', false);
           });
+        } else {
+          $('#newConnectionSubmit').prop('disabled', false);
         }
       } else if ($('#mode').val() == 'Update') {
         clearConnectionValidation();
@@ -44390,11 +44529,26 @@ $(function () {
             } else {
               alert('Something went wrong. Please refresh the page and try again.');
             }
+
+            $('#newConnectionSubmit').prop('disabled', false);
           }).fail(function () {
             alert('Something went wrong. Please refresh the page and try again.');
+            $('#newConnectionSubmit').prop('disabled', false);
           });
+        } else {
+          $('#newConnectionSubmit').prop('disabled', false);
         }
       }
+    });
+    $('#cancel-card').click(function () {
+      closeCreateCard();
+    });
+    $('.add-card').click(function () {
+      openCreateCard();
+      closeMenu();
+    });
+    $('#create-card').click(function () {
+      createCard(cy);
     });
   }
 
@@ -44403,6 +44557,9 @@ $(function () {
   });
   $('.close-menu').click(function () {
     closeMenu();
+  });
+  $('#create-card-form').submit(function () {
+    return false;
   });
 });
 

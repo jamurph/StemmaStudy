@@ -74,9 +74,14 @@ class CardController extends Controller
             'attachment-card-trixFields' => request('attachment-card-trixFields')
         ]);
 
-        $position_y = DB::table('cards')->where('set_id', 1)->max('position_y');
+        $max_position_x = DB::table('cards')->where('set_id', $set->id)->max('position_x');
+        $min_position_x = DB::table('cards')->where('set_id', $set->id)->min('position_x');
+        if($max_position_x && is_numeric($max_position_x) && $min_position_x && is_numeric($min_position_x)){
+            $card->position_x = ($max_position_x + $min_position_x) / 2 + 0;
+        }
+        $position_y = DB::table('cards')->where('set_id', $set->id)->max('position_y');
         if($position_y && is_numeric($position_y)){
-            $card->position_y = $position_y + 100;
+            $card->position_y = $position_y + 50;
         }
         $card->save();
 
@@ -217,6 +222,59 @@ class CardController extends Controller
         }
 
         return response()->json(['attachment' => $path]);
+    }
+
+    public function network_store_card(Set $set, Request $request){
+        if(!$request->user()->onTrialOrSubscribed()){
+            return ['created' => false, 'error' => 'Your trial period has expired. You must subscribe to add new cards.'];
+        }
+        $this->authorize('view-set', $set);
+
+        //limit to 1000...
+        if($set->cards->count() >= 1000){
+            return ['created' => false, 'error' => 'Sets cannot have more than 1000 cards.'];
+        }
+
+        $v = Validator::make($request->all(),[
+            'create-card-title' => ['required', 'min:3', 'max:100'],
+            'card-trixFields.content' => ['required', 'min:1', 'max:20000']
+        ]);
+
+        if($v->fails()){
+            return ['created' => false, 'error' => 'Error validating card input. Contact us if this error persists.'];
+        }
+
+        //add target="_blank" to links.
+        $content = str_replace('<a href=', '<a target="_blank" href=', request('card-trixFields.content'));
+
+        //strip content of anything except what is allowed just in case... :)
+        $stripped_content = strip_tags($content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br', 'a', 'h1', 'blockquote', 'pre', 'figure', 'img', 'figcaption']);
+
+        //strip links from preview, and truncate
+        $preview = $this->truncateHtml(strip_tags($stripped_content, ['div', 'ul', 'li', 'ol', 'strong', 'em', 'del', 'br', 'h1', 'blockquote', 'pre', 'figure', 'img', 'figcaption']), 500);
+
+        $card = new Card([
+            'title' => request('create-card-title'),
+            'definition' => $preview,
+            'set_id' => $set->id,
+            'next_review' => Carbon::now()->addDay()->subHour(),
+            'card-trixFields' => ['content' => $stripped_content],
+            'attachment-card-trixFields' => request('attachment-card-trixFields')
+        ]);
+
+        $max_position_x = DB::table('cards')->where('set_id', $set->id)->max('position_x');
+        $min_position_x = DB::table('cards')->where('set_id', $set->id)->min('position_x');
+        if($max_position_x && is_numeric($max_position_x) && $min_position_x && is_numeric($min_position_x)){
+            $card->position_x = ($max_position_x + $min_position_x) / 2 + 0;
+        }
+        $position_y = DB::table('cards')->where('set_id', $set->id)->max('position_y');
+        if($position_y && is_numeric($position_y)){
+            $card->position_y = $position_y + 50;
+        }
+        $saved = $card->save();
+
+
+        return ['created' => $saved, 'id' => $card->id, 'title' => $card->title,'definition' => $card->definition];
     }
 
 

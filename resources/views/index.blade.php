@@ -44,11 +44,60 @@
     </h2>
     <a href="https://blog.stemmastudy.com/6-powerful-study-tips-to-improve-memory/" class="btn-light btn mt-2">How To Study Smarter <i class="fas fa-angle-double-right"></i></a>
 </div>
+<style>
+
+    .quote-container {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .quote {
+        font-size: 16px;
+    }
+
+    .quote-container .reference {
+        margin: 0;
+    }
+
+    .quote-container .reference-description {
+        margin: 0;
+        font-size: 14px;
+        color: var(--dark-acc);
+    }
+
+    .quote-container i {
+        background: var(--green);
+        color: white;
+        border-radius: 50%;
+        padding: 13px;
+        margin-bottom: 10px;
+    }
+
+</style>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 quote-container">
+            <i class="fas fa-quote-left green shadow"></i>
+            <p class="quote">I have never seen any other platform that does what StemmaStudy does in using flashcards in an organized way that will permit students to develop a schema for the material.</p>
+            <p class="reference"><span class="green">&mdash;</span> <b>Henry L. Roediger III</b></p>
+            <p class="reference-description">coauthor of <em>Make It Stick</em></p>
+        </div>
+        <div class="col-md-6 quote-container">
+            <i class="fas fa-quote-left green shadow"></i>
+            <p class="quote">From the perspective of helping people learn, this seems like a great way to do it. I've seen a lot of smart flashcard apps and this is the first time I remember seeing one where you can map out the relationships between topics/cards.</p>
+            <p class="reference"><span class="green">&mdash;</span> <b>Nate Kornell</b></p>
+            <p class="reference-description">associate professor of cognitive psychology at Williams College</p>
+        </div>
+    </div>
+    <div class="mb-5"></div>
+</div>
 
 <div class="container">
+    <hr>
+    <h2 class="text-center mt-5 mb-4"><span class="green">&mdash;</span> How it Works <span class="green">&mdash;</span></h2>
     <div class="row py-5">
         <div class="col-lg-6">
-            <h2>Connect the Dots.</h2>
+            <h3>Connect the Dots.</h3>
             <p>Discover the big picture &ndash; one connection at a time. Creating connections helps you:</p>
             <ul>
                 <li>Find and bridge gaps in your understanding.</li>
@@ -66,7 +115,7 @@
             <img src="{{asset('/image/MaintainStrongMemories.png')}}" class="img w-100" />
         </div>
         <div class="col-lg-6 order-lg-2 order-1">
-            <h2>Maintain Strong Memories.</h2>
+            <h3>Maintain Strong Memories.</h3>
             <p>StemmaStudy uses the tried-and-true method of Spaced Repetition to help you:</p>
             <ul>
                 <li>Study the concepts you find most difficult more often.</li>
@@ -77,7 +126,7 @@
     </div>
     <div class="row py-5">
         <div class="col-lg-6 ">
-            <h2>Concentrate Your Effort Where It Matters.</h2>
+            <h3>Concentrate Your Effort Where It Matters.</h3>
             <p>StemmaStudy Assessments help you:</p>
             <ul>
                 <li>See your performance on each card in context of the big picture.</li>
@@ -93,8 +142,53 @@
 </div>
 
 <div class="container mb-5">
+    <hr>
+    <h2 class="text-center mt-5 mb-4"><span class="green">&mdash;</span> Features <span class="green">&mdash;</span></h2>
+    <div class="row">
+        <div class="col-md-6 p-3">
+            <h4><i class="fas fa-boxes green mr-3"></i>Create Sets</h4>
+            <p class="text-muted">Stay organized by splitting your flashcards for study into groups by topic, class, book, or chapter. </p>
+        </div>
+        <div class="col-md-6 p-3">
+            <h4><i class="fas fa-project-diagram green mr-3"></i>Link Flashcards Together</h4>
+            <p class="text-muted">No concept exists on its own &ndash; link each one to others to learn the relationships, as well.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 p-3">
+            <h4><i class="fas fa-calendar-day green mr-3"></i>Spaced Repetition</h4>
+            <p class="text-muted">StemmaStudy automatically schedules your review of concepts based on how well you know them.</p>
+        </div>
+        <div class="col-md-6 p-3">
+            <h4><i class="fas fa-envelope-open-text green mr-3"></i>Get Notifications to Review</h4>
+            <p class="text-muted">Never forget with optional reminders to review sent straight to your inbox.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 p-3">
+            <h4><i class="fas fa-sitemap green mr-3"></i>See the Big Picture</h4>
+            <p class="text-muted">Organize your flashcards in a diagram that helps you gain deeper understanding of the material.</p>
+        </div>
+        <div class="col-md-6 p-3">
+            <h4><i class="fas fa-pencil-alt green mr-3"></i>Visualize your Knowledge</h4>
+            <p class="text-muted">Take assessments and view how concepts you missed are related to concepts you know.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 p-3">
+            <h4><i class="fas fa-paragraph green mr-3"></i>Use Rich Text</h4>
+            <p class="text-muted">Add bold, bullet points, italics, links, and more to your flashcards as you see fit.</p>
+        </div>
+        <div class="col-md-6 p-3">
+            <h4><i class="fas fa-images green mr-3"></i>Use Images</h4>
+            <p class="text-muted">Attach images within the text of your flashcards to show examples or learn visual concepts.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5">
     <hr/>
-    <h2 class="text-center mt-5 mb-4">Pricing</h2>
+    <h2 class="text-center mt-5 mb-4"><span class="green">&mdash;</span> Pricing <span class="green">&mdash;</span></h2>
     <div class="price-box shadow" style="">
         <div class="text-center"><span class="price green"><small class="text-dark text-muted">$</small>4<sup>.99</sup><small class="text-dark text-muted">/mo</small></span></div>
         <div class="text-center text-muted">Make better memories for the price of your morning coffee. <span style="font-size: 120%">&#x2615;</span></div>

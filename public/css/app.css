@@ -11013,6 +11013,7 @@ a.unlink:hover {
 }
 
 .ss-card .ss-card-btn {
+  width: 118px;
   display: inline-block;
   padding-top: 5px;
   text-decoration: none;
@@ -11092,6 +11093,12 @@ a.unlink:hover {
   background: white;
   padding: 12px 20px;
   border-radius: 3px;
+}
+
+trix-editor:focus {
+  border-color: #73debc;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(40, 170, 128, 0.25);
 }
 
 trix-editor .attachment__metadata-container {
@@ -11245,7 +11252,7 @@ trix-toolbar .trix-button-row {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.search {
+.menu-search {
   float: left;
   width: 50px;
   height: 50px;
@@ -11256,7 +11263,7 @@ trix-toolbar .trix-button-row {
   cursor: pointer;
 }
 
-.search:hover {
+.menu-search:hover {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
@@ -11269,6 +11276,7 @@ trix-toolbar .trix-button-row {
 
 .side-link:hover {
   color: #192332;
+  cursor: pointer;
 }
 
 .search-container {
@@ -11350,6 +11358,29 @@ trix-toolbar .trix-button-row {
 }
 
 .connection-box {
+  display: inline-block;
+  text-align: left;
+  width: 800px;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 15px;
+  background: white;
+}
+
+.add-card-container {
+  display: none;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  z-index: 10002;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.add-card-box {
   display: inline-block;
   text-align: left;
   width: 800px;
@@ -11472,6 +11503,10 @@ trix-toolbar .trix-button-row {
 
 .break-word {
   overflow-wrap: break-word;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 
 .score_color_100 {

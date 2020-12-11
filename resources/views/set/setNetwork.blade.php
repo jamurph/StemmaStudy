@@ -7,6 +7,8 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.0/trix.js" defer></script>
 @endsection
 
 @section('content')
@@ -15,6 +17,31 @@
     .select2-dropdown {
         z-index: 10003;
     }
+
+    .soft-link {
+        color: #6e8789;
+        margin: 5px 0px;
+    }
+
+    .soft-link:hover {
+        color: #192332;
+        cursor: pointer;
+    }
+
+    .sync-button i {
+        display: none;
+    }
+
+    .sync-button:disabled i {
+        display: inline-block;
+        animation: rotation 2.5s infinite linear;
+    }
+
+    @keyframes rotation {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 
 <div class="menu-btn"><i class="fas fa-bars green"></i> Menu</div>
@@ -22,13 +49,16 @@
     <div class="menu-button-container">
         <div class="close-menu"><i class="fas fa-angle-double-left green" style="font-size: 26px;"></i></div>
         @if ($cards->count() != 0)
-            <div class="search"><i class="fas fa-search green" style="font-size: 26px;"></i></div>
+            <div class="menu-search search"><i class="fas fa-search green" style="font-size: 26px;"></i></div>
         @endif
     </div>
-    <hr>
-    <a class="unlink side-link" href="{{route('user_sets')}}"><i class="fas fa-home green pr-4"></i> My Sets</a>
+    
+    @if ($cards->count() != 0)
+    <div class="unlink side-link add-card"><i class="fas fa-plus green pr-4"></i> Add New Card</div>
     <a class="unlink side-link" href="{{route('cards_in_set', $set->id)}}"><i class="fas fa-list-alt green pr-4"></i> View Card List</a>
-    <a class="unlink side-link" href="{{route('card_create', $set->id)}}"><i class="fas fa-plus green pr-4"></i> Add New Card</a>
+    <hr>
+    @endif
+    <a class="unlink side-link" href="{{route('user_sets')}}"><i class="fas fa-home green pr-4"></i> My Sets</a>
 </div>
 <div id="network" style="width: 100%; height: 100vh;background:var(--light);">
     @if ($cards->count() == 0)
@@ -67,7 +97,7 @@
         </div>
     </div>
     <div class="connection-container">
-        <div class="connection-box shadow-lg">
+        <div class="connection-box shadow-lg overflow-auto">
             <h2 id="connection-box-title">Add Connection</h2>
             <h5 id="card-name" class="green">Edward Thorndike</h5>
             <input id="mode" type="hidden" value="" />
@@ -111,8 +141,35 @@
                 </div>
                 <small class="form-text text-muted">Anything you should remember about this connection?</small>
             </div>
-            <button id="newConnectionSubmit" class="btn btn-primary" type="button">Create</button>
+            <button id="newConnectionSubmit" class="btn btn-primary sync-button" type="button"><span>Create</span><i class="fas fa-sync ml-2"></i></button>
             <button class="btn btn-link connection-cancel" type="button">Cancel</button>
+        </div>
+    </div>
+    <div class="add-card-container">
+        <div class="add-card-box shadow-lg overflow-auto">
+            <h2>New Card</h2>
+            <form id="create-card-form">
+                <div class="form-group position-relative">
+                    <label for="create-card-title">Title</label>
+                    <div class="position-relative">
+                        <input type="text" class="form-control" id="create-card-title" name="create-card-title"  value="" autocomplete="off">
+                        <div class="invalid-tooltip"></div>
+                    </div>
+                    <small class="form-text text-muted">What should this card be called?</small>
+                </div>
+                <div class="form-group">
+                    <label for="create-card-definition">Definition</label>
+                    <div class="position-relative"> 
+                        <div id="trixContainer">
+                            @trix(\App\Card::class, 'content')
+                        </div>
+                        <div class="invalid-tooltip"></div>
+                    </div>
+                    <small class="form-text text-muted">Define this card in a way you will understand later.</small>
+                </div>
+                <button type="button" class="btn btn-primary sync-button" id="create-card">Create<i class="fas fa-sync ml-2"></i></button>
+                <div class="btn btn-link" id="cancel-card">Cancel</div>
+            </form>
         </div>
     </div>
 @endif
@@ -129,7 +186,7 @@
                 id: 'card-{{$card->id}}', 
                 label: {!! json_encode($card->title) !!}, 
                 definition: {!! json_encode($card->definition) !!}, 
-                card_id : '{{$card->id}}', 
+                card_id : '{{$card->id}}',
             },
             position: {
                 x: {{$card->position_x}},
@@ -150,6 +207,165 @@
         },
         @endforeach
     ];
+
+</script>
+
+
+{{-- Duplicated from card.create. We'll need to refactor all of this when the network view is redone. (Separate things out) --}}
+<script>
+        
+    addEventListener("trix-before-initialize", function(event) {
+        Trix.config.attachments.preview.caption.size = false;
+        Trix.config.attachments.preview.caption.name = false;
+        Trix.config.attachments.file.caption.size = false;
+        Trix.config.lang.attachFiles = "Attach Image";
+    });
+
+    $(document).ready(function(){
+
+        var attachmentCount = 0;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            }
+        });
+
+
+        addEventListener("trix-file-accept", function(event) {
+
+            var config = laravelTrixConfig(event);
+        
+            if(
+                config.hideToolbar ||
+                (config.hideTools && config.hideTools.indexOf("file-tools") != -1) ||
+                (config.hideButtonIcons && config.hideButtonIcons.indexOf("attach") != -1)
+            ) {
+                return event.preventDefault();
+            }
+
+            //only accept images
+            if(event.file && event.file.type){
+                var types = ['image/jpeg', 'image/png'];
+                if(types.indexOf(event.file.type) === -1){
+                    alert('Images must be jpg or png file types.');
+                    return event.preventDefault();
+                }
+            }
+
+            if(attachmentCount >= 5){
+                alert("Cards cannot have more than 5 images.");
+                return event.preventDefault();
+            } else {
+                attachmentCount = attachmentCount + 1;
+            }
+        });
+        
+        addEventListener("trix-attachment-remove", function(event) {
+            var config = laravelTrixConfig(event);
+        
+            var attachment = event.attachment.attachment.attributes.values.url.split("/").pop();
+            
+            attachmentCount = Math.max(attachmentCount - 1, 0);
+
+            $.ajax({
+                method: "DELETE",
+                url : "{{route('laravel-trix.destroy',['attachment' => ':attachment'])}}".replace(':attachment',attachment),
+            }).done(function(response){
+                setAttachementUrlCollectorValue('attachment-' + config['id'], function(collector){
+                    for( var i = 0; i < collector.length; i++){
+                        if ( collector[i] === response.attachment) {
+                            collector.splice(i, 1);
+                        }
+                    }
+            
+                    return collector;
+                });
+            });
+        });
+        
+        addEventListener("trix-attachment-add", function(event) {
+            var config = laravelTrixConfig(event);
+        
+            if (event.attachment.file) {
+                var attachment = event.attachment;
+        
+                config['attachment'] = attachment;
+        
+                Vapor.store(attachment.file, {
+                    progress: function(progress) {
+                        setProgress(Math.round(progress * 100));
+                    }
+                }).then(function(response){
+                    //post upload info to StemmaStudy.
+                    $.ajax({
+                        method: "POST",
+                        url :'{{route('laravel-trix.store')}}',
+                        data: { 
+                            'key' : response.key, 
+                            'field': config.field,
+                            'modelClass' : config.modelClass,
+                        }
+                    }).done(function(response){
+
+                        attachment.setAttributes({
+                            url : response.url,
+                            href: response.url
+                        });
+
+                        //set laravel-trix collector value
+                        setAttachementUrlCollectorValue('attachment-' + config['id'], function(collector){
+
+                            collector.push(response.attachment)
+            
+                            return collector;
+                        });
+
+                        
+
+                    }).fail(function(response){
+                        attachment.remove();
+                        if(response.errors && response.errors.file && response.errors.file.length > 0){
+                            alert(response.errors.file[0].replaceAll('image\/', ''));
+                        }else {
+                            alert("Error Processing Upload.");
+                        }
+
+                        attachmentCount = Math.max(0, attachmentCount - 1);
+                    });
+                });
+            }
+
+            function setProgress(progress) {
+                attachment.setUploadProgress(progress);
+            }
+        });
+        
+        function setAttachementUrlCollectorValue(inputId, callback){
+            var attachmentCollector = document.getElementById(inputId);
+        
+            attachmentCollector.value = JSON.stringify(callback(JSON.parse(attachmentCollector.value)));
+        }
+
+        function laravelTrixConfig (event) {
+            return JSON.parse(event.target.getAttribute("data-config"));
+        }
+    
+    });
+    
+    
+    window.onload = function() {
+        var laravelTrixInstanceStyles =  document.getElementsByTagName('laravel-trix-instance-style');
+    
+        var style = document.createElement('style');
+            style.type = 'text/css';
+    
+        for (var tag of laravelTrixInstanceStyles) {
+            style.innerHTML += tag.textContent + ' ';
+        }
+    
+        document.getElementsByTagName('head')[0].appendChild(style);
+    }
 
 </script>
 @endsection

@@ -41,7 +41,7 @@
                 <div class="mt-4"></div>
                 @foreach ($set->cards->sortBy('created_at') as $card)
                     <div class="ss-card d-sm-flex shadow-sm mb-3">
-                        <h3 class="mb-0 mt-0 flex-grow-1"><a class="unlink" href="{{ route('user_card', [$set->id, $card->id]) }}">{{ $card->title }}</a></h3>
+                        <h3 class="mb-0 mt-0 mr-1 flex-grow-1"><a class="unlink" href="{{ route('user_card', [$set->id, $card->id]) }}">{{ $card->title }}</a></h3>
 
                         {{-- <div class="text-muted card-definition trix-content">{!! $card->definition !!}</div> --}}
                         

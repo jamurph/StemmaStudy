@@ -135,7 +135,7 @@ class SetController extends Controller
                 $position_y = $change['position']['y'];
                 
                 $card = Card::find($card_id);
-                if($card->set_id == $set->id && is_numeric($position_x) && is_numeric($position_y)){
+                if($card && $card->set_id == $set->id && is_numeric($position_x) && is_numeric($position_y)){
                     $card->position_x = $position_x + 0;
                     $card->position_y = $position_y + 0;
                     $card->is_new = false;

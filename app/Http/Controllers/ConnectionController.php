@@ -51,14 +51,14 @@ class ConnectionController extends Controller
                 'to_card_id' => $toCardId,
             ]);
 
-            //If one of the cards is new, put it on top of the other to help with the layout the next time the network view loads.
+            //If one of the cards is new, put it near the other card.
             if($fromCard->is_new && !$toCard->is_new){
                 $fromCard->position_x = $toCard->position_x;
-                $fromCard->position_y = $toCard->position_y;
+                $fromCard->position_y = $toCard->position_y + 150;
                 $fromCard->save();
             } else if (!$fromCard->is_new && $toCard->is_new){
                 $toCard->position_x = $fromCard->position_x;
-                $toCard->position_y = $fromCard->position_y;
+                $toCard->position_y = $fromCard->position_y - 150;
                 $toCard->save();
             }
             
