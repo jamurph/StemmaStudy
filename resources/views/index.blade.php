@@ -32,7 +32,7 @@
             <h4 class="px-2 mt-4">Forget flashcards as you know them. Connected Flashcards help you learn and remember by connecting ideas, discovering gaps in your understanding, and efficiently reviewing the concepts you struggle with the most.</h4>
             <div class="px-2 mt-4 mb-3">
                 <a href="{{route('register')}}" class="btn btn-primary">Free Trial <i class="fas fa-angle-double-right"></i></a>
-                <a href="{{route('tutorial')}}" class="btn btn-outline-primary">View the Tutorial</a>
+                {{--<a href="{{route('tutorial')}}" class="btn btn-outline-primary">View the Tutorial</a>--}}
             </div>
         </div>
     </div>
