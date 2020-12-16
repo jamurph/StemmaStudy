@@ -73,17 +73,17 @@
                 Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to create new sets.
             </div>
             @else
-            <div class="raised-box p-3">
-                <h1 class="break-word">Welcome to StemmaStudy, {{request()->user()->name}}!</h1>
-                <p>We want to help you understand more and forget less. To help you get started, consider taking a few minutes to familiarize yourself with these resources:</p>
-                <p>
+            <div class="raised-box p-4">
+                <h2 class="break-word mt-3"><i class="green fas fa-graduation-cap mr-2"></i>Welcome to StemmaStudy!</h2>
+                <p class="mt-3">To help you get started, consider taking a few minutes to familiarize yourself with these resources:</p>
+                <p class="mt-4">
                     <ul>
                         <li><a target="_blank" href="{{route('tutorial')}}">StemmaStudy Tutorial</a> &mdash; Get a full overview of how Connected Flashcards work.</li>
                         <li><a target="_blank" href="https://blog.stemmastudy.com/">StemmaStudy Blog</a> &mdash; Get some practical study tips, see what's new in StemmaStudy updates, and learn about learning.</li>
                     </ul>
                 </p>
-                <p>Ready to begin? Click the button below to create your first Set of Connected Flashcards.</p>
-                <div class="text-center">
+                <p class="mt-4">Ready to begin? Click the button below to create your first Set of Connected Flashcards.</p>
+                <div class="text-center mb-3">
                     <a href="{{route('set_create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> My First Set</a>
                 </div>
             </div>

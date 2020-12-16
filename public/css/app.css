@@ -10967,10 +10967,19 @@ img {
 
 .navbar-light .navbar-nav .nav-link {
   color: var(--dark-acc);
+  padding: 8px 16px;
 }
 
 ul.navbar-nav {
   font-size: 1rem;
+}
+
+#register-btn {
+  color: var(--dark);
+}
+
+#register-btn:hover {
+  color: white;
 }
 
 .card {

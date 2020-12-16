@@ -55,7 +55,8 @@
                 @endforeach
             @else
             <div class="raised-box p-3">
-                <p>This page will show a list of the cards in this set. Click the button below to start adding cards. Then, visit the network view to start connecting them.</p>
+                <p>This page will show a <em>list</em> of the cards in this set. Click the button below to start adding cards. </p>
+                <p>Once you have added at least one card, try visiting the network view to add more cards, connect them together, or organize them visually.</p>
                 <div class="text-center">
                     <a href="{{route('card_create', $set)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New Card</a>
                 </div>

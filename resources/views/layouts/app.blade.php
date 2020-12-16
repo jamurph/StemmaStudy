@@ -103,7 +103,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse mt-4 mt-md-0" id="navbarSupportedContent">
                     {{--<!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -114,12 +114,14 @@
                 --}}
                     <ul class="navbar-nav ml-auto">
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
+                            @if (Request::url() != url('/register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link btn btn-outline-primary" id="register-btn" href="{{ route('register') }}">{{ __('Create an Account') }}<i class="fas fa-angle-right ml-2"></i></a>
+                                </li>
+                            @endif
+                            @if (Request::url() != url('/login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
                         @else

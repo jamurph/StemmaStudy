@@ -64,8 +64,8 @@
     @if ($cards->count() == 0)
         <div class="text-center" style="padding: 10px; padding-top: 70px;">
             <div class="raised-box p-3" style="max-width: 600px; display: inline-block;">
-            <h2>It's pretty empty here, right now.</h2>
-            <p>First, create some cards. Then, use this page to create connections and organize your cards to see how everything comes together.</p>
+            <h2>There's nothing here yet!</h2>
+            <p>Once you create your first card, come back to add more cards, connect cards together, and organize them visually.</p>
             <a href="{{route('card_create', $set->id)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New Card</a>
             </div>
         </div>

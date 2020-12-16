@@ -18,9 +18,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header text-center mt-3"><i class="fas fa-thumbs-up green mr-2"></i> Your First Step For Better Memories</div>
 
-                <div class="card-body">
+                <div class="card-body mb-3">
                     <form id="registerForm" method="POST" action="{{ route('register') }}">
                         @csrf
 
