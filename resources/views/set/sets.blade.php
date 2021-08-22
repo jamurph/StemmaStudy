@@ -79,7 +79,7 @@
                 <p class="mt-4">
                     <ul>
                         <li><a target="_blank" href="{{route('tutorial')}}">StemmaStudy Tutorial</a> &mdash; Get a full overview of how Connected Flashcards work.</li>
-                        <li><a target="_blank" href="https://blog.stemmastudy.com/">StemmaStudy Blog</a> &mdash; Get some practical study tips, see what's new in StemmaStudy updates, and learn about learning.</li>
+                        <li><a target="_blank" href="{{route('learn')}}">How to Learn More</a> &mdash; Get some practical study tips and learn about learning.</li>
                     </ul>
                 </p>
                 <p class="mt-4">Ready to begin? Click the button below to create your first Set of Connected Flashcards.</p>
