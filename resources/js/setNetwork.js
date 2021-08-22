@@ -168,6 +168,8 @@ function createCard(cy) {
             alert('Something went wrong. Please refresh the page and try again.');
             $('#create-card').prop('disabled', false);
         });
+    } else {
+        $('#create-card').prop('disabled', false);
     }
 }
 

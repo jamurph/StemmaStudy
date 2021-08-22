@@ -99,6 +99,10 @@
         }
     }
 
+    .you-are-container {
+        margin-bottom: -1.5rem !important;
+    }
+
     </style>
 
     <script src="https://kit.fontawesome.com/31490b0d2f.js" crossorigin="anonymous"></script>
@@ -165,7 +169,7 @@
             </div>
         </nav>
     </header>
-    <main class="{!! (Request::url() == url('/') || Request::url() == url('/about') || Request::url() == url('/tutorial') ) ? '' : 'py-4' !!}">
+    <main class="{!! (Request::url() == url('/') || Request::url() == url('/about') || Request::url() == url('/tutorial') || Request::url() == url('/press') ) ? '' : 'py-4' !!}">
         @yield('content')
     </main>
     <footer>
@@ -175,11 +179,12 @@
                     <h5>StemmaStudy</h5>
                     <a href="{{route('about')}}" class="text-decoration-none">About</a>
                     <a href="{{route('contact_create')}}" class="text-decoration-none">Contact</a>
+                    {{--<a href="{{route('press')}}" class="text-decoration-none">Press</a>--}}
                 </div>
                 <div class="mb-4">
                     <h5>Learn</h5>
                     <a href="{{route('tutorial')}}" class="text-decoration-none">StemmaStudy Tutorial</a>
-                    <a href="https://blog.stemmastudy.com/" class="text-decoration-none">StemmaStudy Blog</a>
+                    <a href="{{route('learn')}}" class="text-decoration-none">How to Learn More</a>
                 </div>
                 <div class="mb-4">
                     <h5>Legal</h5>

@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 
 Route::get('/learn', function () {
-    return redirect('https://blog.stemmastudy.com/6-powerful-study-tips-to-improve-memory/');
+    return view('learn');
 })->name('learn');
 
 Route::get('/about', function () {
@@ -32,6 +32,12 @@ Route::get('/privacy', function () {
 Route::get('/terms', function () {
     return view('terms');
 })->name('terms');
+
+/*
+Route::get('/press', function () {
+    return view('press');
+})->name('press');
+*/
 
 /*
     Set
