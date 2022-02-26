@@ -35,6 +35,11 @@
                     </div>
                     <small class="form-text text-muted">What is this set for?</small>
                 </div>
+                <div class="form-group form-check mb-4">
+                    <input type="checkbox" name="notify" value="1" checked class="form-check-input" id="notify">
+                    <label class="form-check-label" for="notify">Receive Study Reminders for this Set</label>
+                    <small class="form-text text-muted">When you have at least 5 cards due for review across all sets with this enabled, we'll send you a reminder.</small>
+                </div>
                {{-- <div class="form-group form-check mb-4">
                     <input type="checkbox" name="public" value="1" checked class="form-check-input" id="public">
                     <label class="form-check-label" for="public">Public</label>

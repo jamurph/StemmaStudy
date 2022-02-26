@@ -49,11 +49,13 @@ class SetController extends Controller
         $request->validate([
             'title' => ['required', 'min:3', 'max:100'],
             'description' => ['max:500'],
+            'notify' => 'boolean',
             //'public' => 'boolean',
         ]);
         $set = new Set([
             'title' => request('title'),
             'description' => request('description'),
+            'notify' => $request->has('notify'),
             'public' => false, // UNIMPLEMENTED
             'user_id' => auth()->user()->id,
         ]);
@@ -74,11 +76,13 @@ class SetController extends Controller
         $request->validate([
             'title' => ['required', 'min:3', 'max:100'],
             'description' => ['max:500'],
+            'notify' => 'boolean',
             //'public' => 'boolean'
         ]);
         $set->update([
             'title' => request('title'),
             'description' => request('description'),
+            'notify' => $request->has('notify'),
             //'public' => $request->has('public')
         ]);
 

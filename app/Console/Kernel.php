@@ -38,12 +38,12 @@ class Kernel extends ConsoleKernel
                 foreach(User::where('notify', true)->get() as $user){
                     try{
                         $totalDue = 0;
-                        foreach($user->sets as $set){
+                        foreach($user->sets->where('notify', '=', true) as $set){
                             $countDue = $set->cards->where('next_review', '<', Carbon::now())->count();
                             $totalDue += $countDue;
                         }
     
-                        if($totalDue > 0){
+                        if($totalDue > 5){
                             $user->notify(new DueForReview($totalDue));
                         }
                     } catch (\Throwable $th) {
