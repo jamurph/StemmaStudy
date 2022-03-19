@@ -22,7 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'trial_ends_at'
+        'name', 'email', 'password', 'trial_ends_at','special_registration_id'
     ];
 
     /**
@@ -46,6 +46,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sets(){
         return $this->hasMany(Set::class);
+    }
+
+    public function specialRegistration(){
+        return $this->hasOne(SpecialRegistration::class);
     }
 
     /**

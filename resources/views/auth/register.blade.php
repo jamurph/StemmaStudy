@@ -24,6 +24,12 @@
                     <form id="registerForm" method="POST" action="{{ route('register') }}">
                         @csrf
 
+{{-- TODO : hidden field to hold the special registration route, if present. Populate from request. 
+    Check if SR exists and is not expired. Give alert if invalid and one wasprovided. Post should include the route in the hidden field. 
+    No validation on it will be done (the user would know before signing up that the route was invalid), only a check in the create user method that 
+    then sets the trial_ends_at value appropriately
+    --}}
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
