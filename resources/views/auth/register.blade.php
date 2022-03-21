@@ -24,12 +24,23 @@
                     <form id="registerForm" method="POST" action="{{ route('register') }}">
                         @csrf
 
-{{-- TODO : hidden field to hold the special registration route, if present. Populate from request. 
-    Check if SR exists and is not expired. Give alert if invalid and one wasprovided. Post should include the route in the hidden field. 
-    No validation on it will be done (the user would know before signing up that the route was invalid), only a check in the create user method that 
-    then sets the trial_ends_at value appropriately
-    --}}
-
+                        @php
+                            use App\SpecialRegistration;
+                            use Illuminate\Support\Carbon;
+                            $code = request()->get('code');
+                            $specReg = null;
+                            if(!empty($code)){
+                                $specReg = SpecialRegistration::where('route', $code)->whereDate('expires', '>', Carbon::today()->toDateString())->first();
+                            }
+                        @endphp
+                        @if (!empty($code))
+                            @if (!is_null($specReg))
+                                <div class="alert alert-success"><b>Thank you!</b><br> You're signing up using a special registration link (code: {{$code}}). Please enjoy your extended free trial!</div>
+                            @else
+                                <div class="alert alert-warning"><b>Sorry...</b><br> The special registration link used has either expired or no longer exists (code: {{$code}}). <br><br>You may continue registering, but no special offers will be applied.</div>
+                            @endif
+                        @endif
+                        <input type="hidden" name="route" id="route" value="{{$code}}" />
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 

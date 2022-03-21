@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\SpecialRegistration;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 
 class RegisterController extends Controller
@@ -68,11 +70,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //default
+        $trial_end = now()->addDays(30);
+        $sr_id = null;
+
+        $route = $data['route'];
+        $specReg = null;
+        if(!empty($route)){
+            $specReg = SpecialRegistration::where('route', $route)->whereDate('expires', '>', Carbon::today()->toDateString())->first();
+            if(!is_null($specReg)){
+                //special registration override. No validation needs to be done if route is invalid - the user receives a message on the 
+                //front end and may choose to register anyways
+                if(is_int($specReg->extend_months) && $specReg->extend_months > 0){
+                    $trial_end = now()->addMonths($specReg->extend_months);
+                    $sr_id = $specReg->id;
+                }
+            }
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'trial_ends_at' => now()->addDays(30),
+            'trial_ends_at' => $trial_end,
+            'special_registration_id' => $sr_id
         ]);
     }
 
