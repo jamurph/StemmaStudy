@@ -24,16 +24,19 @@
                             <label class="form-check-label" for="receive_notifications">
                                 Receive Review Notifications
                             </label>
-                            <small class="form-text text-muted">You'll get an email when you have cards to review as a helpful reminder to space your study.</small>
+                            <small class="form-text text-muted">You'll get an email when you have at least 5 cards to review across all sets with notifications enabled as a helpful reminder to space your study. </small>
                         </div>
-                        <div class="form-check mb-4">
+                        {{--
+                            Hide until we plan to use. Should still default them on the list with registration.
+                            
+                            <div class="form-check mb-4">
                             <input class="form-check-input" type="checkbox" name="receive_emails" id="receive_emails" {{ $receives_emails ? 'checked' : '' }}>
 
                             <label class="form-check-label" for="receive_emails">
                                 Receive StemmaStudy News and Study Tips
                             </label>
                             <small class="form-text text-muted">You'll receive infrequent news about StemmaStudy updates and other information we think can help improve your study.</small>
-                        </div>
+                        </div> --}}
                         <hr>
                         <form class="mt-4 mb-4" action="{{route('update_name')}}" method="POST" >
                             @if(session()->has('updatedName'))

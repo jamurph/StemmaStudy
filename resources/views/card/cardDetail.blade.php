@@ -197,8 +197,7 @@
                             </form>
                         </div>
                     </span>
-                    <a href="{{ route('user_card', [$set->id,$in->fromCard->id])}}" class="text-decoration-none d-inline-block"><h4><i class="fas fa-arrow-left"></i> {{ $in->fromCard->title }}</h4></a>
-                    <h5 class="m-0"><i class="fas fa-angle-double-right"></i> <b>{{$in->title}}</b> <i class="fas fa-angle-double-right"></i></h5>
+                    <h4 class="mb-0"><a href="{{ route('user_card', [$set->id,$in->fromCard->id])}}" class="text-decoration-none d-inline-block">{{ $in->fromCard->title }}</a><br class="d-md-none d-block"> <i class="fas fa-arrow-right small"></i> <b>{{$in->title}}</b> <i class="fas fa-arrow-right small"></i> <br class="d-md-none d-block">{{$card->title}}</h4>
                     @if (!empty($in->description))
                     <p class="text-muted has-newlines">{{$in->description}}</p>
                     @endif
@@ -219,13 +218,11 @@
                             </form>
                         </div>
                     </span>
-                    <h5 class="m-0"><i class="fas fa-angle-double-right"></i> <b>{{$out->title}}</b> <i class="fas fa-angle-double-right"></i></h5>
+                    <h4 class="mb-0">{{$card->title}}<br class="d-md-none d-block"> <i class="fas fa-arrow-right small"></i> <b>{{$out->title}}</b> <i class="fas fa-arrow-right small"></i> <br class="d-md-none d-block"> <a href="{{ route('user_card', [$set->id,$out->toCard->id])}}" class="text-decoration-none d-inline-block">{{ $out->toCard->title }}</a></h4>
                     @if (!empty($out->description))
                     <p class="text-muted has-newlines">{{$out->description}}</p>
                     @endif
-                    <div class="text-right">
-                        <a href="{{ route('user_card', [$set->id,$out->toCard->id])}}" class="text-decoration-none d-inline-block"><h4 class="mt-2 mb-0">{{ $out->toCard->title }} <i class="fas fa-arrow-right"></i></h4></a>
-                    </div>
+                    
                 </div>
                 @endforeach
             @endif

@@ -44064,52 +44064,7 @@ $(function () {
       animationDuration: 1000,
       animationEasing: 'ease-in-out',
       stop: function stop() {
-        if (has_new_cards) {
-          //change message on popup
-          $('#loader-message').text('Shifting for new cards...');
-          cy.layout({
-            name: 'fcose',
-            quality: "proof",
-            randomize: false,
-            animate: true,
-            animationDuration: 1000,
-            fit: true,
-            padding: 30,
-            nodeDimensionsIncludeLabels: true,
-            uniformNodeDimensions: false,
-            nodeSeparation: 250,
-            nodeRepulsion: 4579,
-            idealEdgeLength: 71,
-            edgeElasticity: 0.5,
-            nestingFactor: 0.1,
-            numIter: 2500,
-            stop: function stop() {
-              $('#loader').fadeOut();
-              var changes = [];
-              var nodes = cy.nodes();
-
-              for (var i = 0; i < nodes.length; i++) {
-                element = nodes[i];
-                changes.push({
-                  card_id: element.data('card_id'),
-                  position: element.position()
-                });
-              }
-
-              changes = {
-                changes: changes
-              };
-              $.ajax({
-                method: "PUT",
-                url: '/network/' + set_id + '/update/',
-                data: JSON.stringify(changes),
-                contentType: "application/json"
-              });
-            }
-          }).start();
-        } else {
-          $('#loader').fadeOut();
-        }
+        $('#loader').fadeOut();
       }
     },
     wheelSensitivity: 0.25,

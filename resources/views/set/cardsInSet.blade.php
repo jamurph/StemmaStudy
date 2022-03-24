@@ -33,7 +33,7 @@
                     @if (Auth::user()->onTrialOrSubscribed() && $set->cards->count() < 1000)
                     <div class="col-6">
                         <div class="text-right">
-                            <a href="{{route('card_create', $set)}}" class="btn btn-primary new-btn"><i class="fas fa-plus"></i> New</a>
+                            <a href="{{route('card_create', $set)}}" class="btn btn-primary new-btn"><i class="fas fa-plus"></i> New Card</a>
                         </div>
                     </div>
                     @endif

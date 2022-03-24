@@ -16,6 +16,12 @@ img {
     width: 215px;
 }
 
+@media screen and (max-width: 767px){
+    .logo {
+        width: 200px;
+    }
+}
+
 /* Bootstrap Overrides */
 .navbar-brand {
     padding-top: 0px;
@@ -106,7 +112,8 @@ a.unlink {
     position: relative;
     background: white;
     padding: 12px 20px;
-    border-radius: 3px;
+    border: 4px solid white;
+    border-left: 4px solid #b3e0dd;
 
     .set-btn {
         text-decoration: none !important;
@@ -176,6 +183,10 @@ a.unlink {
     background: white;
     padding: 12px 20px;
     border-radius: 3px;
+}
+
+.card-connection i.fa-arrow-right {
+    opacity: 0.5;
 }
 
 trix-editor:focus {

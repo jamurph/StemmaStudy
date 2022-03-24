@@ -40,8 +40,7 @@
                 <h3 class="mt-5 mb-2">Connections</h3>
                 @foreach ($card->connectionsIn as $in)
                 <div class="card-connection shadow-sm mb-3 break-word">
-                    <h4><i class="fas fa-arrow-left"></i> {{ $in->fromCard->title }}</h4>
-                    <h5 class="m-0"><i class="fas fa-angle-double-right"></i> <b>{{$in->title}}</b> <i class="fas fa-angle-double-right"></i></h5>
+                    <h4 class="mb-0">{{ $in->fromCard->title }}<br class="d-md-none d-block"> <i class="fas fa-arrow-right small"></i> <b>{{$in->title}}</b> <i class="fas fa-arrow-right small"></i> <br class="d-md-none d-block">{{$card->title}}</h4>
                     @if (!empty($in->description))
                     <p class="text-muted has-newlines">{{$in->description}}</p>
                     @endif
@@ -49,13 +48,10 @@
                 @endforeach
                 @foreach ($card->connectionsOut as $out)
                 <div class="card-connection shadow-sm mb-3 break-word">
-                    <h5 class="m-0"><i class="fas fa-angle-double-right"></i> <b>{{$out->title}}</b> <i class="fas fa-angle-double-right"></i></h5>
+                    <h4 class="mb-0">{{$card->title}}<br class="d-md-none d-block"> <i class="fas fa-arrow-right small"></i> <b>{{$out->title}}</b> <i class="fas fa-arrow-right small"></i> <br class="d-md-none d-block"> {{ $out->toCard->title }}</h4>
                     @if (!empty($out->description))
                     <p class="text-muted has-newlines">{{$out->description}}</p>
                     @endif
-                    <div class="text-right">
-                       <h4 class="mt-2 mb-0">{{ $out->toCard->title }} <i class="fas fa-arrow-right"></i></h4>
-                    </div>
                 </div>
                 @endforeach
             </div>

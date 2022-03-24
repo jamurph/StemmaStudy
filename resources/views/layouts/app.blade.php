@@ -103,6 +103,11 @@
         margin-bottom: -1.5rem !important;
     }
 
+    .navbar-toggler-icon {
+        width: 20px;
+        height: 20px;
+    }
+
     </style>
 
     <script src="https://kit.fontawesome.com/31490b0d2f.js" crossorigin="anonymous"></script>
@@ -110,13 +115,13 @@
 </head>
 <body>
     <header>
-        <nav style="border-bottom: 3px solid var(--light-acc);" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav style="border-bottom: 4px solid var(--light-acc); padding: 10px;" class="navbar navbar-expand-md navbar-light bg-white">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img class="logo" src="{{asset('/image/logo.svg')}}"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                    <small style="font-size:65%;">Menu</small> <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse mt-4 mt-md-0" id="navbarSupportedContent">
@@ -137,7 +142,7 @@
                             @endif
                             @if (Request::url() != url('/login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link ml-md-3 mt-2 mt-md-0 btn btn-light" href="{{ route('login') }}">{{ __('Login') }} <i class="fas fa-user"></i></a>
                                 </li>
                             @endif
                         @else

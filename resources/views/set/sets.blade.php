@@ -10,7 +10,7 @@
             <div class="d-flex align-items-center justify-content-between">
                 <h1 class="m-0">My Sets</h1>
                 @if (Auth::user()->onTrialOrSubscribed())
-                    <a href="{{route('set_create')}}" class="btn btn-primary ml-3 new-btn"><i class="fas fa-plus"></i> New</a>
+                    <a href="{{route('set_create')}}" class="btn btn-primary ml-3 new-btn"><i class="fas fa-plus"></i> New Set</a>
                 @endif
             </div>
             @if (!Auth::user()->onTrialOrSubscribed())
@@ -57,8 +57,10 @@
                                 <a href="{{route('set_review', $set->id)}}" class="set-btn">
                                     <i class="fas fa-question-circle green"></i>
                                     <span class="pl-2">Review</span>
-                                    @if ($set->countDueCards() > 0)
+                                    @if ($set->countDueCards() > 0 && $set->notify == true)
                                         <span class="badge badge-pill badge-danger ml-2">{{$set->countDueCards()}}</span>
+                                    @elseif ($set->notify == false)
+                                        <span class="badge badge-pill badge-light ml-2 dropleft"><i class="fas fa-bell-slash" title="Review notifications snoozed. Edit set to enable."></i></span>
                                     @endif
                                 </a>
                             </div>

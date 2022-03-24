@@ -47,7 +47,7 @@
 <div class="menu-btn"><i class="fas fa-bars green"></i> Menu</div>
 <div class="side-menu">
     <div class="menu-button-container">
-        <div class="close-menu"><i class="fas fa-angle-double-left green" style="font-size: 26px;"></i></div>
+        <div class="close-menu"><i class="fas fa-times green" style="font-size: 26px;"></i></div>
         @if ($cards->count() != 0)
             <div class="menu-search search"><i class="fas fa-search green" style="font-size: 26px;"></i></div>
         @endif
