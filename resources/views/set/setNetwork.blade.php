@@ -14,6 +14,10 @@
 @section('content')
 <style>
 
+    body {
+        background: var(--light);
+    }
+
     .select2-dropdown {
         z-index: 10003;
     }
@@ -60,7 +64,7 @@
     @endif
     <a class="unlink side-link" href="{{route('user_sets')}}"><i class="fas fa-home green pr-4"></i> My Sets</a>
 </div>
-<div id="network" style="width: 100%; height: 100vh;background:var(--light);">
+<div id="network" style="width: 100%; height: 100vh;">
     @if ($cards->count() == 0)
         <div class="text-center" style="padding: 10px; padding-top: 70px;">
             <div class="raised-box p-3" style="max-width: 600px; display: inline-block;">
@@ -99,7 +103,7 @@
     <div class="connection-container">
         <div class="connection-box shadow-lg overflow-auto">
             <h2 id="connection-box-title">Add Connection</h2>
-            <h5 id="card-name" class="green">Edward Thorndike</h5>
+            <h5 id="card-name" class="green"></h5>
             <input id="mode" type="hidden" value="" />
             <input id="newConnectionCard" type="hidden" value="" />
             <input id="editConnectionId" type="hidden" value="" />

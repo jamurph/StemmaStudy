@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "cytoscape": "^3.15.0",
+        "cytoscape-canvas": "^3.0.1",
         "cytoscape-cise": "^1.0.0",
         "cytoscape-cola": "^2.3.1",
         "cytoscape-euler": "^1.2.2",

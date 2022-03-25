@@ -43881,7 +43881,6 @@ var popper = __webpack_require__(/*! cytoscape-popper */ "./node_modules/cytosca
 var fcose = __webpack_require__(/*! cytoscape-fcose */ "./node_modules/cytoscape-fcose/cytoscape-fcose.js");
 
 cytoscape.warnings(false);
-cytoscape.use(fcose);
 cytoscape.use(popper); // register extension
 
 var popperInstance = null;

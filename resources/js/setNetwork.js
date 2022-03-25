@@ -5,8 +5,6 @@ let fcose = require('cytoscape-fcose');
 
 cytoscape.warnings(false);
 
-cytoscape.use( fcose );
-
 cytoscape.use( popper ); // register extension
 
 
@@ -361,6 +359,7 @@ $(function(){
         });
 
         cy.on('cxttap', function(event){
+
             target = event.target;
             destroyPopper();
 

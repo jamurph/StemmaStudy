@@ -71,7 +71,7 @@
     footer {
         background: var(--dark);
         color: var(--dark-acc);
-        border-top: 3px solid var(--light-acc);
+        border-top: 5px solid var(--light-acc);
         padding: 30px 20px 5px 20px;
     }
 
@@ -91,6 +91,10 @@
     .copyright {
         color: var(--dark-acc);
         font-size: 12px;
+    }
+
+    .copyright a {
+        display: inline-block;
     }
 
     @media screen and (max-width: 767px){
@@ -181,24 +185,20 @@
         <div class="container">
             <div class="row flex-column flex-md-row justify-content-md-around justify-content-left">
                 <div class="mb-4">
-                    <h5>StemmaStudy</h5>
-                    <a href="{{route('about')}}" class="text-decoration-none">About</a>
-                    <a href="{{route('contact_create')}}" class="text-decoration-none">Contact</a>
-                    {{--<a href="{{route('press')}}" class="text-decoration-none">Press</a>--}}
-                </div>
-                <div class="mb-4">
                     <h5>Learn</h5>
                     <a href="{{route('tutorial')}}" class="text-decoration-none">StemmaStudy Tutorial</a>
                     <a href="{{route('learn')}}" class="text-decoration-none">How to Learn More</a>
                 </div>
                 <div class="mb-4">
-                    <h5>Legal</h5>
-                    <a href="{{route('terms')}}" class="text-decoration-none">Terms of Service</a>
-                    <a href="{{route('privacy')}}" class="text-decoration-none">Privacy Policy</a>
+                    <h5>StemmaStudy</h5>
+                    <a href="{{route('about')}}" class="text-decoration-none">About</a>
+                    <a href="{{route('contact_create')}}" class="text-decoration-none">Contact</a>
+                    {{--<a href="{{route('press')}}" class="text-decoration-none">Press</a>--}}
                 </div>
             </div>
         </div>
-        <div class="text-right mt-3 copyright">Copyright &copy; {{ now()->year }} StemmaStudy, LLC.</div>
+
+        <div class="text-left text-md-right mt-3 copyright">Copyright &copy; {{ now()->year }} StemmaStudy, LLC. &nbsp; <a href="{{route('terms')}}" class="text-decoration-none">Terms of Service</a> &nbsp; <a href="{{route('privacy')}}" class="text-decoration-none">Privacy Policy</a></div>
     </footer>
     @yield('scripts')
 </body>
