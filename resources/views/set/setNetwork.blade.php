@@ -52,31 +52,25 @@
 <div class="side-menu">
     <div class="menu-button-container">
         <div class="close-menu"><i class="fas fa-times green" style="font-size: 26px;"></i></div>
-        @if ($cards->count() != 0)
-            <div class="menu-search search"><i class="fas fa-search green" style="font-size: 26px;"></i></div>
-        @endif
+        <div class="menu-search search"><i class="fas fa-search green" style="font-size: 26px;"></i></div>
     </div>
-    
-    @if ($cards->count() != 0)
     <div class="unlink side-link add-card"><i class="fas fa-plus green pr-4"></i> Add New Card</div>
     <a class="unlink side-link" href="{{route('cards_in_set', $set->id)}}"><i class="fas fa-list-alt green pr-4"></i> View Card List</a>
     <hr>
-    @endif
     <a class="unlink side-link" href="{{route('user_sets')}}"><i class="fas fa-home green pr-4"></i> My Sets</a>
 </div>
-<div id="network" style="width: 100%; height: 100vh;">
-    @if ($cards->count() == 0)
-        <div class="text-center" style="padding: 10px; padding-top: 70px;">
-            <div class="raised-box p-3" style="max-width: 600px; display: inline-block;">
-            <h2>There's nothing here yet!</h2>
-            <p>Once you create your first card, come back to add more cards, connect cards together, and organize them visually.</p>
-            <a href="{{route('card_create', $set->id)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New Card</a>
-            </div>
-        </div>
-    @endif
+<div id="zero-message" class="text-center" style="padding: 10px; top: 70px; z-index: 2; position: absolute; pointer-events: none; width: 100%;{{ $cards->count() == 0 ? "" : "display: none;" }}">
+    <div class="raised-box p-3" style="max-width: 600px; display: inline-block; pointer-events: all;">
+    <h2>There's nothing here yet!</h2>
+    <p>Here you can add cards, connect cards together, and organize them visually.</p>
+    
+    <button class="btn btn-primary add-card"><i class="fas fa-plus"></i> New Card</button>
+
+    </div>
 </div>
-@if ($cards->count() != 0)
-    <div id="loader" class="spinner-container">
+<div id="network" style="width: 100%; height: 100vh;">
+</div>
+    <div id="loader" class="spinner-container" style="{{ $cards->count() == 0 ? "display: none;" : "" }}">
         <div class="shadow-lg spinner-box">
             <div class="spinner-border text-primary"></div>
             <img src="{{asset('/image/icon500.png')}}" class="spinner-icon">
@@ -176,7 +170,6 @@
             </form>
         </div>
     </div>
-@endif
 @endsection
 
 @section('scripts')
