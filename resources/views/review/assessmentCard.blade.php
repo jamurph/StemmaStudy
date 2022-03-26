@@ -60,12 +60,13 @@
             @endif
             <div id="scoring" class="mb-5" style="display: none; min-height: 170px;">
                 <h3 class="text-center">How did you do?</h3>
-                <form class="mt-4" method="POST" action="{{route('assessment_card_store', [$set,$assessment])}}">
+                <form method="POST" action="{{route('assessment_card_store', [$set,$assessment])}}">
                     @csrf
                     <input name="card_id" type="hidden" value="{{$card->id}}" >
                     <div class="form-group">
+                        <i id="instruction-tooltip" class="fas fa-question-circle mb-3" style="font-size: 20px;" data-toggle="tooltip" data-placement="top"></i>
                         <input name="score" type="range" min="0" max="100" class="form-control-range" id="score">
-                        <small class="form-text text-muted" id="score-num"></small>
+                        <small class="form-text text-muted mt-3" style="font-size: 16px;" id="score-num">50</small>
                     </div>
                     <button id="nextBtn" type="submit" class="btn btn-block btn-outline-primary mt-4 d-none">Next</a>
                 </form>
@@ -97,6 +98,14 @@
             }
         });
 
+        $('#instruction-tooltip').tooltip({
+            html: true,
+            title: "<div class=\"text-left\">" +
+                        "<div><span class=\"score_color_100\"><b>Green</b></span>: You recalled everything well.</div>" +
+                        "<div><span class=\"score_color_50\"><b>Yellow</b></span>: You recalled most of the details with difficulty.</div>" +
+                        "<div><span class=\"score_color_0\"><b>Red</b></span>: You recalled very little of the details.</div>" + 
+                    "</div>"
+        });
 
     });
 </script>
