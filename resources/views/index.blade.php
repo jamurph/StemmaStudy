@@ -74,24 +74,6 @@
     }
 
 </style>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 quote-container">
-            <i class="fas fa-quote-left green shadow"></i>
-            <p class="quote">I have never seen any other platform that does what StemmaStudy does in using flashcards in an organized way that will permit students to develop a schema for the material.</p>
-            <p class="reference"><span class="green">&mdash;</span> <b>Henry L. Roediger III</b></p>
-            <p class="reference-description">coauthor of <em>Make It Stick</em></p>
-        </div>
-        <div class="col-md-6 quote-container">
-            <i class="fas fa-quote-left green shadow"></i>
-            <p class="quote">From the perspective of helping people learn, this seems like a great way to do it. I've seen a lot of smart flashcard apps and this is the first time I remember seeing one where you can map out the relationships between topics/cards.</p>
-            <p class="reference"><span class="green">&mdash;</span> <b>Nate Kornell</b></p>
-            <p class="reference-description">associate professor of cognitive psychology at Williams College</p>
-        </div>
-    </div>
-    <div class="mb-5"></div>
-</div>
-
 <div class="container">
     <hr>
     <h2 class="text-center mt-5 mb-4"><span class="green">&mdash;</span> How it Works <span class="green">&mdash;</span></h2>
@@ -199,6 +181,25 @@
             <a href="{{route('register')}}" class="btn btn-primary">Start Free Trial <i class="fa fa-angle-double-right"></i></a>
         </div>
     </div>
+</div>
+
+<div class="container mt-5">
+    <hr/>
+    <div class="row justify-content-center">
+        <div class="col-md-6 quote-container">
+            <i class="fas fa-quote-left green shadow"></i>
+            <p class="quote">I have never seen any other platform that does what StemmaStudy does in using flashcards in an organized way that will permit students to develop a schema for the material.</p>
+            <p class="reference"><span class="green">&mdash;</span> <b>Henry L. Roediger III</b></p>
+            <p class="reference-description">coauthor of <em>Make It Stick</em></p>
+        </div>
+        <div class="col-md-6 quote-container">
+            <i class="fas fa-quote-left green shadow"></i>
+            <p class="quote">From the perspective of helping people learn, this seems like a great way to do it. I've seen a lot of smart flashcard apps and this is the first time I remember seeing one where you can map out the relationships between topics/cards.</p>
+            <p class="reference"><span class="green">&mdash;</span> <b>Nate Kornell</b></p>
+            <p class="reference-description">associate professor of cognitive psychology at Williams College</p>
+        </div>
+    </div>
+    <div class="mb-5"></div>
 </div>
 
 

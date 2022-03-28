@@ -198,7 +198,7 @@
             </div>
         </div>
 
-        <div class="text-left text-md-right mt-3 copyright">Copyright &copy; {{ now()->year }} StemmaStudy, LLC. &nbsp; <a href="{{route('terms')}}" class="text-decoration-none">Terms of Service</a> &nbsp; <a href="{{route('privacy')}}" class="text-decoration-none">Privacy Policy</a></div>
+        <div class="text-left text-md-right mt-3 copyright">Copyright &copy; {{ now()->year }} StemmaStudy, LLC. &nbsp; <br class="d-block d-sm-none" /><a href="{{route('terms')}}" class="text-decoration-none">Terms of Service</a> &nbsp; <a href="{{route('privacy')}}" class="text-decoration-none">Privacy Policy</a></div>
     </footer>
     @yield('scripts')
 </body>
