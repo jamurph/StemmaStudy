@@ -11,9 +11,6 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <style>
-    h3, h4 {
-        color: var(--main);
-    }
 
     p {
         font-size: 18px;
@@ -99,21 +96,21 @@
                     </li>
                 </ul>
             </div>
-            <hr>
-            <h3><b>Self-Explanation</b></h3>
+            <hr class="my-5">
+            <h3>Self-Explanation</h3>
             <p>Self-explanation occurs when we <b>explain a text to ourselves as we read it</b> or recite the steps we are taking while solving a problem.</p>
             <p>For example, you would be engaging in self-explanation if, at the end of each section of this guide, you stopped to ask yourself, "What did I just read?" and <b>summarized the content</b> in your own words.</p>
             <p>This type of self-explanation has been <b>shown to lead to better solutions</b> while problem-solving as well as an <b>increased understanding of a text</b> when reading.</p>
             <p>Self-explanations are even <b>more effective</b> when they go beyond the information presented in a text by <b>further elaborating or making inferences</b> about the material. </p>
             <p>You might engage in this higher form of self-explanation while reading this guide by asking and inferring answers to questions like "How can I make use of this technique?" or "Why does this technique work so well?".<sup>[1]</sup></p>
-            <hr>
-            <h3><b>Testing</b></h3>
+            <hr class="my-5">
+            <h3>Testing</h3>
             <p>People often think of tests and quizzes as mere assessments of learning and that the only good (or bad) that comes from taking them is knowledge of a grade.</p>
             <p>This isn't true!</p>
             <p>When we take a test, we are forced to <b>retrieve information from memory</b> without the ability to use an external source of information like our notes. Thus, our <b>brains have to work a bit harder</b> to find the answers. This <b>extra effort strengthens the memory</b> so that the brain doesn't have to work as hard in the future.</p>
             <p>We can make use of this testing effect in our study habits by taking practice tests, completing end-of-chapter questions, or by simply using flashcards.<sup>[2]</sup></p>
-            <hr>
-            <h3><b>Spacing</b></h3>
+            <hr class="my-5">
+            <h3>Spacing</h3>
             <p>Everyone knows that <b>learning things well takes time</b>. We usually need to <b>review information more than once</b> before we can recall it perfectly without using our notes.</p>
             <p>One obvious way to improve memory, though not always feasible, would be to spend more time in review.</p>
             <p>What is less obvious is that <b>the way we schedule</b> this review time is crucially important.</p>
@@ -128,16 +125,16 @@
                 <p><b>Bad idea.</b></p>
                 <p>One study found that <b>we often make poor decisions</b> about which cards to drop. Keeping the cards we know in the rotation might even be beneficial as it <b>increases the spacing</b> between the cards we do not know. <sup>[4]</sup></p>
             </div>
-            <hr>
-            <h3><b>Sleep</b></h3>
+            <hr class="my-5">
+            <h3>Sleep</h3>
             <p>Sleep is often viewed as a time where nothing happens. But, during sleep, our brains are hard at work.</p>
             <p>While we sleep, our brains replay the events of the day and <b>consolidate information</b> into long-term memory. Sleeping has been <b>shown to increase memory recall</b>.<sup>[5]</sup></p>
             <p>When we don't get enough sleep, we hinder this consolidation process.</p>
             <p>Furthermore, <b>our brains are constantly creating and integrating new neurons</b>. A prolonged lack of either sleep or new learning experiences greatly reduces how many of these new neurons can survive.<sup>[6]</sup></p>
             <p><b>Don't starve your baby neurons</b>.</p>
             <p>If you want a healthy, thriving brain, <b>seek out new learning experiences every day</b> for your brain to replay while you sleep and make sure to <b>go to bed on time</b>.</p>
-            <hr>
-            <h3><b>Structure</b></h3>
+            <hr class="my-5">
+            <h3>Structure</h3>
             <p>New material is <b>easier to remember</b> when the various information is all interconnected. In other words, when the <b>material is well-organized</b>.</p>
             <p>In one study, students were given 112 words to remember. Some of the students were given the words in random order, while others were given the words organized by category.</p>
             <p>After just one study session, the <b>students given the organized words remembered <em>3.54 times</em></b> the number of words remembered by students given the random order!</p>
@@ -146,8 +143,8 @@
             <p>Information is not always delivered to us in the most organized manner. However, <b>the best students spontaneously organize information</b> as they get it by <b>connecting the new information to other information</b> they are learning or already know.</p>
             <p>Think of forming connections between ideas as <b>creating mental pathways</b> &ndash; the more connected an idea is to other information you know, the more likely you'll be able to find a pathway to reach it during a test.<sup>[8]</sup></p>
             <p>Connections can be made in all sorts of ways, such as by making categories, timelines, flow charts, or using Connected Flashcards.</p>
-            <hr>
-            <h3><b>Mindset</b></h3>
+            <hr class="my-5">
+            <h3>Mindset</h3>
             <p><b>What you believe about your abilities</b> and the nature of intelligence <b>can have a drastic impact on your performance</b> in school and other learning activities.</p>
             <p>If you believe, for example, that you aren't a "math person" and that intellectual ability is mostly innate, then you have fallen victim to a fixed mindset.</p>
             <p>Individuals with a fixed mindset blame mistakes on a lack of ability and frequently avoid challenges, preferring easy tasks with which they know they can succeed.</p>
@@ -155,10 +152,10 @@
             <p>Individuals with a growth mindset <b>seek out more challenges</b> and <b>see mistakes as opportunities for learning</b> and growth. They will <b>try new strategies</b> when they fail or <b>seek help from others</b>.</p>
             <p>When individuals develop a growth mindset, they <b>achieve more and even express more enjoyment</b> of courses.<sup>[9]</sup></p>
             <p>So, <b>when you encounter difficulty</b> in your studies, <b>remember that it isn't because you are incapable</b> of understanding the material. Rather, it is just that you aren't there <b>yet</b>.</p>
-            <hr>
-            <h2><b>Your Learning, Your Life</b></h2>
-            <p>Our lives are all greatly influenced by what we choose to learn and remember. Whatever your passions and goals for life and learning, <b>use these techniques</b> to achieve more of it.</p>
-            <div class="p-3 raised-box">
+            <hr class="my-5">
+            <h2>You Are What You Remember</h2>
+            <p>Our lives are greatly influenced by what we choose to learn and remember. Whatever your passions and goals for life and learning, <b>use these techniques</b> to achieve more of it.</p>
+            <div class="p-3 raised-box mt-5">
                 <h4><b>Summary</b></h4>
                 <ul>
                     <li>

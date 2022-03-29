@@ -11526,7 +11526,8 @@ trix-toolbar .trix-button-row {
 .raised-box {
   background-color: white;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  border-left: 3px solid var(--light-acc);
+  border: 4px solid white;
+  border-left: 4px solid #b3e0dd;
 }
 
 .break-word {
