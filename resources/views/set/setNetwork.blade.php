@@ -46,9 +46,42 @@
             transform: rotate(360deg);
         }
     }
+
+    .plus-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        z-index: 1;
+        bottom: 25px;
+        right: 25px;
+        width: 65px;
+        height: 65px;
+        text-align: center;
+        font-size: 24px;
+        background: var(--main);
+        color: var(--light);
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 50%;
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.075);
+    }
+
+    .plus-btn:hover {
+        color: white;
+        border: 5px solid #259772;
+    }
+
+    @media screen and (max-width: 500px){
+        .plus-btn {
+            right: 15px;
+            bottom: 15px;
+        }
+    }
 </style>
 
 <div class="menu-btn"><i class="fas fa-bars green"></i> Menu</div>
+<div class="add-card plus-btn"><i class="fas fa-plus"></i></div>
 <div class="side-menu">
     <div class="menu-button-container">
         <div class="close-menu"><i class="fas fa-times green" style="font-size: 26px;"></i></div>
