@@ -22,12 +22,12 @@
         z-index: 10003;
     }
 
-    .soft-link {
+    .soft-link, a.soft-link {
         color: #6e8789;
         margin: 5px 0px;
     }
 
-    .soft-link:hover {
+    .soft-link:hover, a.soft-link:hover {
         color: #192332;
         cursor: pointer;
     }

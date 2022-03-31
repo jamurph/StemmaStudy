@@ -38,6 +38,7 @@ function openMenu(){
 function openCreateCard(){
     destroyPopper();
     $('.add-card-container').fadeIn();
+    $('#create-card-title').trigger('focus');
 }
 
 function closeCreateCard(){
@@ -366,9 +367,68 @@ $(function(){
         destroyPopper();
 
         if(target.isNode && target.isNode()){
-            //maybe ;)
+            //node
+            popperInstance = target.popper({
+                renderedPosition: () => ({ x: event.renderedPosition.x, y: event.renderedPosition.y }),
+                content: () => {
+                    let div = document.createElement('div');
+
+                    $(div).addClass('network-detail').addClass('shadow').css('width', '200px').css('max-width', 'calc(100% - 10px)').css('z-index', '100001');
+                    $(div).html('<div class="unlink soft-link add-connection"><i class="fas fa-plus green pr-4"></i> Add Connection</div>'+
+                                '<a href="/my-sets/' + set_id + '/card/' + target.data('card_id') + '" class="unlink soft-link"><i class="fas fa-eye green pr-4"></i>View Details</div>');
+                    document.body.appendChild(div);
+
+                    $('.add-connection').click(function(){
+                        var card_id = target.data('id');
+                        var card = cy.getElementById(card_id);
+                        destroyPopper();
+                        if(card != null && card.length != 0){
+                            closeMenu();
+                            openConnectionAdd(card);
+                        }
+                    });
+                
+                    
+                    return div;
+                },
+                popper: {
+
+                }
+            });
         }else if(target.isEdge && target.isEdge()){
-            //maybe ;)
+            //edge
+            popperInstance = target.popper({
+                renderedPosition: () => ({ x: event.renderedPosition.x, y: event.renderedPosition.y }),
+                content: () => {
+                    let div = document.createElement('div');
+
+                    $(div).addClass('network-detail').addClass('shadow').css('width', '200px').css('max-width', 'calc(100% - 10px)').css('z-index', '100001');
+                    $(div).html('<div data-edge="'+ target.data('id') + '" id="connection-edit" class="unlink soft-link"><i class="fas fa-edit green pr-4"></i> Edit Connection</div>'+
+                                '<div class="unlink soft-link" id="view-connection"><i class="fas fa-eye green pr-4"></i> View</div>');
+                    document.body.appendChild(div);
+
+                    $('#view-connection').click(function(){
+                        destroyPopper();
+                        target.trigger('vclick');
+                    });
+
+                    $('#connection-edit').click(function(){
+                        var edge_id = $(this).data()['edge'];
+                        var edge = cy.getElementById(edge_id);
+                        destroyPopper();
+                        if(edge != null){
+                            closeMenu();
+                            openConnectionEdit(edge);
+                        }
+                    });
+                
+                    
+                    return div;
+                },
+                popper: {
+
+                }
+            });
         }else {
             //bg menu
             popperInstance = target.popper({
@@ -435,10 +495,10 @@ $(function(){
                     }else {
                         var edge_id = $(this).data()['edge'];
                         var connection = cy.getElementById(edge_id);
+                        destroyPopper();
                         if(connection != null){
                             var connection_id = connection.data('connection_id');
                             deleteConnection(connection_id, cy, connection);
-                            destroyPopper();
                         }
                     }
                 });
@@ -446,8 +506,8 @@ $(function(){
                 $('#connection-edit').click(function(){
                     var edge_id = $(this).data()['edge'];
                     var edge = cy.getElementById(edge_id);
+                    destroyPopper();
                     if(edge != null){
-                        destroyPopper();
                         closeMenu();
                         openConnectionEdit(edge);
                     }
@@ -490,8 +550,8 @@ $(function(){
                 $('.add-connection').click(function(){
                     var card_id = $(this).data()['node'];
                     var card = cy.getElementById(card_id);
+                    destroyPopper();
                     if(card != null){
-                        destroyPopper();
                         closeMenu();
                         openConnectionAdd(card);
                     }
