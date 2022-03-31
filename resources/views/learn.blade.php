@@ -124,6 +124,7 @@
                 <p>In the interest of time, you decide to drop a few of them that you think you know well. You also drop a few that you think are too difficult to learn in such a short timeframe. This way, you believe you can get the most out of your cramming.</p>
                 <p><b>Bad idea.</b></p>
                 <p>One study found that <b>we often make poor decisions</b> about which cards to drop. Keeping the cards we know in the rotation might even be beneficial as it <b>increases the spacing</b> between the cards we do not know. <sup>[4]</sup></p>
+                <p>Moral of the story: make a plan to space out your study time. </p>
             </div>
             <hr class="my-5">
             <h3>Sleep</h3>
