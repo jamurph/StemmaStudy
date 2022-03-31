@@ -59,18 +59,20 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-8 raised-box">
-            <div class="quote-container text-left">
-                <i class="fas fa-quote-left green shadow"></i>
-                <p class="quote">I have never seen any other platform that does what StemmaStudy does in using flashcards in an organized way that will permit students to develop a schema for the material.</p>
-                <p class="reference"><span class="green">&mdash;</span> <b>Henry L. Roediger III</b></p>
-                <p class="reference-description">Coauthor of <em>Make It Stick</em>, Professor of Psychological and Brain Sciences at Washington University in St. Louis</p>
-            </div>
-            <div class="quote-container text-left">
-                <i class="fas fa-quote-left green shadow"></i>
-                <p class="quote">From the perspective of helping people learn, this seems like a great way to do it. I've seen a lot of smart flashcard apps and this is the first time I remember seeing one where you can map out the relationships between topics/cards.</p>
-                <p class="reference"><span class="green">&mdash;</span> <b>Nate Kornell</b></p>
-                <p class="reference-description">Professor of Psychology, Chair of Cognitive Science Program at Williams College</p>
+        <div class="col-lg-8">
+            <div class="raised-box">
+                <div class="quote-container text-left">
+                    <i class="fas fa-quote-left green shadow"></i>
+                    <p class="quote">I have never seen any other platform that does what StemmaStudy does in using flashcards in an organized way that will permit students to develop a schema for the material.</p>
+                    <p class="reference"><span class="green">&mdash;</span> <b>Henry L. Roediger III</b></p>
+                    <p class="reference-description">Coauthor of <em>Make It Stick</em>, Professor of Psychological and Brain Sciences at Washington University in St. Louis</p>
+                </div>
+                <div class="quote-container text-left">
+                    <i class="fas fa-quote-left green shadow"></i>
+                    <p class="quote">From the perspective of helping people learn, this seems like a great way to do it. I've seen a lot of smart flashcard apps and this is the first time I remember seeing one where you can map out the relationships between topics/cards.</p>
+                    <p class="reference"><span class="green">&mdash;</span> <b>Nate Kornell</b></p>
+                    <p class="reference-description">Professor of Psychology, Chair of Cognitive Science Program at Williams College</p>
+                </div>
             </div>
         </div>
     </div>
