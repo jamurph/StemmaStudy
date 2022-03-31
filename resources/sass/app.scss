@@ -53,11 +53,32 @@ ul.navbar-nav {
     color: white;
 }
 
-
-@media screen and (max-width: 767px){
-    
+.quote-container {
+    padding: 20px;
+    text-align: center;
 }
 
+.quote {
+    font-size: 16px;
+}
+
+.quote-container .reference {
+    margin: 0;
+}
+
+.quote-container .reference-description {
+    margin: 0;
+    font-size: 14px;
+    color: var(--dark-acc);
+}
+
+.quote-container i {
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    padding: 13px;
+    margin-bottom: 10px;
+}
 
 .card {
     border: none;
