@@ -113,6 +113,10 @@ Route::post('/settings/emails/unsubscribe', 'SettingsController@email_unsubscrib
 Route::post('/settings/notifications/subscribe', 'SettingsController@notification_subscribe')->middleware('verified')->name('notification_subscribe');
 Route::post('/settings/notifications/unsubscribe', 'SettingsController@notification_unsubscribe')->middleware('verified')->name('notification_unsubscribe');
 
+/* Admin */
+Route::name('admin')->prefix('admin')->middleware(['auth','can:access-admin'])->group(function(){
+    Route::get('/dashboard', 'AdminController@dashboard');
+});
 
 Auth::routes(['verify' => true]);
 /*

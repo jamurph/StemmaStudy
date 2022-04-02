@@ -2,14 +2,18 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @if(App::environment('production') || App::environment('staging'))
-    {{-- Google Analytics --}}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-173526157-1"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WGF9C7R0BC"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-        gtag('config', 'UA-173526157-1');
+    gtag('config', 'G-WGF9C7R0BC', {
+    @auth
+        'user_id': '{{Auth::user()->id}}'
+    @endauth 
+    });
     </script>
     @endif
     @if(App::environment('production'))
