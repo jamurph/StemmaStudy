@@ -79,7 +79,7 @@
     <div class="container py-5">
         <div class="row justify-content-center big-brain-container">
             <div class="big-brain-time">
-                <img class="big-brain" src="{{asset('/image/brain.png')}}" />
+                <img class="big-brain" src="{{asset('/image/Brain.png')}}" />
                 <div class="big-brain-message">
                     <h1 class="mt-0 mb-4"><b>Study The Way Your Brain Likes It</b></h1>
                     <h4 class="mb-4">StemmaStudy's Connected Flashcards help your brain make better memories by integrating several tried-and-true techniques of effective learning.</h4>
