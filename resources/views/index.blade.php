@@ -102,7 +102,7 @@
         <div class="col-lg-6">
             <h3>Create &amp; Connect Flashcards</h3>
             <p>
-                Traditional flashcards are great, but they're lonely. Information is easier to remember when it is interconnected, 
+                Let your lonely traditional flashcards be forgotten. Information is easier to remember when it is interconnected, 
                 so StemmaStudy allows you to form networks of Connected Flashcards.
             </p>
             <ul>
@@ -126,7 +126,7 @@
                 Plus, you review not only what your concepts are, but also how they relate to others. 
             </p>
             <ul>
-                <li>Systematically eradicate the weaker parts of your memory.</li>
+                <li>Systematically eradicate weaknesses in your memory.</li>
                 <li>Efficiently space study to take advantage of your brain's natural memory processes.</li>
                 <li>Get more meaningful studying done in less time.</li>
             </ul>
