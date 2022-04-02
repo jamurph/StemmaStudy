@@ -240,7 +240,7 @@
     <div class="you-are text-center">
         <h1>Forget Flashcards as You Know Them</h1>
         <h4 class="text-body">Try StemmaStudy free for 30 days and start understanding and remembering more.</h4>
-        <a href="{{route('register')}}" class="btn btn-light mt-3">Start my Free Trial <i class="fas fa-angle-double-right"></i></a>
+        <a href="{{route('register')}}" class="btn btn-light mt-3">Start my Free Trial</a>
     </div>
 </div>
 @endguest
