@@ -158,7 +158,7 @@
     <div class="you-are text-center">
         <h1>Ready to Begin?</h1>
         <h4 class="text-body">Try StemmaStudy free for 30 days and start understanding and remembering more.</h4>
-        <a href="{{route('register')}}" class="btn btn-light mt-3">Start my Free Trial</a>
+        <a href="{{route('register')}}" class="btn btn-light mt-3">Start Free Trial</a>
     </div>
 </div>
 @else

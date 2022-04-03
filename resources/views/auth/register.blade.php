@@ -18,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-center mt-3"><i class="fas fa-thumbs-up green mr-2"></i> Your First Step For Better Memories</div>
+                <div class="card-header text-center mt-3"><i class="fas fa-brain green mr-2"></i> You're Building a Better Brain</div>
 
                 <div class="card-body mb-3">
                     <form id="registerForm" method="POST" action="{{ route('register') }}">
@@ -100,6 +100,7 @@
                                 data-action='register'>
                                     {{ __('Register') }}
                                 </button>
+                                <p class="mt-2"><small>Already have an account? <a href="{{route('login')}}">Login</a></small></p>
                             </div>
                         </div>
                     </form>
