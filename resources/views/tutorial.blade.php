@@ -33,6 +33,10 @@
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-lg-8">
+            <div class="image-title">
+                <h3>StemmaStudy Tutorial</h3>
+                <img src="{{asset('/image/Brain.png')}}" />
+            </div>
             <h1 class="mt-5">What Is StemmaStudy?</h1>
             <p>
                 StemmaStudy is a study tool designed to help you make the most of your study time. Expending a lot of effort to study using bad methods, such as 

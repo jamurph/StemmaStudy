@@ -18,8 +18,8 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card p-4">
-                <h1>We're Here For You</h1>
-                <p>Questions? Suggestions? Feedback? Whatever is on your mind, we'd love to hear from you.</p>
+                <h1>What's on your mind?</h1>
+                <p>Questions? Suggestions? Feedback? Let us know below.</p>
                 <form id="contactForm" action="{{route('contact_store')}}" method="POST" >
                     @csrf
                     <div class="form-group row">

@@ -39,6 +39,7 @@ img {
 .navbar-light .navbar-nav .nav-link {
     color: var(--dark-acc);
     padding: 8px 16px;
+    font-size: 18px;
 }
 
 ul.navbar-nav {
@@ -46,7 +47,26 @@ ul.navbar-nav {
 }
 
 
+.image-title {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+}
 
+.image-title h3 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.image-title img {
+    position: absolute;
+    width: 300px;
+    z-index: -1;
+}
 
 
 #register-btn {
@@ -85,14 +105,17 @@ ul.navbar-nav {
 }
 
 .card {
-    border: none;
-    border-top: 3px solid var(--light-acc);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 5px solid white;
+    border-top: 5px solid #b3e0dd;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     border-radius: 0;
     background-color: #ffffff;
 }
 
 .card-header {
+    text-align: center;
     font-size: 25px;
     background-color: #ffffff;
     border-bottom: none;
@@ -524,7 +547,8 @@ trix-toolbar .trix-button-row {
     width: 350px;
     max-width: 100%;
     padding: 15px;
-    border-top: 5px solid #6ec4be;
+    border: 5px solid white;
+    border-top: 5px solid #b3e0dd;
     margin: auto;
     background: white;
 }    

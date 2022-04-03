@@ -23,6 +23,10 @@
 <div class="container mt-4 about">
     <div class="row justify-content-center">
         <div class="col-lg-8">
+            <div class="image-title">
+                <h3>About StemmaStudy</h3>
+                <img src="{{asset('/image/Brain.png')}}" />
+            </div>
             <h1 class="mt-4">Technology-Empowered Learning</h1>
             <p>
                 Learning makes us who we are. Whether we strive to become doctors, lawyers, programmers, CEOs, or just general masterminds, learning is what gets us there. 
@@ -49,7 +53,7 @@
             </p>
             <div class="mt-5 mb-5 text-center">
                 <p class="mb-3"><b>Want to learn more about a few of the most important principles of learning?</b></p>
-                <a href="{{route('learn')}}" class="btn btn-primary">How to Study Smarter <i class="fa fa-angle-double-right"></i></a>
+                <a href="{{route('learn')}}" class="btn btn-primary">How to Study Smarter</a>
             </div>
             <p>
                 Every learning tool out there attempts to take advantage of some basic principle of learning. 

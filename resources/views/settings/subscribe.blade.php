@@ -51,13 +51,12 @@
                 <div class="text-center mb-5">
                     <img style="width: 240px;" src="{{asset('/image/logo.svg')}}" />
                 </div>
-                <div class="card shadow" style="border-top-width: 5px;">
-                    <div class="card-header pb-0"><h4 class="text-center">Start Subscription</h4></div>
+                <div class="card shadow py-4" style="border-top-width: 5px;">
+                    <div class="card-header pb-2"><h4 class="text-center">Starting Subscription</h4></div>
                     <div class="card-body pt-0">
                         <form id="subscription-form" method="POST" action="{{route('subscribe')}}">
                             @csrf
-                            <p class="text-center text-muted"><em>Only $4.99 per month. Cancel anytime.</em></p>
-                            <p>Please enter your payment details below.</p>
+                            <p class="text-center text-muted pb-4"><em>Only $4.99 per month. Cancel anytime.</em></p>
                             <div class="form-group position-relative">
                                 <input id="card-holder-name" placeholder="Name on Card" name="card-holder-name" type="text" class="form-control" required>
                             </div>
@@ -70,7 +69,7 @@
                             </div>
                         </form>
                         <button id="card-button" class="btn btn-primary w-100" data-secret="{{ $intent->client_secret }}">
-                            Update Payment Method
+                            Submit Payment Method
                         </button>
                     </div>
                 </div>

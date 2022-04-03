@@ -132,7 +132,7 @@
                     <small style="font-size:65%;">Menu</small> <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse mt-4 mt-md-0" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     {{--<!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -143,19 +143,36 @@
                 --}}
                     <ul class="navbar-nav ml-auto">
                         @guest
+                            <li class="nav-item dropdown mt-4 mt-md-0">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Learn <span class="caret"></span>
+                                </a>
+
+                                <div id="menu-dropdown" class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('tutorial') }}">
+                                        {{ __('StemmaStudy Tutorial') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('learn') }}">
+                                        {{ __('How to Learn More') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('about') }}">
+                                        {{ __('About StemmaStudy') }}
+                                    </a>
+                                </div>
+                            </li>
                             @if (Request::url() != url('/register'))
                                 <li class="nav-item">
-                                    <a class="nav-link btn btn-outline-primary" id="register-btn" href="{{ route('register') }}">{{ __('Create an Account') }}<i class="fas fa-angle-right ml-2"></i></a>
+                                    <a class="nav-link btn btn-outline-primary ml-md-4 mt-3 mt-md-0" id="register-btn" href="{{ route('register') }}">{{ __('Create an Account') }}<i class="fas fa-angle-right ml-2"></i></a>
                                 </li>
                             @endif
                             @if (Request::url() != url('/login'))
                                 <li class="nav-item">
-                                    <a class="nav-link ml-md-3 mt-2 mt-md-0 btn btn-light" href="{{ route('login') }}">{{ __('Login') }} <i class="fas fa-user"></i></a>
+                                    <a class="nav-link ml-md-4 mt-3 mt-md-0 btn btn-light" href="{{ route('login') }}">{{ __('Login') }} <i class="fas fa-user"></i></a>
                                 </li>
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user_sets') }}">{{ __('My Sets') }}</a>
+                                <a class="nav-link mt-4 mt-md-0" href="{{ route('user_sets') }}">{{ __('My Sets') }}</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -65,10 +65,10 @@
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <h1 class="mb-0">How to Study to Remember More</h1>
+            <h1 class="mb-0">How to Learn More</h1>
             <small>Approx. 5 minutes to read</small>
             <hr>
-            <img style="width: 100%;" src="{{asset('/image/Brain.png')}}" />
+            <img style="width: 70%; display: block; margin: auto;" src="{{asset('/image/Brain.png')}}" />
 
             <p class="mt-3"><b>Learning well</b> earns us the right to attend better classes, to get into better colleges, or even land better jobs.</p>
             <p>Yet, the ability to learn effectively is often taken for granted and the <b>best techniques for studying</b>, that save us time and help us remember, are <b>seldom discussed</b>.</p>
