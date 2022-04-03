@@ -475,7 +475,7 @@ $(function(){
 
                 $(div).addClass('network-detail').addClass('shadow').css('width', '500px').css('max-width', 'calc(100% - 10px)').css('z-index', '100001');
                 $(div).html('<div class="close"><i class="fas fa-times"></i></div><a class="text-decoration-none mb-2 pr-3" href="/my-sets/' + set_id + '/card/' + edge.source().data('card_id') + '">' + edge.source().data('label') + '</a>'
-                    + '<h3 class="mb-0"><i class="fas fa-angle-double-right"></i> ' + edge.data('label') + ' <i class="fas fa-angle-double-right"></i></h3>' + '<p class="has-newlines text-muted mb-0">' + edge.data('description') + '</p>'
+                    + '<h3 class="mb-0"><i class="fas fa-arrow-right text-muted"></i><b> ' + edge.data('label') + ' </b><i class="fas fa-arrow-right text-muted"></i></h3>' + '<p class="has-newlines text-muted mb-0">' + edge.data('description') + '</p>'
                     + '<a class="text-decoration-none mt-2" href="/my-sets/' + set_id + '/card/' + edge.target().data('card_id') + '">' + edge.target().data('label') + '</a>'
                     + '<div class="text-right"><div data-edge="'+ edge.data('id') + '" id="connection-delete" class="text-danger btn btn-text">Delete</div><div data-edge="'+ edge.data('id') + '" id="connection-edit" class="btn btn-text ml-2">Edit</div></div>'
                     );
