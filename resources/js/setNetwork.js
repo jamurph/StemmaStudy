@@ -773,7 +773,7 @@ $(function(){
         }
     });
 
-    $('#cancel-card').click(function(){
+    $('.cancel-card').click(function(){
         closeCreateCard();
     });
 

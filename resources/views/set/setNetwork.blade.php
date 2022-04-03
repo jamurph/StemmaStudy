@@ -18,6 +18,8 @@
         background: var(--light);
     }
 
+    .select2 {max-width: 100%;}
+
     .select2-dropdown {
         z-index: 10003;
     }
@@ -78,6 +80,19 @@
             bottom: 15px;
         }
     }
+
+    i.cancel-card, i.connection-cancel {
+        font-size: 20px;
+        padding: 10px;
+        float: right;
+        color: var(--dark-acc);
+    }
+
+    i.cancel-card:hover, i.connection-cancel:hover {
+        color: var(--dark);
+        cursor: pointer;
+    }
+
 </style>
 
 <div class="menu-btn"><i class="fas fa-bars green"></i> Menu</div>
@@ -129,6 +144,7 @@
     </div>
     <div class="connection-container">
         <div class="connection-box shadow-lg overflow-auto">
+            <i class="connection-cancel fas fa-times"></i>
             <h2 id="connection-box-title">Add Connection</h2>
             <h5 id="card-name" class="green"></h5>
             <input id="mode" type="hidden" value="" />
@@ -178,6 +194,7 @@
     </div>
     <div class="add-card-container">
         <div class="add-card-box shadow-lg overflow-auto">
+            <i class="cancel-card fas fa-times"></i>
             <h2>New Card</h2>
             <form id="create-card-form">
                 <div class="form-group position-relative">
@@ -199,7 +216,7 @@
                     <small class="form-text text-muted">Define this card in a way you will understand later.</small>
                 </div>
                 <button type="button" class="btn btn-primary sync-button" id="create-card">Create<i class="fas fa-sync ml-2"></i></button>
-                <div class="btn btn-link" id="cancel-card">Cancel</div>
+                <div class="btn btn-link cancel-card">Cancel</div>
             </form>
         </div>
     </div>
