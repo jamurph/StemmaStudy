@@ -5,16 +5,17 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <a class="text-decoration-none mb-3 d-inline-block" href="{{route('user_sets')}}"><i class="fas fa-arrow-left"></i> Back to My Sets</a>
             <h1 class="m-0 mb-2 break-word">Review: {{ $set->title }}</h1>
             <div class="mt-4"></div>
             @if ($set->cards->count() > 0)
                 <div class="row">
                     <div class="col-lg-6 mb-3">
-                        <div class="review-option shadow-sm h-100 text-center">
+                        <div class="raised-box p-3 h-100 text-center">
                             <h3>Memory Maintenance</h3>
-                            <p class="text-muted">Keep up-to-date and let the system optimize your review for the long-term.</p>
+                            <img class="m-auto d-block" style="width:65%;" src="{{asset('/image/MaintainStrongMemories.png')}}" />
+                            <p class="text-muted mt-2">Keep up-to-date and let the system optimize your review for the long-term.</p>
                             @if ($due == 0)
                                 <p class=""><i class="fas fa-check green"></i> You are up to date!</p>
                             @else
@@ -23,23 +24,24 @@
                         </div>
                     </div>
                     <div class="col-lg-6 mb-3">
-                        <div class="review-option shadow-sm h-100 text-center">
+                        <div class="raised-box p-3 h-100 text-center">
                             <h3>Assessment</h3>
+                            <img class="m-auto d-block" style="width:65%;" src="{{asset('/image/ConcentrateYourEffort.png')}}" />
                             @if (!Auth::user()->onTrialOrSubscribed())
                             <div class="alert alert-info">
                                 Your subscription has run out. <a href="{{route('subscribe')}}">Subscribe</a> to start new assessments.
                             </div>
                             @else
                                 @if ($unfinishedAssessment != null)
-                                <p class="text-muted">You have an unfinished assessment. Would you like to continue where you left off, or start over?</p>
+                                <p class="text-muted mt-2">You have an unfinished assessment. Would you like to continue where you left off, or start over?</p>
                                 @else
-                                <p class="text-muted">Discover where your weaknesses are and make more effective use of your study time.</p>
+                                <p class="text-muted mt-2">Discover where your short-term weaknesses are and make more effective use of your study time.</p>
                                 @endif
                                 
                                 <div class="">
                                     @if ($unfinishedAssessment != null)
-                                        <a href="{{route('new_assessment', $set)}}" class="btn btn-secondary"><i class="fas fa-plus"></i> New</a>
-                                        <a href="{{ route('assessment_card', ['set'=> $set, 'assessment' => $unfinishedAssessment]) }}" class="btn btn-primary"><i class="fas fa-angle-double-right"></i> Continue</a>
+                                        <a href="{{route('new_assessment', $set)}}" class="btn btn-secondary mr-3">Start Over</a>
+                                        <a href="{{ route('assessment_card', ['set'=> $set, 'assessment' => $unfinishedAssessment]) }}" class="btn btn-primary ">Continue</a>
                                     @else
                                         <a href="{{route('new_assessment', $set)}}" class="btn btn-primary"><i class="fas fa-plus"></i> New</a>
                                     @endif
@@ -49,8 +51,8 @@
                     </div>
                 </div>
                 <div class="mt-4"></div>
-                <h2>Completed Assessments</h2>
                 @if ($assessments->count() > 0)
+                <h2>Completed Assessments</h2>
                 <div class="table-responsive shadow-sm">
                     <table class="table table-striped past-assessments mb-0">
                         <thead>
@@ -88,8 +90,6 @@
                         </tbody>
                     </table>
                 </div>
-                @else
-                    <p class="text-center">Complete an assessment to view past results.</p>
                 @endif
             @else 
             <div class="text-center raised-box p-3" style="">
