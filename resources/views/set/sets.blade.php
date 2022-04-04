@@ -77,16 +77,18 @@
             @else
             <div class="raised-box p-4">
                 <h2 class="break-word mt-3"><i class="green fas fa-graduation-cap mr-2"></i>Welcome to StemmaStudy!</h2>
-                <p class="mt-3">To help you get started, consider taking a few minutes to familiarize yourself with these resources:</p>
+                <p class="mt-3">There is no such thing as effortless learning. Effective learning is hard &ndash; and it's often made harder when we use ineffective strategies. 
+                    StemmaStudy is designed to integrate several different strategies that each contribute to more effective learning. 
+                    Before you start using StemmaStudy, it would be helpful to take just a couple of minutes to get to know some of the forces behind how StemmaStudy works:</p>
                 <p class="mt-4">
                     <ul>
-                        <li><a target="_blank" href="{{route('tutorial')}}">StemmaStudy Tutorial</a> &mdash; Get a full overview of how Connected Flashcards work.</li>
-                        <li><a target="_blank" href="{{route('learn')}}">How to Learn More</a> &mdash; Get some practical study tips and learn about learning.</li>
+                        <li><a target="_blank" href="{{route('learn')}}">How to Learn More</a> &mdash; Get some practical study tips and learn about some of the most impactful principles of good learning.</li>
+                        <li><a target="_blank" href="{{route('tutorial')}}">StemmaStudy Tutorial</a> &mdash; Get a short overview of what StemmaStudy is and how it works.</li>
                     </ul>
                 </p>
-                <p class="mt-4">Ready to begin? Click the button below to create your first Set of Connected Flashcards.</p>
+                <p class="mt-4 text-center"><b>Ready to begin?</b></p>
                 <div class="text-center mb-3">
-                    <a href="{{route('set_create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> My First Set</a>
+                    <a href="{{route('set_create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> New Set</a>
                 </div>
             </div>
             @endif
