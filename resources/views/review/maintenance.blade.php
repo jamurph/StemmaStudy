@@ -21,7 +21,7 @@
         <div class="col-lg-8 mt-4">
             <div class="p-2">
                 <a href="{{route('set_review', [$set])}}" class="text-decoration-none"><i class="fas fa-arrow-left"></i> Exit Maintenance</a>
-                <p><small>Attempt to recall the details of this card. Then, click "Show" and rate how well you did.</small></p>
+                <p><small>Attempt to recall the details of this card. Then, click "Check Understanding" and rate how well you did.</small></p>
             </div>
             <div class="card-detail shadow-sm mb-4">
                 <h1 class="m-0">{{ $card->title }}</h1>
@@ -32,7 +32,7 @@
                             {!! $card->trixRender('content') !!}
                         </div>
                     </div>
-                    <div class="show-button text-center mouse-over green"><i class="fas fa-angle-down"></i> Show <i class="fas fa-angle-down"></i></div>
+                    <div class="show-button text-center mouse-over green"><i class="fas fa-angle-down"></i> Check Understanding <i class="fas fa-angle-down"></i></div>
                 </div>
             </div>
             @if ($card->connectionsIn->count() > 0 || $card->connectionsOut->count() > 0)
@@ -57,7 +57,7 @@
             </div>
             @endif
             <div id="scoring" class="mb-5" style="display: none; min-height: 170px;">
-                <h3 class="text-center">How did you do?</h3>
+                <h3 class="text-center">How well did you recall the details?</h3>
                 <form method="POST" action="{{route('set_maintenance_put', [$set])}}">
                     @csrf
                     @method('PUT')
@@ -98,11 +98,11 @@
 
         $('#instruction-tooltip').tooltip({
             html: true,
-            title: "<div class=\"text-left\">" +
+            title: "<div class=\"text-left\"><p>Drag the slider based on how well you recalled the details of the card. Then, hit \"Next\".</p>" +
                         "<div><span class=\"score_color_100\"><b>Green</b></span>: You recalled everything well.</div>" +
                         "<div><span class=\"score_color_50\"><b>Yellow</b></span>: You recalled most of the details with difficulty.</div>" +
                         "<div><span class=\"score_color_0\"><b>Red</b></span>: You recalled very little of the details.</div>" + 
-                    "</div>"
+                    "<p class=\"mt-3\">StemmaStudy uses this rating to optimally schedule your reviews.</p></div>"
         });
 
     });

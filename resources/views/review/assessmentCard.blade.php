@@ -22,7 +22,7 @@
             <div class="p-2">
                 <a href="{{route('set_review', [$set])}}" class="text-decoration-none"><i class="fas fa-arrow-left"></i> Exit Assessment</a>
                 <span class="float-right"><small>{{$assessment->assessmentCards->count() + 1}}/{{$set->cards->count()}}</small></span>
-                <p><small>Attempt to recall the details of this card. Then, click "Show" and rate how well you did.</small></p>
+                <p><small>Attempt to recall the details of this card. Then, click "Check Understanding" and rate how well you did.</small></p>
             </div>
             <div class="card-detail shadow-sm mb-4">
                 <h1 class="m-0">{{ $card->title }}</h1>
@@ -33,7 +33,7 @@
                             {!! $card->trixRender('content') !!}
                         </div>
                     </div>
-                    <div class="show-button text-center mouse-over green"><i class="fas fa-angle-down"></i> Show <i class="fas fa-angle-down"></i></div>
+                    <div class="show-button text-center mouse-over green"><i class="fas fa-angle-down"></i> Check Understanding  <i class="fas fa-angle-down"></i></div>
                 </div>
                 
             </div>
@@ -58,7 +58,7 @@
                 @endforeach
             </div>
             @endif
-            <div id="scoring" class="mb-5" style="display: none; min-height: 170px;">
+            <div id="scoring" class="my-5" style="display: none; min-height: 170px;">
                 <h3 class="text-center">How did you do?</h3>
                 <form method="POST" action="{{route('assessment_card_store', [$set,$assessment])}}">
                     @csrf
@@ -100,7 +100,7 @@
 
         $('#instruction-tooltip').tooltip({
             html: true,
-            title: "<div class=\"text-left\">" +
+            title: "<div class=\"text-left\"><p>Drag the slider based on how well you recalled the details of the card. Then, hit \"Next\".</p>" +
                         "<div><span class=\"score_color_100\"><b>Green</b></span>: You recalled everything well.</div>" +
                         "<div><span class=\"score_color_50\"><b>Yellow</b></span>: You recalled most of the details with difficulty.</div>" +
                         "<div><span class=\"score_color_0\"><b>Red</b></span>: You recalled very little of the details.</div>" + 

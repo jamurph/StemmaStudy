@@ -19,7 +19,8 @@
                             @if ($due == 0)
                                 <p class=""><i class="fas fa-check green"></i> You are up to date!</p>
                             @else
-                                <a class="text-decoration-none" href="{{route('set_maintenance', $set->id)}}">{{$due}} Due For Review <i class="fas fa-angle-double-right"></i></a>
+                                <a class="btn btn-primary" href="{{route('set_maintenance', $set->id)}}">Begin Review</a>
+                                <small><br>{{$due}} {{Str::plural('card', $due)}} due</small>
                             @endif
                         </div>
                     </div>
