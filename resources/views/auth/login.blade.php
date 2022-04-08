@@ -84,6 +84,7 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                                <p class="mt-3"><small>Need an account? <a href="{{route('register')}}">Get Started</a></small></p>
                             </div>
                         </div>
                     </form>

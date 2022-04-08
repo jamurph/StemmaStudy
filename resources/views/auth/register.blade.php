@@ -100,7 +100,7 @@
                                 data-action='register'>
                                     {{ __('Register') }}
                                 </button>
-                                <p class="mt-2"><small>Already have an account? <a href="{{route('login')}}">Login</a></small></p>
+                                <p class="mt-3"><small>Already have an account? <a href="{{route('login')}}">Login</a></small></p>
                             </div>
                         </div>
                     </form>
