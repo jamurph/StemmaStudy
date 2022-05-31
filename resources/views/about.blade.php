@@ -53,7 +53,7 @@
             </p>
             <div class="mt-5 mb-5 text-center">
                 <p class="mb-3"><b>Want to learn more about a few of the most important principles of learning?</b></p>
-                <a href="{{route('learn')}}" class="btn btn-primary">How to Study Smarter</a>
+                <a target="_blank" href="{{route('learn')}}" class="btn btn-primary">How to Study Smarter</a>
             </div>
             <p>
                 Every learning tool out there attempts to take advantage of some basic principle of learning. 
@@ -73,7 +73,7 @@
                 </div>
                 <div class="quote-container text-left">
                     <i class="fas fa-quote-left green shadow"></i>
-                    <p class="quote">From the perspective of helping people learn, this seems like a great way to do it. I've seen a lot of smart flashcard apps and this is the first time I remember seeing one where you can map out the relationships between topics/cards.</p>
+                    <p class="quote">From the perspective of helping people learn, this seems like a great way to do it. I've seen a lot of smart flashcard apps and this is the first time I remember seeing one where you can map out the relationships between topics/cards . . . the process of creating those mappings should be quite useful.</p>
                     <p class="reference"><span class="green">&mdash;</span> <b>Nate Kornell</b></p>
                     <p class="reference-description">Professor of Psychology, Chair of Cognitive Science Program at Williams College</p>
                 </div>

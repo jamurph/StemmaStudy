@@ -223,7 +223,7 @@
         </div>
         <div class="col-md-6 quote-container">
             <i class="fas fa-quote-left green shadow"></i>
-            <p class="quote">From the perspective of helping people learn, this seems like a great way to do it. I've seen a lot of smart flashcard apps and this is the first time I remember seeing one where you can map out the relationships between topics/cards.</p>
+            <p class="quote">From the perspective of helping people learn, this seems like a great way to do it. I've seen a lot of smart flashcard apps and this is the first time I remember seeing one where you can map out the relationships between topics/cards . . . the process of creating those mappings should be quite useful.</p>
             <p class="reference"><span class="green">&mdash;</span> <b>Nate Kornell</b></p>
             <p class="reference-description">Professor of Psychology, Chair of Cognitive Science Program at Williams College</p>
         </div>

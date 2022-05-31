@@ -52,6 +52,10 @@
             <p>
                 So, with a little discipline and persistence, StemmaStudy will help you build and maintain some massive memory muscles!
             </p>
+            <div class="mt-5 mb-5 text-center">
+                <p class="mb-3"><b>Want to learn more about what can make your learning efforts more effective?</b></p>
+                <a target="_blank" href="{{route('learn')}}" class="btn btn-primary">How to Study Smarter</a>
+            </div>
             <hr class="my-5">
             <h1 class="mt-5">How Does StemmaStudy Work?</h1>
             <p>Using StemmaStudy isn't complicated. Here's what you do:</p>

@@ -194,6 +194,7 @@
             <p>Individuals with a growth mindset seek out more challenges and see mistakes as opportunities for learning and growth. They will try new strategies when they fail or seek help from others.</p>
             <p>When individuals develop a growth mindset, they achieve more and even express more enjoyment of courses.<sup>[10]</sup></p>
             <p>So, when you encounter difficulty in your studies, remember that it isn't because you are incapable of understanding the material. Rather, it is just that you aren't there yet.</p>
+            <p>Consider how you could change your study strategies to overcome those difficulties.</p>
             <hr class="my-5">
             <h2><b>You Are What You Remember</b></h2>
             <p>Our lives are greatly influenced by what we choose to learn and remember. Whatever your passions and goals for life and learning, use these techniques to achieve more of it.</p>
