@@ -2,8 +2,13 @@
 
 namespace App\Console;
 
+use App\Notifications\DueForReview;
+use App\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
+use Te7aHoudini\LaravelTrix\Models\TrixAttachment;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +29,48 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+
+
+
+        //Email Users who have more than 5 cards due
+        if(App::environment('production')){
+            $schedule->call(function(){
+                foreach(User::where('notify', true)->get() as $user){
+                    try{
+                        $totalDue = 0;
+                        foreach($user->sets->where('notify', '=', true) as $set){
+                            $countDue = $set->cards->where('next_review', '<', Carbon::now())->count();
+                            $totalDue += $countDue;
+                        }
+    
+                        if($totalDue > 5){
+                            $user->notify(new DueForReview($totalDue));
+                        }
+                    } catch (\Throwable $th) {
+                        //ignore
+                    }
+                };
+            })  
+                ->dailyAt('18:00')
+                ->timezone('America/New_York')
+            ;
+        }
+
+        //check for old pending attachments and remove them.
+        $schedule->call(function(){
+            foreach(TrixAttachment::where('is_pending', true)->where('created_at', '<', Carbon::now()->subDays(1))->get() as $attachment){
+                try {
+                    //delete, not purge(), as the files are still in tmp/ and will be removed via rule. Simply delete db entry.
+                    $attachment->delete();
+                } catch (\Throwable $th) {
+                    //ignore
+                }
+            };
+        })  
+            ->dailyAt('4:00')
+            ->timezone('America/New_York')
+        ;
+
     }
 
     /**
